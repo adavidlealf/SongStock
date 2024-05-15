@@ -1,5 +1,7 @@
 package com.poli.songstock.service;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import com.poli.songstock.model.CancionDTO;
@@ -27,7 +29,18 @@ public class TestCatalogoSvc extends TestCase{
 		assertEquals((p1+p2+p3), catalogoSvc.calcularTotalCarrito());
 	}
 	
-	public void testActualizarVinilo () {
-		
+	@Test
+	public void testActualizarCancion () {
+		catalogoSvc.registrarCancion(
+				null, null, "Titulo 1 original", null, 12000.0, null,"1234", 0, 69
+		);
+		catalogoSvc.modificarCancion(
+				null, null, "Titulo 1 modificado", null, 14000.0, null,"1234", 0, 43
+		);
+		CancionDTO filtro = new CancionDTO();
+		filtro.setCodigo("1234");
+		List<CancionDTO> cancs = catalogoSvc.getCancionesFiltradas(filtro);
+		assertFalse("El codigo de la cancion no existe", cancs==null || cancs.isEmpty());
+		assertTrue("Error en modificacion de nombre de cancion", cancs.get(0).getTitulo().equals("Titulo 1 modificado"));
 	}
 }
