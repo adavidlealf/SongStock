@@ -1,5 +1,7 @@
 package com.poli.songstock.service;
 
+import org.junit.jupiter.api.Test;
+
 import com.poli.songstock.model.CancionDTO;
 
 import junit.framework.TestCase;
@@ -8,6 +10,7 @@ public class TestCatalogoSvc extends TestCase{
 
 	private CatalogoSvc catalogoSvc = CatalogoSvc.getInstance();
 	
+	@Test
 	public void testCalcularTotalCarrito() {
 		Double p1 = 10020.0;
 		Double p2 = 20000.0;
@@ -22,5 +25,9 @@ public class TestCatalogoSvc extends TestCase{
 		catalogoSvc.agregarProductoAlCarrito(prod2);
 		catalogoSvc.agregarProductoAlCarrito(prod3);
 		assertEquals((p1+p2+p3), catalogoSvc.calcularTotalCarrito());
+	}
+	
+	public void testActualizarVinilo () {
+		
 	}
 }

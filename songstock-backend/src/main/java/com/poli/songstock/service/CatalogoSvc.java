@@ -37,7 +37,7 @@ public class CatalogoSvc {
 	 * @return
 	 */
 	public Double calcularTotalCarrito(){
-		return null;
+		return 0.0;
 	}
 	
 	/**
