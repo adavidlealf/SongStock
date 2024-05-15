@@ -5,6 +5,19 @@ import java.util.List;
 import com.poli.songstock.model.ProductoReproducibleDTO;
 
 public class ProductoReproducibleSvc {
+	
+	private static ProductoReproducibleSvc instance;
+	
+	/**
+	 * Metodo que implementa patron Singleton.
+	 * @return
+	 */
+	public static ProductoReproducibleSvc getInstance() {
+		if(instance==null) {
+			instance = new ProductoReproducibleSvc();
+		}
+		return instance;
+	}
 
 	/**
 	 * Busca si hay inventario del producto en formato fisico, o si se puede
