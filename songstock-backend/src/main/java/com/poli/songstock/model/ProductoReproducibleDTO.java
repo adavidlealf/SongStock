@@ -8,145 +8,145 @@ public abstract class ProductoReproducibleDTO {
 	/*
 	 * Lista de nombres de artistas 
 	 */
-	List<String> artistas;
+	private List<String> artistas;
 	/*
 	 * Lista de nombres de generos
 	 */
-	List<String> generos;
+	private List<String> generos;
 	/*
 	 * Titulo del producto 
 	 */
-	String titulo;
+	private String titulo;
 	/*
 	 * Fecha de Lanzamiento del producto
 	 */
-	Date fechaLanzamiento;
+	private	Date fechaLanzamiento;
 	/*
 	 * Precio del producto
 	 */
-	Double precio;
+	private	Double precio;
 	/*
 	 * Formato del producto (Digital/Fisico)
 	 */
-	String formato;
+	private	String formato;
 	/*
 	 * Numero de ventas del producto
 	 */
-	Integer numeroVentas;
+	private	Integer numeroVentas;
 	/*
 	 * Duracion en segundos del producto
 	 */
-	Integer duracion;
+	private	Integer duracion;
 	/*
 	 * Url de la imagen del producto
 	 */
-	String urlImage;
+	private String urlImage;
 	/**
 	 * @return the artistas
 	 */
-	private List<String> getArtistas() {
+	public List<String> getArtistas() {
 		return artistas;
 	}
 	/**
 	 * @param artistas the artistas to set
 	 */
-	private void setArtistas(List<String> artistas) {
+	public void setArtistas(List<String> artistas) {
 		this.artistas = artistas;
 	}
 	/**
 	 * @return the generos
 	 */
-	private List<String> getGeneros() {
+	public List<String> getGeneros() {
 		return generos;
 	}
 	/**
 	 * @param generos the generos to set
 	 */
-	private void setGeneros(List<String> generos) {
+	public void setGeneros(List<String> generos) {
 		this.generos = generos;
 	}
 	/**
 	 * @return the titulo
 	 */
-	private String getTitulo() {
+	public String getTitulo() {
 		return titulo;
 	}
 	/**
 	 * @param titulo the titulo to set
 	 */
-	private void setTitulo(String titulo) {
+	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
 	/**
 	 * @return the fechaLanzamiento
 	 */
-	private Date getFechaLanzamiento() {
+	public Date getFechaLanzamiento() {
 		return fechaLanzamiento;
 	}
 	/**
 	 * @param fechaLanzamiento the fechaLanzamiento to set
 	 */
-	private void setFechaLanzamiento(Date fechaLanzamiento) {
+	public void setFechaLanzamiento(Date fechaLanzamiento) {
 		this.fechaLanzamiento = fechaLanzamiento;
 	}
 	/**
 	 * @return the precio
 	 */
-	private Double getPrecio() {
+	public Double getPrecio() {
 		return precio;
 	}
 	/**
 	 * @param precio the precio to set
 	 */
-	private void setPrecio(Double precio) {
+	public void setPrecio(Double precio) {
 		this.precio = precio;
 	}
 	/**
 	 * @return the formato
 	 */
-	private String getFormato() {
+	public String getFormato() {
 		return formato;
 	}
 	/**
 	 * @param formato the formato to set
 	 */
-	private void setFormato(String formato) {
+	public void setFormato(String formato) {
 		this.formato = formato;
 	}
 	/**
 	 * @return the numeroVentas
 	 */
-	private Integer getNumeroVentas() {
+	public Integer getNumeroVentas() {
 		return numeroVentas;
 	}
 	/**
 	 * @param numeroVentas the numeroVentas to set
 	 */
-	private void setNumeroVentas(Integer numeroVentas) {
+	public void setNumeroVentas(Integer numeroVentas) {
 		this.numeroVentas = numeroVentas;
 	}
 	/**
 	 * @return the duracion
 	 */
-	private Integer getDuracion() {
+	public Integer getDuracion() {
 		return duracion;
 	}
 	/**
 	 * @param duracion the duracion to set
 	 */
-	private void setDuracion(Integer duracion) {
+	public void setDuracion(Integer duracion) {
 		this.duracion = duracion;
 	}
 	/**
 	 * @return the urlImage
 	 */
-	private String getUrlImage() {
+	public String getUrlImage() {
 		return urlImage;
 	}
 	/**
 	 * @param urlImage the urlImage to set
 	 */
-	private void setUrlImage(String urlImage) {
+	public void setUrlImage(String urlImage) {
 		this.urlImage = urlImage;
 	}
 	

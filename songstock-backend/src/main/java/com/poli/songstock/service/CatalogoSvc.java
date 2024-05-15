@@ -8,6 +8,20 @@ import com.poli.songstock.model.CancionDTO;
 import com.poli.songstock.model.ProductoReproducibleDTO;
 
 public class CatalogoSvc {
+	
+	private static CatalogoSvc instance;
+	
+	/**
+	 * Metodo que implementa patron Singleton.
+	 * @return
+	 */
+	public static CatalogoSvc getInstance() {
+		if(instance==null) {
+			instance = new CatalogoSvc();
+		}
+		return instance;
+	}
+	
 
 	/**
 	 * Agrega el producto reproducible al carrito de mercado.
