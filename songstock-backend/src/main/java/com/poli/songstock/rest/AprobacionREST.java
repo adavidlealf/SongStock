@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,11 @@ public class AprobacionREST {
 	@GetMapping
 	private ResponseEntity<List<AprobacionDTO>> findAllAprobacion(){
 		return ResponseEntity.ok(controller.findAll());
+	}
+	
+	@RequestMapping("{estado}")
+	private ResponseEntity<List<AprobacionDTO>> findByEstadoAprobacion(@PathVariable String estado){
+		return ResponseEntity.ok(controller.findByEstado(estado));
 	}
 	
 	@PostMapping

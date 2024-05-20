@@ -1,5 +1,6 @@
 package com.poli.songstock.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -94,8 +95,7 @@ public class AprobacionController implements AprobacionRepository{
 
 	@Override
 	public List<AprobacionDTO> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.findAll();
 	}
 
 	@Override
@@ -112,6 +112,17 @@ public class AprobacionController implements AprobacionRepository{
 	@Override
 	public Optional<AprobacionDTO> findById(Long id) {
 		return repository.findById(id);
+	}
+	
+	public List<AprobacionDTO> findByEstado(String estado){
+		List<AprobacionDTO> todos = repository.findAll();
+		List<AprobacionDTO> retorno = new ArrayList<AprobacionDTO>();
+		for(AprobacionDTO apro : todos) {
+			if(apro.getEstado().equals(estado)) {
+				retorno.add(apro);
+			}
+		}
+		return retorno;
 	}
 
 	@Override
