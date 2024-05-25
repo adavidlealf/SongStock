@@ -16,14 +16,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poli.songstock.business.ProductoReproducibleBusiness;
-import com.poli.songstock.domain.AprobacionDTO;
-import com.poli.songstock.service.AprobacionService;
 
 @RestController
 @RequestMapping("/aprobacion")
 public class AprobacionController {
-
+/*
 	private static AprobacionController instance;
 	
 	public static AprobacionController getInstace() {
@@ -71,4 +68,5 @@ public class AprobacionController {
 	    controller.deleteByCodigo(codigo);
         return ResponseEntity.ok(!controller.existsByCodigo(codigo));
 	}
+	*/
 }

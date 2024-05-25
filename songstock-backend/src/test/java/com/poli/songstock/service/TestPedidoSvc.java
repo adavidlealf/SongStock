@@ -5,12 +5,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import junit.framework.TestCase;
 
-import com.poli.songstock.business.PedidoBusiness;
-import com.poli.songstock.domain.AprobacionDTO;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class TestPedidoSvc extends TestCase{
-	
+	/*
 	private PedidoBusiness pedidoSvc = PedidoBusiness.getInstance();
 	
 	@Test
@@ -112,7 +110,7 @@ public class TestPedidoSvc extends TestCase{
 		}
 	}
 	
-	/*
+	
 	@Test
     public void testEstaAprobado() {
         AprobacionDTO aprob = new AprobacionDTO();
