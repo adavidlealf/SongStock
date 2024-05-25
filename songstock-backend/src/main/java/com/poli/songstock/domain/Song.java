@@ -1,7 +1,5 @@
 package com.poli.songstock.domain;
 
-import java.time.LocalDate;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,7 +24,7 @@ public class Song {
 	
 	private String title;
 	
-	private String duration;
+	private Integer duration;
 	
 	@Column(name = "album_id", length = 32)
 	private Long albumId;

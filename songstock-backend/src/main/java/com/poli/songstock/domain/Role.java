@@ -1,7 +1,5 @@
 package com.poli.songstock.domain;
 
-import java.time.LocalDate;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,7 +25,7 @@ public class Role {
 	private String name;
 	
 	@Column(name = "can_see")
-	private LocalDate canSee;
+	private String canSee;
 	
 	@Column(name = "can_modify")
 	private String canModify;
