@@ -17,19 +17,18 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Role {
+public class Song {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(length = 32)
 	private Long id;
 	
-	private String name;
+	private String title;
 	
-	@Column(name = "can_see")
-	private LocalDate canSee;
+	private String duration;
 	
-	@Column(name = "can_modify")
-	private String canModify;
+	@Column(name = "album_id", length = 32)
+	private String albumId;
 
 }

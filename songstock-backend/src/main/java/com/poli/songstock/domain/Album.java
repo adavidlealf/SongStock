@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Role {
+public class Album {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,10 +26,10 @@ public class Role {
 	
 	private String name;
 	
-	@Column(name = "can_see")
-	private LocalDate canSee;
+	@Column(name = "release_date")
+	private LocalDate releaseDate;
 	
-	@Column(name = "can_modify")
-	private String canModify;
+	@Column(name = "cover_url")
+	private String coverUrl;
 
 }

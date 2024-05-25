@@ -17,19 +17,26 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Role {
+public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(length = 32)
 	private Long id;
+
+	@Column(name = "applicant_date")
+	private LocalDate applicantDate;
+	
+	private String nickname;
 	
 	private String name;
 	
-	@Column(name = "can_see")
-	private LocalDate canSee;
-	
-	@Column(name = "can_modify")
-	private String canModify;
+	private String email;
 
+	private String password;
+
+	private LocalDate birthdate;
+	
+	@Column(name = "role_id", length = 32)
+	private String roleId;
 }

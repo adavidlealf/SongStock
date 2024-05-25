@@ -17,19 +17,17 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Role {
+public class Library {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(length = 32)
 	private Long id;
 	
-	private String name;
+	@Column(name = "consumer_id", length = 32)
+	private String consumerId;
 	
-	@Column(name = "can_see")
-	private LocalDate canSee;
-	
-	@Column(name = "can_modify")
-	private String canModify;
+	@Column(name = "product_id", length = 32)
+	private String productId;
 
 }
