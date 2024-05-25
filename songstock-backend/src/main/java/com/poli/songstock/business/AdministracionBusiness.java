@@ -1,11 +1,11 @@
-package com.poli.songstock.service;
+package com.poli.songstock.business;
 
 import java.util.Date;
 import java.util.List;
 
-import com.poli.songstock.model.AprobacionDTO;
+import com.poli.songstock.domain.AprobacionDTO;
 
-public class AdministracionSvc {
+public class AdministracionBusiness {
 
 	
 	/**

@@ -1,23 +1,23 @@
-package com.poli.songstock.service;
+package com.poli.songstock.business;
 
 import java.util.Date;
 import java.util.List;
 
-import com.poli.songstock.model.AlbumDTO;
-import com.poli.songstock.model.CancionDTO;
-import com.poli.songstock.model.ProductoReproducibleDTO;
+import com.poli.songstock.domain.AlbumDTO;
+import com.poli.songstock.domain.CancionDTO;
+import com.poli.songstock.domain.ProductoReproducibleDTO;
 
-public class CatalogoSvc {
+public class CatalogoBusiness {
 	
-	private static CatalogoSvc instance;
+	private static CatalogoBusiness instance;
 	
 	/**
 	 * Metodo que implementa patron Singleton.
 	 * @return
 	 */
-	public static CatalogoSvc getInstance() {
+	public static CatalogoBusiness getInstance() {
 		if(instance==null) {
-			instance = new CatalogoSvc();
+			instance = new CatalogoBusiness();
 		}
 		return instance;
 	}

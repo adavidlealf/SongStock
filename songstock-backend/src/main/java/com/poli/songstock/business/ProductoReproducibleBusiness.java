@@ -1,20 +1,20 @@
-package com.poli.songstock.service;
+package com.poli.songstock.business;
 
 import java.util.List;
 
-import com.poli.songstock.model.ProductoReproducibleDTO;
+import com.poli.songstock.domain.ProductoReproducibleDTO;
 
-public class ProductoReproducibleSvc {
+public class ProductoReproducibleBusiness {
 	
-	private static ProductoReproducibleSvc instance;
+	private static ProductoReproducibleBusiness instance;
 	
 	/**
 	 * Metodo que implementa patron Singleton.
 	 * @return
 	 */
-	public static ProductoReproducibleSvc getInstance() {
+	public static ProductoReproducibleBusiness getInstance() {
 		if(instance==null) {
-			instance = new ProductoReproducibleSvc();
+			instance = new ProductoReproducibleBusiness();
 		}
 		return instance;
 	}

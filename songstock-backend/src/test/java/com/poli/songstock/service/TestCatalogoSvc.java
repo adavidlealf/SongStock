@@ -4,13 +4,14 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import com.poli.songstock.model.CancionDTO;
+import com.poli.songstock.business.CatalogoBusiness;
+import com.poli.songstock.domain.CancionDTO;
 
 import junit.framework.TestCase;
 
 public class TestCatalogoSvc extends TestCase{
 
-	private CatalogoSvc catalogoSvc = CatalogoSvc.getInstance();
+	private CatalogoBusiness catalogoSvc = CatalogoBusiness.getInstance();
 	
 	@Test
 	public void testCalcularTotalCarrito() {

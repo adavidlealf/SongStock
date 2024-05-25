@@ -1,213 +1,74 @@
 package com.poli.songstock.controller;
 
-import java.util.ArrayList;
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
-import org.springframework.stereotype.Service;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.poli.songstock.model.AprobacionDTO;
-import com.poli.songstock.repository.AprobacionRepository;
+import com.poli.songstock.business.ProductoReproducibleBusiness;
+import com.poli.songstock.domain.AprobacionDTO;
+import com.poli.songstock.service.AprobacionService;
 
-@Service
-public class AprobacionController implements AprobacionRepository{
+@RestController
+@RequestMapping("/aprobacion")
+public class AprobacionController {
 
-	@Autowired
-	private AprobacionRepository repository;
+	private static AprobacionController instance;
 	
-	@Override
-	public void flush() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public <S extends AprobacionDTO> S saveAndFlush(S entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <S extends AprobacionDTO> List<S> saveAllAndFlush(Iterable<S> entities) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void deleteAllInBatch(Iterable<AprobacionDTO> entities) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteAllByIdInBatch(Iterable<Long> ids) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteAllInBatch() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public AprobacionDTO getOne(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public AprobacionDTO getById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public AprobacionDTO getReferenceById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <S extends AprobacionDTO> List<S> findAll(Example<S> example) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <S extends AprobacionDTO> List<S> findAll(Example<S> example, Sort sort) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <S extends AprobacionDTO> List<S> saveAll(Iterable<S> entities) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<AprobacionDTO> findAll() {
-		return repository.findAll();
-	}
-
-	@Override
-	public List<AprobacionDTO> findAllById(Iterable<Long> ids) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <S extends AprobacionDTO> S save(S entity) {
-		return repository.save(entity);
-	}
-
-	@Override
-	public Optional<AprobacionDTO> findById(Long id) {
-		return repository.findById(id);
-	}
-	
-	public List<AprobacionDTO> findByEstado(String estado){
-		List<AprobacionDTO> todos = repository.findAll();
-		List<AprobacionDTO> retorno = new ArrayList<AprobacionDTO>();
-		for(AprobacionDTO apro : todos) {
-			if(apro.getEstado().equals(estado)) {
-				retorno.add(apro);
-			}
+	public static AprobacionController getInstace() {
+		if(instance==null) {
+			instance = new AprobacionController();
 		}
-		return retorno;
+		return instance;
 	}
-
-	@Override
-	public boolean existsById(Long id) {
-		// TODO Auto-generated method stub
-		return false;
+	
+	@Autowired
+	private AprobacionService controller;
+	
+	@GetMapping
+	public ResponseEntity<List<AprobacionDTO>> findAllAprobacion() {
+	    List<AprobacionDTO> aprobaciones = controller.findAll();
+	    if (aprobaciones.isEmpty()) {
+	        return ResponseEntity.noContent().build();
+	    } else {
+	        return ResponseEntity.ok(aprobaciones);
+	    }
 	}
-
-	@Override
-	public long count() {
-		// TODO Auto-generated method stub
-		return 0;
+	
+	@GetMapping(value = "/codigo/{codigo}")
+	public ResponseEntity<AprobacionDTO> findByCodigoAprobacion(@PathVariable("codigo") String codigo) {
+	    Optional<AprobacionDTO> aprobacion = controller.findByCodigo(codigo);
+	    if (aprobacion.isPresent()) {
+	        return ResponseEntity.ok(aprobacion.get());
+	    } else {
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+	    }
 	}
-
-	@Override
-	public void deleteById(Long id) {
-		// TODO Auto-generated method stub
-		
+	
+	@PostMapping
+	public ResponseEntity<AprobacionDTO> saveAprobacion(@RequestBody AprobacionDTO aprobacion){
+		try {
+			AprobacionDTO aproRet = controller.save(aprobacion);
+			return ResponseEntity.created(new URI("/aprobacion/"+aproRet.getId())).body(aproRet);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
 	}
-
-	@Override
-	public void delete(AprobacionDTO entity) {
-		// TODO Auto-generated method stub
-		
+	
+	@DeleteMapping(value = "/delete/{codigo}")
+	public ResponseEntity<Boolean> deleteByCodigoAprobacion(@PathVariable("codigo") String codigo) {
+	    controller.deleteByCodigo(codigo);
+        return ResponseEntity.ok(!controller.existsByCodigo(codigo));
 	}
-
-	@Override
-	public void deleteAllById(Iterable<? extends Long> ids) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteAll(Iterable<? extends AprobacionDTO> entities) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteAll() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public List<AprobacionDTO> findAll(Sort sort) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Page<AprobacionDTO> findAll(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <S extends AprobacionDTO> Optional<S> findOne(Example<S> example) {
-		// TODO Auto-generated method stub
-		return Optional.empty();
-	}
-
-	@Override
-	public <S extends AprobacionDTO> Page<S> findAll(Example<S> example, Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <S extends AprobacionDTO> long count(Example<S> example) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public <S extends AprobacionDTO> boolean exists(Example<S> example) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public <S extends AprobacionDTO, R> R findBy(Example<S> example,
-			Function<FetchableFluentQuery<S>, R> queryFunction) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
