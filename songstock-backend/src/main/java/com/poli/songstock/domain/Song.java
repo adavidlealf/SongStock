@@ -29,6 +29,6 @@ public class Song {
 	private String duration;
 	
 	@Column(name = "album_id", length = 32)
-	private String albumId;
+	private Long albumId;
 
 }

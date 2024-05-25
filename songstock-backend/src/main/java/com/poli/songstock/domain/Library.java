@@ -25,9 +25,9 @@ public class Library {
 	private Long id;
 	
 	@Column(name = "consumer_id", length = 32)
-	private String consumerId;
+	private Long consumerId;
 	
 	@Column(name = "product_id", length = 32)
-	private String productId;
+	private Long productId;
 
 }

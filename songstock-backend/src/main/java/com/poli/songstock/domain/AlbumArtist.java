@@ -25,9 +25,9 @@ public class AlbumArtist {
 	private Long id;
 	
 	@Column(name = "album_id", length = 32)
-	private String albumId;
+	private Long albumId;
 	
 	@Column(name = "artist_id", length = 32)
-	private String artistId;
+	private Long artistId;
 
 }

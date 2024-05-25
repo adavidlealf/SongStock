@@ -38,5 +38,5 @@ public class User {
 	private LocalDate birthdate;
 	
 	@Column(name = "role_id", length = 32)
-	private String roleId;
+	private Long roleId;
 }
