@@ -23,6 +23,7 @@ public class Approval {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(length = 32)
 	private Long id;
 
 	@Column(name = "applicant_date")
@@ -37,13 +38,13 @@ public class Approval {
 	
 	private String code;
 	
-	@Column(name = "applicant_id")
+	@Column(name = "applicant_id", length = 32)
 	private String applicantId;
 	
-	@Column(name = "approver_id")
+	@Column(name = "approver_id", length = 32)
 	private String approverId;
 	
-	@Column(name = "object_id")
+	@Column(name = "object_id", length = 32)
 	private String objectId;
 	
 	public enum State {
