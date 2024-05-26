@@ -17,31 +17,48 @@ public class Catalogue {
 	private Long productId;
 	
 	private Double price;
-	
-	/*************************/
 
+	/**
+	 * @return the id
+	 */
 	public Long getId() {
 		return id;
 	}
 
+	/**
+	 * @param id the id to set
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
+	/**
+	 * @return the productId
+	 */
 	public Long getProductId() {
 		return productId;
 	}
 
+	/**
+	 * @param productId the productId to set
+	 */
 	public void setProductId(Long productId) {
 		this.productId = productId;
 	}
 
+	/**
+	 * @return the price
+	 */
 	public Double getPrice() {
 		return price;
 	}
 
+	/**
+	 * @param price the price to set
+	 */
 	public void setPrice(Double price) {
 		this.price = price;
 	}
+	
 	
 }

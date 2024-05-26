@@ -17,32 +17,47 @@ public class OrderProduct {
 	private Long orderId;
 
 	private Long productId;
-	
-	/*************************/
 
+	/**
+	 * @return the id
+	 */
 	public Long getId() {
 		return id;
 	}
 
+	/**
+	 * @param id the id to set
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
+	/**
+	 * @return the orderId
+	 */
 	public Long getOrderId() {
 		return orderId;
 	}
 
+	/**
+	 * @param orderId the orderId to set
+	 */
 	public void setOrderId(Long orderId) {
 		this.orderId = orderId;
 	}
 
+	/**
+	 * @return the productId
+	 */
 	public Long getProductId() {
 		return productId;
 	}
 
+	/**
+	 * @param productId the productId to set
+	 */
 	public void setProductId(Long productId) {
 		this.productId = productId;
 	}
-	
 	
 }

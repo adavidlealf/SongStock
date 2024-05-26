@@ -21,39 +21,62 @@ public class Album {
 	private LocalDate releaseDate;
 	
 	private String coverUrl;
-	
-	/*************************/
 
+	/**
+	 * @return the id
+	 */
 	public Long getId() {
 		return id;
 	}
 
+	/**
+	 * @param id the id to set
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
+	/**
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * @param name the name to set
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * @return the releaseDate
+	 */
 	public LocalDate getReleaseDate() {
 		return releaseDate;
 	}
 
+	/**
+	 * @param releaseDate the releaseDate to set
+	 */
 	public void setReleaseDate(LocalDate releaseDate) {
 		this.releaseDate = releaseDate;
 	}
 
+	/**
+	 * @return the coverUrl
+	 */
 	public String getCoverUrl() {
 		return coverUrl;
 	}
 
+	/**
+	 * @param coverUrl the coverUrl to set
+	 */
 	public void setCoverUrl(String coverUrl) {
 		this.coverUrl = coverUrl;
 	}
+	
 
 }

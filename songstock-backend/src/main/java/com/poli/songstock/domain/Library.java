@@ -17,33 +17,48 @@ public class Library {
 	private Long consumerId;
 	
 	private Long productId;
-	
-	/*************************/
 
+	/**
+	 * @return the id
+	 */
 	public Long getId() {
 		return id;
 	}
 
+	/**
+	 * @param id the id to set
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
+	/**
+	 * @return the consumerId
+	 */
 	public Long getConsumerId() {
 		return consumerId;
 	}
 
+	/**
+	 * @param consumerId the consumerId to set
+	 */
 	public void setConsumerId(Long consumerId) {
 		this.consumerId = consumerId;
 	}
 
+	/**
+	 * @return the productId
+	 */
 	public Long getProductId() {
 		return productId;
 	}
 
+	/**
+	 * @param productId the productId to set
+	 */
 	public void setProductId(Long productId) {
 		this.productId = productId;
 	}
-	
 	
 
 }

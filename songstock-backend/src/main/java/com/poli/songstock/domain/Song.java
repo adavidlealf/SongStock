@@ -19,41 +19,61 @@ public class Song {
 	private Integer duration;
 	
 	private Long albumId;
-	
-	/*************************/
 
+	/**
+	 * @return the id
+	 */
 	public Long getId() {
 		return id;
 	}
 
+	/**
+	 * @param id the id to set
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
+	/**
+	 * @return the title
+	 */
 	public String getTitle() {
 		return title;
 	}
 
+	/**
+	 * @param title the title to set
+	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
+	/**
+	 * @return the duration
+	 */
 	public Integer getDuration() {
 		return duration;
 	}
 
+	/**
+	 * @param duration the duration to set
+	 */
 	public void setDuration(Integer duration) {
 		this.duration = duration;
 	}
 
+	/**
+	 * @return the albumId
+	 */
 	public Long getAlbumId() {
 		return albumId;
 	}
 
+	/**
+	 * @param albumId the albumId to set
+	 */
 	public void setAlbumId(Long albumId) {
 		this.albumId = albumId;
 	}
 	
-	
-
 }

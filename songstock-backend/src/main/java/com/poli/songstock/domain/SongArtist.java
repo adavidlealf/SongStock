@@ -17,33 +17,47 @@ public class SongArtist {
 	private Long songId;
 	
 	private Long artistId;
-	
-	/*************************/
 
+	/**
+	 * @return the id
+	 */
 	public Long getId() {
 		return id;
 	}
 
+	/**
+	 * @param id the id to set
+	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
 
+	/**
+	 * @return the songId
+	 */
 	public Long getSongId() {
 		return songId;
 	}
 
+	/**
+	 * @param songId the songId to set
+	 */
 	public void setSongId(Long songId) {
 		this.songId = songId;
 	}
 
+	/**
+	 * @return the artistId
+	 */
 	public Long getArtistId() {
 		return artistId;
 	}
 
+	/**
+	 * @param artistId the artistId to set
+	 */
 	public void setArtistId(Long artistId) {
 		this.artistId = artistId;
 	}
 	
-	
-
 }
