@@ -5,15 +5,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Library {
 
 	@Id
@@ -23,5 +17,33 @@ public class Library {
 	private Long consumerId;
 	
 	private Long productId;
+	
+	/*************************/
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Long getConsumerId() {
+		return consumerId;
+	}
+
+	public void setConsumerId(Long consumerId) {
+		this.consumerId = consumerId;
+	}
+
+	public Long getProductId() {
+		return productId;
+	}
+
+	public void setProductId(Long productId) {
+		this.productId = productId;
+	}
+	
+	
 
 }

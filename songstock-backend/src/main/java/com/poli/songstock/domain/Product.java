@@ -26,4 +26,40 @@ public class Product {
 	
 	private Long objectId;
 	
+	/*************************/
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Integer getIsDigital() {
+		return isDigital;
+	}
+
+	public void setIsDigital(Integer isDigital) {
+		this.isDigital = isDigital;
+	}
+
+	public Integer getIsSong() {
+		return isSong;
+	}
+
+	public void setIsSong(Integer isSong) {
+		this.isSong = isSong;
+	}
+
+	public Long getObjectId() {
+		return objectId;
+	}
+
+	public void setObjectId(Long objectId) {
+		this.objectId = objectId;
+	}
+	
+	
+	
 }
