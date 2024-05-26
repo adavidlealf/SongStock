@@ -1,5 +1,7 @@
 package com.poli.songstock.domain;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,14 +16,15 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AlbumArtist {
+public class Orders {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	private Long albumId;
+	private LocalDate date;
 	
-	private Long artistId;
-
+	private String obs;
+	
+	private Long productId;
 }

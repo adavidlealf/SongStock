@@ -14,14 +14,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AlbumArtist {
+public class OrderProduct {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	private Long albumId;
-	
-	private Long artistId;
+	private Long orderId;
 
+	private Long productId;
+	
 }

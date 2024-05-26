@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AlbumArtist {
+public class Vinyl {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,6 +22,12 @@ public class AlbumArtist {
 	
 	private Long albumId;
 	
-	private Long artistId;
-
+	private String color;
+	
+	private Double inches;
+	
+	private Integer stock;
+	
+	private Long distributorId;
+	
 }
