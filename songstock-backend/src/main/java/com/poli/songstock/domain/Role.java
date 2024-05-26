@@ -1,6 +1,5 @@
 package com.poli.songstock.domain;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,15 +18,12 @@ public class Role {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(length = 32)
 	private Long id;
 	
 	private String name;
 	
-	@Column(name = "can_see")
 	private String canSee;
 	
-	@Column(name = "can_modify")
 	private String canModify;
 
 }

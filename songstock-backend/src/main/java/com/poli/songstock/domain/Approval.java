@@ -2,7 +2,6 @@ package com.poli.songstock.domain;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -23,10 +22,8 @@ public class Approval {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(length = 32)
 	private Long id;
 
-	@Column(name = "applicant_date")
 	private LocalDate applicantDate;
 	
 	private String title;
@@ -38,14 +35,11 @@ public class Approval {
 	
 	private String code;
 	
-	@Column(name = "applicant_id", length = 32)
-	private String applicantId;
+	private Long applicantId;
 	
-	@Column(name = "approver_id", length = 32)
-	private String approverId;
+	private Long approverId;
 	
-	@Column(name = "object_id", length = 32)
-	private String objectId;
+	private Long objectId;
 	
 	public enum State {
 		ACEPTADO,

@@ -12,14 +12,14 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
 import org.springframework.stereotype.Service;
 
-import com.poli.songstock.domain.User;
-import com.poli.songstock.repository.UserRepository;
+import com.poli.songstock.domain.Users;
+import com.poli.songstock.repository.UsersRepository;
 
 @Service
-public class UserService implements UserRepository{
+public class UsersService implements UsersRepository{
 	
 	@Autowired
-	private UserRepository userRepository;
+	private UsersRepository usersRepository;
 
 	@Override
 	public void flush() {
@@ -28,19 +28,19 @@ public class UserService implements UserRepository{
 	}
 
 	@Override
-	public <S extends User> S saveAndFlush(S entity) {
+	public <S extends Users> S saveAndFlush(S entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends User> List<S> saveAllAndFlush(Iterable<S> entities) {
+	public <S extends Users> List<S> saveAllAndFlush(Iterable<S> entities) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void deleteAllInBatch(Iterable<User> entities) {
+	public void deleteAllInBatch(Iterable<Users> entities) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -58,60 +58,60 @@ public class UserService implements UserRepository{
 	}
 
 	@Override
-	public User getOne(Long id) {
+	public Users getOne(Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public User getById(Long id) {
+	public Users getById(Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public User getReferenceById(Long id) {
+	public Users getReferenceById(Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends User> List<S> findAll(Example<S> example) {
+	public <S extends Users> List<S> findAll(Example<S> example) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends User> List<S> findAll(Example<S> example, Sort sort) {
+	public <S extends Users> List<S> findAll(Example<S> example, Sort sort) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends User> List<S> saveAll(Iterable<S> entities) {
+	public <S extends Users> List<S> saveAll(Iterable<S> entities) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<User> findAll() {
-		return userRepository.findAll();
+	public List<Users> findAll() {
+		return usersRepository.findAll();
 	}
 
 	@Override
-	public List<User> findAllById(Iterable<Long> ids) {
+	public List<Users> findAllById(Iterable<Long> ids) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends User> S save(S entity) {
+	public <S extends Users> S save(S entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Optional<User> findById(Long id) {
+	public Optional<Users> findById(Long id) {
 		// TODO Auto-generated method stub
 		return Optional.empty();
 	}
@@ -135,7 +135,7 @@ public class UserService implements UserRepository{
 	}
 
 	@Override
-	public void delete(User entity) {
+	public void delete(Users entity) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -147,7 +147,7 @@ public class UserService implements UserRepository{
 	}
 
 	@Override
-	public void deleteAll(Iterable<? extends User> entities) {
+	public void deleteAll(Iterable<? extends Users> entities) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -159,43 +159,43 @@ public class UserService implements UserRepository{
 	}
 
 	@Override
-	public List<User> findAll(Sort sort) {
+	public List<Users> findAll(Sort sort) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Page<User> findAll(Pageable pageable) {
+	public Page<Users> findAll(Pageable pageable) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends User> Optional<S> findOne(Example<S> example) {
+	public <S extends Users> Optional<S> findOne(Example<S> example) {
 		// TODO Auto-generated method stub
 		return Optional.empty();
 	}
 
 	@Override
-	public <S extends User> Page<S> findAll(Example<S> example, Pageable pageable) {
+	public <S extends Users> Page<S> findAll(Example<S> example, Pageable pageable) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public <S extends User> long count(Example<S> example) {
+	public <S extends Users> long count(Example<S> example) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public <S extends User> boolean exists(Example<S> example) {
+	public <S extends Users> boolean exists(Example<S> example) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public <S extends User, R> R findBy(Example<S> example, Function<FetchableFluentQuery<S>, R> queryFunction) {
+	public <S extends Users, R> R findBy(Example<S> example, Function<FetchableFluentQuery<S>, R> queryFunction) {
 		// TODO Auto-generated method stub
 		return null;
 	}
