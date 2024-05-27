@@ -5,14 +5,25 @@ import java.util.Objects;
 
 public class UserDTO {	
 	
+	/**
+	 * Basic user data transfer object
+	 */
 	private BasicUserDTO basicUser;
 
+	/**
+	 * List of address data transfer objects
+	 */
 	private List<AddressDTO> addresses;
-	
+
+	/**
+	 * Email address
+	 */
 	private String email;
-	
+
+	/**
+	 * Password for authentication
+	 */
 	private String password;
-	
 	
 
 	@Override
@@ -34,7 +45,7 @@ public class UserDTO {
 	}
 
 	/**
-	 * 
+	 * Empty Constructor
 	 */
 	public UserDTO() {
 		super();

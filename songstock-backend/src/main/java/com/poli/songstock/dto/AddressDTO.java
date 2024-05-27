@@ -4,18 +4,40 @@ import java.util.Objects;
 
 public class AddressDTO {
 	
+	/**
+	 * Name of the city
+	 */
 	private String city;
-	
+
+	/**
+	 * Number of the postal code
+	 */
 	private Integer postalCode;
 	
+	/**
+	 * Identifier of the residence
+	 */
 	private String address;
 	
+	/**
+	 * Name of the specification
+	 */
 	private String spec;
 	
+	/**
+	 * text of the observation
+	 */
 	private String obs;
 	
+	/**
+	 * Number of phone
+	 */
 	private Integer phone;
 
+	
+	/**
+	 * 
+	 */
 	@Override
 	public int hashCode() {
 		return Objects.hash(address, city, obs, phone, postalCode, spec);
@@ -36,7 +58,7 @@ public class AddressDTO {
 	}
 
 	/**
-	 * 
+	 * Empty Constructor
 	 */
 	public AddressDTO() {
 		super();

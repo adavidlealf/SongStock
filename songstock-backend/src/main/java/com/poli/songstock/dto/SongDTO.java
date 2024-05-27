@@ -4,10 +4,15 @@ import java.util.Objects;
 
 public class SongDTO {
 	
+	/**
+	 * Basic song data transfer object
+	 */
 	private BasicSongDTO basicSong;
-	
+
+	/**
+	 * Basic album data transfer object
+	 */
 	private BasicAlbumDTO basicAlbum;
-	
 	
 
 	@Override
@@ -28,7 +33,7 @@ public class SongDTO {
 	}
 
 	/**
-	 * 
+	 * Empty Constructor
 	 */
 	public SongDTO() {
 		super();

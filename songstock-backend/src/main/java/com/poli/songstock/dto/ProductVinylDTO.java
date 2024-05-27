@@ -4,9 +4,16 @@ import java.util.Objects;
 
 public class ProductVinylDTO {
 
+	/**
+	 * Basic vinyl data transfer object
+	 */
 	private BasicVinylDTO basicVinyl;
-	
+
+	/**
+	 * Price of the vinyl
+	 */
 	private Double price;
+
 
 	@Override
 	public int hashCode() {
@@ -26,7 +33,7 @@ public class ProductVinylDTO {
 	}
 
 	/**
-	 * 
+	 * Empty Constructor
 	 */
 	public ProductVinylDTO() {
 		super();

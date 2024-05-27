@@ -10,7 +10,10 @@ public class AlbumDTO {
 	 * Name of the album
 	 */
 	private BasicAlbumDTO basicAlbum;
-
+	
+	/**
+	 * Data from DTO BasicSong
+	 */
 	private List<BasicSongDTO> songs;
 	
 	
@@ -33,7 +36,7 @@ public class AlbumDTO {
 	}
 
 	/**
-	 * 
+	 * Empty Constructor
 	 */
 	public AlbumDTO() {
 		super();

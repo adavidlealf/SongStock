@@ -5,12 +5,20 @@ import java.util.Objects;
 
 public class DigitalOrderDTO {
 	
+	/**
+	 * Basic order data transfer object
+	 */
 	private BasicOrderDTO basicOrder;
-	
+
+	/**
+	 * List of product song data transfer objects
+	 */
 	private List<ProductSongDTO> productSongs;
-	
+
+	/**
+	 * List of product album data transfer objects
+	 */
 	private List<ProductAlbumDTO> productAlbums;
-	
 	
 
 	@Override
@@ -32,7 +40,7 @@ public class DigitalOrderDTO {
 	}
 
 	/**
-	 * 
+	 * Empty Constructor
 	 */
 	public DigitalOrderDTO() {
 		super();

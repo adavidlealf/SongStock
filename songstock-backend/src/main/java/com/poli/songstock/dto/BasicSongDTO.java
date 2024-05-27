@@ -5,12 +5,20 @@ import java.util.Objects;
 
 public class BasicSongDTO {
 
+	/**
+	 * Title of the item
+	 */
 	private String title;
-	
+
+	/**
+	 * Duration of the item (in seconds)
+	 */
 	private Integer duration;
-	
+
+	/**
+	 * List of basic artist data transfer objects
+	 */
 	private List<BasicArtistDTO> artists;
-	
 	
 
 	@Override
@@ -32,7 +40,7 @@ public class BasicSongDTO {
 	}
 
 	/**
-	 * 
+	 * Empty Constructor
 	 */
 	public BasicSongDTO() {
 		super();

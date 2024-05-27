@@ -5,10 +5,15 @@ import java.util.Objects;
 
 public class PhysicalOrderDTO {
 	
+	/**
+	 * Basic order data transfer object
+	 */
 	private BasicOrderDTO basicOrder;
-	
+
+	/**
+	 * List of approval data transfer objects
+	 */
 	private List<ApprovalDTO> approvals;
-	
 	
 
 	@Override
@@ -29,7 +34,7 @@ public class PhysicalOrderDTO {
 	}
 
 	/**
-	 * 
+	 * Empty Constructor
 	 */
 	public PhysicalOrderDTO() {
 		super();

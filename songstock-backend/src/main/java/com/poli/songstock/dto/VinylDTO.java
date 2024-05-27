@@ -4,10 +4,15 @@ import java.util.Objects;
 
 public class VinylDTO {
 	
+	/**
+	 * Basic vinyl data transfer object for the album
+	 */
 	private BasicVinylDTO albumVinyl;
-	
+
+	/**
+	 * Album data transfer object
+	 */
 	private AlbumDTO album;
-	
 	
 
 	@Override
@@ -28,7 +33,7 @@ public class VinylDTO {
 	}
 
 	/**
-	 * 
+	 * Empty Constructor
 	 */
 	public VinylDTO() {
 		super();

@@ -5,17 +5,37 @@ import java.util.Objects;
 
 public class ApprovalDTO {
 	
+	
+	/**
+	 * Title of the item
+	 */
 	private String title;
-	
+
+	/**
+	 * Observation text
+	 */
 	private String obs;
-	
+
+	/**
+	 * Application date
+	 */
 	private Date applicationDate;
-	
+
+	/**
+	 * State of the item
+	 */
 	private String state;
-	
+
+	/**
+	 * Code for identification
+	 */
 	private String code;
 
+	/**
+	 * Vinyl product data transfer object
+	 */
 	private ProductVinylDTO vinyl;
+
 	
 	
 
@@ -39,7 +59,7 @@ public class ApprovalDTO {
 	}
 
 	/**
-	 * 
+	 * Empty Constructor
 	 */
 	public ApprovalDTO() {
 		super();

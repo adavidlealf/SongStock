@@ -5,16 +5,27 @@ import java.util.Objects;
 
 public class UserRoleDTO {
 	
+	/**
+	 * Basic user data transfer object
+	 */
 	private BasicUserDTO basicUser;
-	
-	private List<AddressDTO> addresses;
-	
-	private String email;
-	
-	private String password;
-	
-	
 
+	/**
+	 * List of address data transfer objects
+	 */
+	private List<AddressDTO> addresses;
+
+	/**
+	 * Email address
+	 */
+	private String email;
+
+	/**
+	 * Password for authentication
+	 */
+	private String password;
+
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(addresses, basicUser, email, password);
@@ -34,7 +45,7 @@ public class UserRoleDTO {
 	}
 
 	/**
-	 * 
+	 * Empty Constructor
 	 */
 	public UserRoleDTO() {
 		super();

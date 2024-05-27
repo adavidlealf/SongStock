@@ -5,10 +5,19 @@ import java.util.Objects;
 
 public class ArtistDTO {
 	
+	/**
+	 * Basic artist data transfer object
+	 */
 	private BasicArtistDTO basicArtist;
 
-	private List<SongDTO> songs;	
-	
+	/**
+	 * List of song data transfer objects
+	 */
+	private List<SongDTO> songs;
+
+	/**
+	 * Profile photo URL
+	 */
 	private String profilePhoto;
 	
 	
@@ -32,7 +41,7 @@ public class ArtistDTO {
 	}
 
 	/**
-	 * 
+	 * Empty Constructor
 	 */
 	public ArtistDTO() {
 		super();

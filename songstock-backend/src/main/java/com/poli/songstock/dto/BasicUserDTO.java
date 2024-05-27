@@ -4,9 +4,16 @@ import java.util.Objects;
 
 public class BasicUserDTO {
 	
+	/**
+	 * Nickname of the item
+	 */
 	private String nickname;
-	
+
+	/**
+	 * Name of the item
+	 */
 	private String name;
+
 
 	@Override
 	public int hashCode() {
@@ -26,7 +33,7 @@ public class BasicUserDTO {
 	}
 
 	/**
-	 * 
+	 * Empty Constructor
 	 */
 	public BasicUserDTO() {
 		super();

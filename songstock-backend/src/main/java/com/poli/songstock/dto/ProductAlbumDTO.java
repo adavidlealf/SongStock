@@ -4,10 +4,15 @@ import java.util.Objects;
 
 public class ProductAlbumDTO {
 	
+	/**
+	 * Basic album data transfer object
+	 */
 	private BasicAlbumDTO basicAlbum;
-	
+
+	/**
+	 * Price of the album
+	 */
 	private Double price;
-	
 	
 
 	@Override
@@ -28,7 +33,7 @@ public class ProductAlbumDTO {
 	}
 
 	/**
-	 * 
+	 * Empty Constructor
 	 */
 	public ProductAlbumDTO() {
 		super();

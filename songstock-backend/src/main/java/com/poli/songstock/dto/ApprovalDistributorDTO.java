@@ -4,8 +4,14 @@ import java.util.Objects;
 
 public class ApprovalDistributorDTO {
 	
+	/**
+	 * Data from DTO Approval as approval
+	 */
 	private ApprovalDTO approval;
 	
+	/**
+	 * Data from DTO BasicUser as applicant
+	 */
 	private BasicUserDTO applicant;
 	
 	
@@ -28,7 +34,7 @@ public class ApprovalDistributorDTO {
 	}
 
 	/**
-	 * 
+	 * Empty Constructor
 	 */
 	public ApprovalDistributorDTO() {
 		super();

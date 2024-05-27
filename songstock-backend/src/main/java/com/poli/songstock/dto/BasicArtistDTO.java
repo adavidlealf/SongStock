@@ -4,9 +4,11 @@ import java.util.Objects;
 
 public class BasicArtistDTO {
 
+	/**
+	 * Name of the item
+	 */
 	private String nombre;
-	
-	
+
 
 	@Override
 	public int hashCode() {
@@ -26,7 +28,7 @@ public class BasicArtistDTO {
 	}
 
 	/**
-	 * 
+	 * Empty Constructor
 	 */
 	public BasicArtistDTO() {
 		super();

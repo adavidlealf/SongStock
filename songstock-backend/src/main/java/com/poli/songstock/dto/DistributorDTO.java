@@ -5,13 +5,21 @@ import java.util.Objects;
 
 public class DistributorDTO {
 	
+	/**
+	 * User role data transfer object
+	 */
 	private UserRoleDTO userRole;
-	
+
+	/**
+	 * List of approval distributor data transfer objects
+	 */
 	private List<ApprovalDistributorDTO> approvals;
-	
+
+	/**
+	 * Catalogue data transfer object
+	 */
 	private CatalogueDTO catalogue;
 	
-
 
 	@Override
 	public int hashCode() {
@@ -32,7 +40,7 @@ public class DistributorDTO {
 	}
 
 	/**
-	 * 
+	 * Empty Constructor
 	 */
 	public DistributorDTO() {
 		super();

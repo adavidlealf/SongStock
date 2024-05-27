@@ -4,10 +4,15 @@ import java.util.Objects;
 
 public class ProductSongDTO {
 	
+	/**
+	 * Basic song data transfer object
+	 */
 	private BasicSongDTO basicSong;
-	
+
+	/**
+	 * Price of the song
+	 */
 	private Double price;
-	
 	
 
 	@Override
@@ -28,7 +33,7 @@ public class ProductSongDTO {
 	}
 
 	/**
-	 * 
+	 * Empty Constructor
 	 */
 	public ProductSongDTO() {
 		super();

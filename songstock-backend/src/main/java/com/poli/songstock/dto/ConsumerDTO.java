@@ -5,16 +5,30 @@ import java.util.Objects;
 
 public class ConsumerDTO {
 
+	/**
+	 * User role data transfer object
+	 */
 	private UserRoleDTO userRole;
-	
-	private	List<ApprovalConsumerDTO> approvals;
-	
+
+	/**
+	 * List of approval consumer data transfer objects
+	 */
+	private List<ApprovalConsumerDTO> approvals;
+
+	/**
+	 * Library data transfer object
+	 */
 	private LibraryDTO library;
-	
-	private	List<DigitalOrderDTO> digitalOrders;
-	
-	private	List<PhysicalOrderDTO> physicalOrders;
-	
+
+	/**
+	 * List of digital order data transfer objects
+	 */
+	private List<DigitalOrderDTO> digitalOrders;
+
+	/**
+	 * List of physical order data transfer objects
+	 */
+	private List<PhysicalOrderDTO> physicalOrders;
 	
 
 	@Override
@@ -37,7 +51,7 @@ public class ConsumerDTO {
 	}
 
 	/**
-	 * 
+	 * Empty Constructor
 	 */
 	public ConsumerDTO() {
 		super();

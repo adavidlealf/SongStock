@@ -6,13 +6,26 @@ import java.util.Objects;
 
 public class BasicAlbumDTO {
 	
+	/**
+	 * Name of the item
+	 */
 	private String name;
-	
+
+	/**
+	 * Release date of the item
+	 */
 	private Date releaseDate;
-	
+
+	/**
+	 * URL for the cover image
+	 */
 	private String coverUrl;
-	
+
+	/**
+	 * List of basic artist data transfer objects
+	 */
 	private List<BasicArtistDTO> artists;
+
 	
 	
 
@@ -35,7 +48,7 @@ public class BasicAlbumDTO {
 	}
 
 	/**
-	 * 
+	 * Empty Constructor
 	 */
 	public BasicAlbumDTO() {
 		super();

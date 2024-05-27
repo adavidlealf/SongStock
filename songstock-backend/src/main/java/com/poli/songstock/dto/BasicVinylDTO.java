@@ -4,14 +4,27 @@ import java.util.Objects;
 
 public class BasicVinylDTO {
 	
+	/**
+	 * Color of the item
+	 */
 	private String color;
-	
+
+	/**
+	 * Size in inches
+	 */
 	private Double inches;
-	
+
+	/**
+	 * Stock quantity
+	 */
 	private Integer stock;
-	
+
+	/**
+	 * Basic user data transfer object for the distributor
+	 */
 	private BasicUserDTO distributor;
 
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(color, distributor, inches, stock);
@@ -31,7 +44,7 @@ public class BasicVinylDTO {
 	}
 
 	/**
-	 * 
+	 * Empty Constructor
 	 */
 	public BasicVinylDTO() {
 		super();

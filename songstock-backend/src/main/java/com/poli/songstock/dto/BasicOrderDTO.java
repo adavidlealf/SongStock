@@ -5,14 +5,25 @@ import java.util.Objects;
 
 public class BasicOrderDTO {
 	
+	/**
+	 * Date of the item
+	 */
 	private Date date;
-	
+
+	/**
+	 * Observation text
+	 */
 	private String obs;
-	
+
+	/**
+	 * Address data transfer object for the consumer
+	 */
 	private AddressDTO consumerAddress;
-	
+
+	/**
+	 * Color of the item
+	 */
 	private String color;
-	
 	
 
 	@Override
@@ -34,7 +45,7 @@ public class BasicOrderDTO {
 	}
 
 	/**
-	 * 
+	 * Empty Constructor
 	 */
 	public BasicOrderDTO() {
 		super();

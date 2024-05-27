@@ -5,12 +5,20 @@ import java.util.Objects;
 
 public class CatalogueDTO {
 	
+	/**
+	 * List of product album data transfer objects
+	 */
 	private List<ProductAlbumDTO> albums;
 
+	/**
+	 * List of product song data transfer objects
+	 */
 	private List<ProductSongDTO> songs;
-	
+
+	/**
+	 * List of product vinyl data transfer objects
+	 */
 	private List<ProductVinylDTO> vinyls;
-	
 	
 
 	@Override
@@ -32,7 +40,7 @@ public class CatalogueDTO {
 	}
 
 	/**
-	 * 
+	 * Empty Constructor
 	 */
 	public CatalogueDTO() {
 		super();
