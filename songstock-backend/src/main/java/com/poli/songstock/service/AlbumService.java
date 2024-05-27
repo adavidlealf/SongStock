@@ -1,8 +1,12 @@
 package com.poli.songstock.service;
 
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -13,14 +17,21 @@ import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuer
 import org.springframework.stereotype.Service;
 
 import com.poli.songstock.domain.Album;
+import com.poli.songstock.domain.Song;
+import com.poli.songstock.dto.AlbumDTO;
+import com.poli.songstock.dto.BasicAlbumDTO;
+import com.poli.songstock.dto.BasicSongDTO;
 import com.poli.songstock.repository.AlbumRepository;
 
 @Service
 public class AlbumService implements AlbumRepository{
 	
 	@Autowired
-	private AlbumRepository albumRepository;
-
+	private AlbumRepository repository;
+	
+	@Autowired
+	private ArtistService artistService;
+	
 	@Override
 	public void flush() {
 		// TODO Auto-generated method stub
@@ -95,7 +106,7 @@ public class AlbumService implements AlbumRepository{
 
 	@Override
 	public List<Album> findAll() {
-		return albumRepository.findAll();
+		return repository.findAll();
 	}
 
 	@Override
@@ -199,6 +210,34 @@ public class AlbumService implements AlbumRepository{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	/**
+	 * Convierte una instancia de la entidad Album al DTO de BasicAlbum.
+	 * @param album Album instancia de la entidad Album
+	 * @return BasicAlbumDTO instancia de BasicAlbumDTO
+	 */
+	public BasicAlbumDTO castEntityToBasicAlbumDto(Album album) {
+		BasicAlbumDTO basicAlbumDTO = new BasicAlbumDTO();
+		basicAlbumDTO.setName(album.getName());
+		if(album.getReleaseDate()!=null) {
+			basicAlbumDTO.setReleaseDate(Date.from(
+				album.getReleaseDate().atStartOfDay(ZoneId.systemDefault()).toInstant()
+			));
+		}
+		basicAlbumDTO.setCoverUrl(album.getCoverUrl());
+		basicAlbumDTO.setArtists(artistService.findAllBasicArtistDtoByAlbum(album.getId()));
+		return basicAlbumDTO;
+	}
+	
+	/**
+	 * Retorna una lista de todos los registros de la entidad Album convertidos en BasicAlbumDTO.
+	 * @return List<BasicAlbumDTO> lista de todos los registros de Album en BasicAlbumDTO.
+	 */
+	public List<BasicAlbumDTO> findAllBasicAlbumDTO() {
+		return repository.findAll()
+				.stream()
+				.map(this::castEntityToBasicAlbumDto)
+				.collect(Collectors.toList());
+	}
 	
 }

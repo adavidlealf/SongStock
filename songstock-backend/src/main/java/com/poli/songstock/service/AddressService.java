@@ -207,7 +207,7 @@ public class AddressService implements AddressRepository {
 	 * @param address Address instancia de la entidad
 	 * @return AddressDTO instancia del DTO
 	 */
-	public AddressDTO castEntityToAddressDTO(Address address) {
+	public AddressDTO castEntityToAddressDto(Address address) {
 		AddressDTO addressDTO = new AddressDTO();
 		addressDTO.setCity(address.getCity());
 		addressDTO.setPostalCode(address.getPostalCode());
@@ -222,10 +222,10 @@ public class AddressService implements AddressRepository {
 	 * Retorna una lista de todos los registros de la entidad Address convertidos en DTO.
 	 * @return List<AddressDTO> lista de todos los registros de Address en DTO.
 	 */
-	public List<AddressDTO> findAllAddressDTO() {
+	public List<AddressDTO> findAllAddressDto() {
 		return repository.findAll()
 				.stream()
-				.map(this::castEntityToAddressDTO)
+				.map(this::castEntityToAddressDto)
 				.collect(Collectors.toList());
 	}
 
@@ -238,10 +238,10 @@ public class AddressService implements AddressRepository {
 	 * Retorna una lista de todas las direcciones de un usuario convertidos en AddressDTO.
 	 * @return List<AddressDTO> lista de direcciones de un usuario en AddressDTO.
 	 */
-	public List<AddressDTO> findAllAddressDTOByUser(Long id) {
+	public List<AddressDTO> findAllAddressDtoByUser(Long id) {
 		return findAllByUser(id)
 				.stream()
-				.map(this::castEntityToAddressDTO)
+				.map(this::castEntityToAddressDto)
 				.collect(Collectors.toList());
 	}
 	

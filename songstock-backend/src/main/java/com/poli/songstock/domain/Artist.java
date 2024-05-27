@@ -14,7 +14,7 @@ public class Artist {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	private String nombre;
+	private String name;
 
 	/**
 	 * @return the id
@@ -31,19 +31,17 @@ public class Artist {
 	}
 
 	/**
-	 * @return the nombre
+	 * @return the name
 	 */
-	public String getNombre() {
-		return nombre;
+	public String getName() {
+		return name;
 	}
 
 	/**
-	 * @param nombre the nombre to set
+	 * @param name the name to set
 	 */
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setName(String name) {
+		this.name = name;
 	}
-	
-	
-	
+
 }

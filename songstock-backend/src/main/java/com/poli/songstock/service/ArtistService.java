@@ -3,6 +3,7 @@ package com.poli.songstock.service;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -13,6 +14,7 @@ import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuer
 import org.springframework.stereotype.Service;
 
 import com.poli.songstock.domain.Artist;
+import com.poli.songstock.dto.BasicArtistDTO;
 import com.poli.songstock.repository.ArtistRepository;
 
 @Service
@@ -199,5 +201,61 @@ public class ArtistService implements ArtistRepository {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	/**
+	 * Convierte una instancia de la entidad Artist al DTO de BasicArtist.
+	 * @param artist Artist instancia de la entidad Artist
+	 * @return BasicArtistDTO instancia de BasicArtistDTO
+	 */
+	public BasicArtistDTO castEntityToBasicArtistDto(Artist artist) {
+		BasicArtistDTO basicArtistDTO = new BasicArtistDTO();
+		basicArtistDTO.setName(artist.getName());
+		return basicArtistDTO;
+	}
+	
+	/**
+	 * Retorna una lista de todos los registros de la entidad Artist convertidos en BasicArtistDTO.
+	 * @return List<BasicArtistDTO> lista de todos los registros de Artist en BasicArtistDTO.
+	 */
+	public List<BasicArtistDTO> findAllBasicArtistDto(){
+		return repository.findAll()
+				.stream()
+				.map(this::castEntityToBasicArtistDto)
+				.collect(Collectors.toList());
+	}
 
+	@Override
+	public List<Artist> findAllBySong(Long songId) {
+		return repository.findAllBySong(songId);
+	}
+	
+	/**
+	 * Retorna una lista de artistas de una cancion convertidos en BasicArtistDTO.
+	 * @param songId Long id de la cancion.
+	 * @return List<BasicArtistDTO> lista de los artistas de una cancion en BasicArtistDTO.
+	 */
+	public List<BasicArtistDTO> findAllBasicArtistDtoBySong(Long songId) {
+		return findAllBySong(songId)
+				.stream()
+				.map(this::castEntityToBasicArtistDto)
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Artist> findAllByAlbum(Long albumId) {
+		return repository.findAllByAlbum(albumId);
+	}
+
+	/**
+	 * Retorna una lista de artistas de un album convertidos en BasicArtistDTO.
+	 * @param albumId Long id del album.
+	 * @return List<BasicArtistDTO> lista de los artistas de un album en BasicArtistDTO.
+	 */
+	public List<BasicArtistDTO> findAllBasicArtistDtoByAlbum(Long albumId) {
+		return findAllByAlbum(albumId)
+				.stream()
+				.map(this::castEntityToBasicArtistDto)
+				.collect(Collectors.toList());
+	}
+	
 }

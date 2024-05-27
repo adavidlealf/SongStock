@@ -216,7 +216,7 @@ public class UsersService implements UsersRepository{
 	 * @param user Users instancia de la entidad Users
 	 * @return BasicUserDTO instancia de BasicUserDTO
 	 */
-	public BasicUserDTO castEntityToBasicUserDTO(Users user) {
+	public BasicUserDTO castEntityToBasicUserDto(Users user) {
 		BasicUserDTO basicUserDTO = new BasicUserDTO();
 		basicUserDTO.setName(user.getName());
 		basicUserDTO.setNickname(user.getNickname());
@@ -227,10 +227,10 @@ public class UsersService implements UsersRepository{
 	 * Retorna una lista de todos los registros de la entidad Users convertidos en BasicUserDTO.
 	 * @return List<BasicUserDTO> lista de todos los registros de Users en BasicUserDTO.
 	 */
-	public List<BasicUserDTO> findAllBasicUserDTO() {
+	public List<BasicUserDTO> findAllBasicUserDto() {
 		return repository.findAll()
 				.stream()
-				.map(this::castEntityToBasicUserDTO)
+				.map(this::castEntityToBasicUserDto)
 				.collect(Collectors.toList());
 	}
 	
@@ -239,12 +239,12 @@ public class UsersService implements UsersRepository{
 	 * @param user Users instancia de la entidad Users
 	 * @return UserDTO instancia de UserDTO
 	 */
-	public UserDTO castEntityToUserDTO(Users user) {
+	public UserDTO castEntityToUserDto(Users user) {
 		UserDTO userDTO = new UserDTO();
-		userDTO.setBasicUser(castEntityToBasicUserDTO(user));
+		userDTO.setBasicUser(castEntityToBasicUserDto(user));
 		userDTO.setEmail(user.getEmail());
 		userDTO.setPassword(user.getPassword());
-		userDTO.setAddresses(addressService.findAllAddressDTOByUser(user.getId()));
+		userDTO.setAddresses(addressService.findAllAddressDtoByUser(user.getId()));
 		return userDTO;
 	}
 
@@ -252,10 +252,10 @@ public class UsersService implements UsersRepository{
 	 * Retorna una lista de todos los registros de la entidad Users convertidos en UserDTO.
 	 * @return List<UserDTO> lista de todos los registros de Users en UserDTO.
 	 */
-	public List<UserDTO> findAllUserDTO() {
+	public List<UserDTO> findAllUserDto() {
 		return repository.findAll()
 				.stream()
-				.map(this::castEntityToUserDTO)
+				.map(this::castEntityToUserDto)
 				.collect(Collectors.toList());
 	}
 	
@@ -264,9 +264,9 @@ public class UsersService implements UsersRepository{
 	 * @param user Users instancia de la entidad Users
 	 * @return UserRoleDTO instancia de UserRoleDTO
 	 */
-	public UserRoleDTO castEntityToUserRoleDTO(Users user) {
+	public UserRoleDTO castEntityToUserRoleDto(Users user) {
 		UserRoleDTO userRoleDTO = new UserRoleDTO();
-		userRoleDTO.setUser(castEntityToUserDTO(user));
+		userRoleDTO.setUser(castEntityToUserDto(user));
 		Role role = roleService.findByUser(user.getRoleId());
 		userRoleDTO.setCanModify(role.getCanModify());
 		userRoleDTO.setCanSee(role.getCanSee());
@@ -278,10 +278,24 @@ public class UsersService implements UsersRepository{
 	 * Retorna una lista de todos los registros de la entidad Users convertidos en UserRoleDTO.
 	 * @return List<UserRoleDTO> lista de todos los registros de Users en UserRoleDTO.
 	 */
-	public List<UserRoleDTO> findAllUserRoleDTO() {
+	public List<UserRoleDTO> findAllUserRoleDto() {
 		return repository.findAll()
 				.stream()
-				.map(this::castEntityToUserRoleDTO)
+				.map(this::castEntityToUserRoleDto)
 				.collect(Collectors.toList());
+	}
+
+	@Override
+	public Users findDistributorByVinyl(Long distributorId) {
+		return repository.findDistributorByVinyl(distributorId);
+	}
+	
+	/**
+	 * Busca un usuario distribuidor que tiene un vinilo y lo retorna en un BasicUserDTO.
+	 * @param distributorId Long id del distribuidor del vinilo.
+	 * @return BasicUserDTO instancia del distribuidor.
+	 */
+	public BasicUserDTO findDistributorBasicUserDtoByVinyl(Long distributorId) {
+		return castEntityToBasicUserDto(findDistributorByVinyl(distributorId));
 	}
 }

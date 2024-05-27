@@ -7,12 +7,12 @@ public class BasicArtistDTO {
 	/**
 	 * Name of the item
 	 */
-	private String nombre;
+	private String name;
 
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(nombre);
+		return Objects.hash(name);
 	}
 
 	@Override
@@ -24,36 +24,34 @@ public class BasicArtistDTO {
 		if (getClass() != obj.getClass())
 			return false;
 		BasicArtistDTO other = (BasicArtistDTO) obj;
-		return Objects.equals(nombre, other.nombre);
+		return Objects.equals(name, other.name);
 	}
 
 	/**
 	 * Empty Constructor
 	 */
 	public BasicArtistDTO() {
-		super();
 	}
 
 	/**
 	 * @param nombre
 	 */
-	public BasicArtistDTO(String nombre) {
-		super();
-		this.nombre = nombre;
+	public BasicArtistDTO(String name) {
+		this.name = name;
 	}
 
 	/**
-	 * @return the nombre
+	 * @return the name
 	 */
-	public String getNombre() {
-		return nombre;
+	public String getName() {
+		return name;
 	}
 
 	/**
-	 * @param nombre the nombre to set
+	 * @param name the name to set
 	 */
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 }

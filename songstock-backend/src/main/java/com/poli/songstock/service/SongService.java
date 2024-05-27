@@ -3,6 +3,7 @@ package com.poli.songstock.service;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -13,13 +14,17 @@ import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuer
 import org.springframework.stereotype.Service;
 
 import com.poli.songstock.domain.Song;
+import com.poli.songstock.dto.BasicSongDTO;
 import com.poli.songstock.repository.SongRepository;
 
 @Service
 public class SongService implements SongRepository{
 	
 	@Autowired
-	private SongRepository songRepository;
+	private SongRepository repository;
+	
+	@Autowired
+	private ArtistService artistService;
 
 	@Override
 	public void flush() {
@@ -95,7 +100,7 @@ public class SongService implements SongRepository{
 
 	@Override
 	public List<Song> findAll() {
-		return songRepository.findAll();
+		return repository.findAll();
 	}
 
 	@Override
@@ -200,5 +205,28 @@ public class SongService implements SongRepository{
 		return null;
 	}
 
+	/**
+	 * Convierte una instancia de la entidad Song al DTO de BasicSong.
+	 * @param song Song instancia de la entidad Song
+	 * @return BasicSongDTO instancia de BasicSongDTO
+	 */
+	public BasicSongDTO castEntityToBasicSongDTO(Song song) {
+		BasicSongDTO dto = new BasicSongDTO();
+		dto.setDuration(song.getDuration());
+		dto.setTitle(song.getTitle());
+		dto.setArtists(artistService.findAllBasicArtistDtoBySong(song.getId()));
+		return dto;
+	}
+	
+	/**
+	 * Retorna una lista de todos los registros de la entidad Song convertidos en BasicSongDTO.
+	 * @return List<BasicSongDTO> lista de todos los registros de Song en BasicSongDTO.
+	 */
+	public List<BasicSongDTO> findAllBasicSongDTO() {
+		return findAll()
+				.stream()
+				.map(this::castEntityToBasicSongDTO)
+				.collect(Collectors.toList());
+	}
 	
 }
