@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.poli.songstock.domain.Vinyl;
 import com.poli.songstock.dto.BasicVinylDTO;
+import com.poli.songstock.dto.ProductVinylDTO;
 import com.poli.songstock.dto.VinylDTO;
 import com.poli.songstock.repository.VinylRepository;
 
@@ -251,6 +252,30 @@ public class VinylService implements VinylRepository {
 		return repository.findAll()
 				.stream()
 				.map(this::castEntityToVinylDto)
+				.collect(Collectors.toList());
+	}
+	
+	/**
+	 * Convierte una instancia de la entidad Vinyl al DTO de ProductVinyl.
+	 * @param vinyl Vinyl instancia de la entidad Vinyl
+	 * @return ProductVinylDTO instancia de ProductVinylDTO
+	 */
+	public ProductVinylDTO castEntityToProductVinylDto(Vinyl vinyl) {
+		ProductVinylDTO vinylDTO = new ProductVinylDTO();
+		vinylDTO.setBasicVinyl(castEntityToBasicVinylDto(vinyl));
+		vinylDTO.setPrice(CatalogueService.getInstance()
+				.getPriceByVinyl(vinyl.getId()));
+		return vinylDTO;
+	}
+	
+	/**
+	 * Retorna una lista de todos los registros de la entidad Vinyl convertidos en ProductVinylDTO.
+	 * @return List<ProductVinylDTO> lista de todos los registros de Vinyl en ProductVinylDTO.
+	 */
+	public List<ProductVinylDTO> findAllProductVinylDto(){
+		return repository.findAll()
+				.stream()
+				.map(this::castEntityToProductVinylDto)
 				.collect(Collectors.toList());
 	}
 }

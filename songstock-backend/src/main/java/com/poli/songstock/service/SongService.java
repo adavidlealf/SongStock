@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.poli.songstock.domain.Song;
 import com.poli.songstock.dto.BasicSongDTO;
+import com.poli.songstock.dto.ProductSongDTO;
 import com.poli.songstock.dto.SongDTO;
 import com.poli.songstock.repository.SongRepository;
 
@@ -299,6 +300,30 @@ public class SongService implements SongRepository{
 		return findAllByArtist(artistId)
 				.stream()
 				.map(this::castEntityToSongDto)
+				.collect(Collectors.toList());
+	}
+	
+	/**
+	 * Convierte una instancia de la entidad Song al DTO de ProductSong.
+	 * @param song Song instancia de la entidad Song
+	 * @return ProductSongDTO instancia de ProductSongDTO
+	 */
+	public ProductSongDTO castEntityToProductSongDto(Song song) {
+		ProductSongDTO dto = new ProductSongDTO();
+		dto.setBasicSong(castEntityToBasicSongDto(song));
+		dto.setPrice(CatalogueService.getInstance().
+				getPriceBySong(song.getId()));
+		return dto;
+	}
+	
+	/**
+	 * Retorna una lista de todos los registros de la entidad Song convertidos en ProductSongDTO.
+	 * @return List<ProductSongDTO> lista de todos los registros de Song en ProductSongDTO.
+	 */
+	public List<ProductSongDTO> findAllProductSongDto() {
+		return findAll()
+				.stream()
+				.map(this::castEntityToProductSongDto)
 				.collect(Collectors.toList());
 	}
 }

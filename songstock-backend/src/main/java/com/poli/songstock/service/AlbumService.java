@@ -21,6 +21,7 @@ import com.poli.songstock.domain.Song;
 import com.poli.songstock.dto.AlbumDTO;
 import com.poli.songstock.dto.BasicAlbumDTO;
 import com.poli.songstock.dto.BasicSongDTO;
+import com.poli.songstock.dto.ProductAlbumDTO;
 import com.poli.songstock.repository.AlbumRepository;
 
 @Service
@@ -297,6 +298,30 @@ public class AlbumService implements AlbumRepository{
 		return repository.findAll()
 				.stream()
 				.map(this::castEntityToAlbumDto)
+				.collect(Collectors.toList());
+	}
+	
+	/**
+	 * Convierte una instancia de la entidad Album al DTO de ProductAlbum.
+	 * @param album Album instancia de la entidad Album
+	 * @return ProductAlbumDTO instancia de ProductAlbumDTO
+	 */
+	public ProductAlbumDTO castEntityToProductAlbumDto(Album album) {
+		ProductAlbumDTO productAlbumDTO = new ProductAlbumDTO();
+		productAlbumDTO.setBasicAlbum(castEntityToBasicAlbumDto(album));
+		productAlbumDTO.setPrice(CatalogueService.getInstance()
+				.getPriceByAlbum(album.getId()));
+		return productAlbumDTO;
+	}
+	
+	/**
+	 * Retorna una lista de todos los registros de la entidad Album convertidos en ProductAlbumDTO.
+	 * @return List<ProductAlbumDTO> lista de todos los registros de Album en ProductAlbumDTO.
+	 */
+	public List<ProductAlbumDTO> findAllProductAlbumDTO() {
+		return repository.findAll()
+				.stream()
+				.map(this::castEntityToProductAlbumDto)
 				.collect(Collectors.toList());
 	}
 }

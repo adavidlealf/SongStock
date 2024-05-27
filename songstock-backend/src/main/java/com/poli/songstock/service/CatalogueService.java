@@ -21,6 +21,22 @@ public class CatalogueService implements CatalogueRepository {
 	@Autowired
 	private CatalogueRepository repository;
 	
+	/**
+	 * Patron Singleton.
+	 */
+	private static CatalogueService instance;
+	
+	/**
+	 * Obtener instancia de patron singleton.
+	 * @return
+	 */
+	public static CatalogueService getInstance() {
+		if(instance == null) {
+			instance = new CatalogueService();
+		}
+		return instance;
+	}
+	
 	@Override
 	public void flush() {
 		// TODO Auto-generated method stub
@@ -198,6 +214,51 @@ public class CatalogueService implements CatalogueRepository {
 	public <S extends Catalogue, R> R findBy(Example<S> example, Function<FetchableFluentQuery<S>, R> queryFunction) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Catalogue findBySong(Long songId) {
+		return repository.findBySong(songId);
+	}
+
+	@Override
+	public Catalogue findByAlbum(Long albumId) {
+		return repository.findByAlbum(albumId);
+	}
+
+	@Override
+	public Catalogue findByVinyl(Long vinylId) {
+		return repository.findByVinyl(vinylId);
+	}
+	
+	/**
+	 * Obtiene el precio de una cancion dado su id.
+	 * @param songId Long id de la cancion
+	 * @return Double precio de la cancion
+	 */
+	public Double getPriceBySong(Long songId) {
+		Catalogue c = findBySong(songId);
+		return c.getPrice();
+	}
+	
+	/**
+	 * Obtiene el precio de un album dado su id.
+	 * @param albumId Long id de la album
+	 * @return Double precio de la album
+	 */
+	public Double getPriceByAlbum(Long albumId) {
+		Catalogue c = findByAlbum(albumId);
+		return c.getPrice();
+	}
+	
+	/**
+	 * Obtiene el precio de un vinilo dado su id.
+	 * @param viniloId Long id de la vinilo
+	 * @return Double precio de la vinilo
+	 */
+	public Double getPriceByVinyl(Long vinylId) {
+		Catalogue c = findByVinyl(vinylId);
+		return c.getPrice();
 	}
 
 }
