@@ -1,10 +1,54 @@
 package com.poli.songstock.dto;
 
+import java.util.List;
+import java.util.Objects;
+
 public class BasicSongDTO {
 
 	private String title;
 	
 	private Integer duration;
+	
+	private List<BasicArtistDTO> artists;
+	
+	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(artists, duration, title);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		BasicSongDTO other = (BasicSongDTO) obj;
+		return Objects.equals(artists, other.artists) && Objects.equals(duration, other.duration)
+				&& Objects.equals(title, other.title);
+	}
+
+	/**
+	 * 
+	 */
+	public BasicSongDTO() {
+		super();
+	}
+
+	/**
+	 * @param title
+	 * @param duration
+	 * @param artists
+	 */
+	public BasicSongDTO(String title, Integer duration, List<BasicArtistDTO> artists) {
+		super();
+		this.title = title;
+		this.duration = duration;
+		this.artists = artists;
+	}
 
 	/**
 	 * @return the title
@@ -33,5 +77,21 @@ public class BasicSongDTO {
 	public void setDuration(Integer duration) {
 		this.duration = duration;
 	}
+
+	/**
+	 * @return the artists
+	 */
+	public List<BasicArtistDTO> getArtists() {
+		return artists;
+	}
+
+	/**
+	 * @param artists the artists to set
+	 */
+	public void setArtists(List<BasicArtistDTO> artists) {
+		this.artists = artists;
+	}
+
+	
 	
 }
