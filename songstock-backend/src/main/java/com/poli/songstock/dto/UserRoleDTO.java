@@ -1,126 +1,102 @@
 package com.poli.songstock.dto;
 
-import java.util.List;
-import java.util.Objects;
+import com.poli.songstock.domain.Role;
 
 public class UserRoleDTO {
+
+	/**
+	 * Instance of the user
+	 */
+	private UserDTO user;
 	
 	/**
-	 * Basic user data transfer object
+	 * Fields that the user can see according to its role.
 	 */
-	private BasicUserDTO basicUser;
+	private String canSee;
 
 	/**
-	 * List of address data transfer objects
+	 * Fields that the user can modify according to its role.
 	 */
-	private List<AddressDTO> addresses;
-
-	/**
-	 * Email address
-	 */
-	private String email;
-
-	/**
-	 * Password for authentication
-	 */
-	private String password;
-
+	private String canModify;
 	
-	@Override
-	public int hashCode() {
-		return Objects.hash(addresses, basicUser, email, password);
-	}
+	/**
+	 * Name of its role.
+	 */
+	private Role.Name roleName;
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		UserRoleDTO other = (UserRoleDTO) obj;
-		return Objects.equals(addresses, other.addresses) && Objects.equals(basicUser, other.basicUser)
-				&& Objects.equals(email, other.email) && Objects.equals(password, other.password);
+	/**
+	 * @param user
+	 * @param canSee
+	 * @param canModify
+	 * @param roleName
+	 */
+	public UserRoleDTO(UserDTO user, String canSee, String canModify, Role.Name roleName) {
+		this.user = user;
+		this.canSee = canSee;
+		this.canModify = canModify;
+		this.roleName = roleName;
 	}
 
 	/**
 	 * Empty Constructor
 	 */
 	public UserRoleDTO() {
-		super();
 	}
 
 	/**
-	 * @param basicUser
-	 * @param addresses
-	 * @param email
-	 * @param password
+	 * @return the user
 	 */
-	public UserRoleDTO(BasicUserDTO basicUser, List<AddressDTO> addresses, String email, String password) {
-		super();
-		this.basicUser = basicUser;
-		this.addresses = addresses;
-		this.email = email;
-		this.password = password;
+	public UserDTO getUser() {
+		return user;
 	}
 
 	/**
-	 * @return the basicUser
+	 * @param user the user to set
 	 */
-	public BasicUserDTO getBasicUser() {
-		return basicUser;
+	public void setUser(UserDTO user) {
+		this.user = user;
 	}
 
 	/**
-	 * @param basicUser the basicUser to set
+	 * @return the canSee
 	 */
-	public void setBasicUser(BasicUserDTO basicUser) {
-		this.basicUser = basicUser;
+	public String getCanSee() {
+		return canSee;
 	}
 
 	/**
-	 * @return the addresses
+	 * @param canSee the canSee to set
 	 */
-	public List<AddressDTO> getAddresses() {
-		return addresses;
+	public void setCanSee(String canSee) {
+		this.canSee = canSee;
 	}
 
 	/**
-	 * @param addresses the addresses to set
+	 * @return the canModify
 	 */
-	public void setAddresses(List<AddressDTO> addresses) {
-		this.addresses = addresses;
+	public String getCanModify() {
+		return canModify;
 	}
 
 	/**
-	 * @return the email
+	 * @param canModify the canModify to set
 	 */
-	public String getEmail() {
-		return email;
+	public void setCanModify(String canModify) {
+		this.canModify = canModify;
 	}
 
 	/**
-	 * @param email the email to set
+	 * @return the roleName
 	 */
-	public void setEmail(String email) {
-		this.email = email;
+	public Role.Name getRoleName() {
+		return roleName;
 	}
 
 	/**
-	 * @return the password
+	 * @param roleName the roleName to set
 	 */
-	public String getPassword() {
-		return password;
+	public void setRoleName(Role.Name roleName) {
+		this.roleName = roleName;
 	}
-
-	/**
-	 * @param password the password to set
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	
 	
 }

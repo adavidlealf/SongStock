@@ -19,7 +19,7 @@ import com.poli.songstock.repository.RoleRepository;
 public class RoleService implements RoleRepository{
 	
 	@Autowired
-	private RoleRepository roleRepository;
+	private RoleRepository repository;
 
 	@Override
 	public void flush() {
@@ -95,7 +95,7 @@ public class RoleService implements RoleRepository{
 
 	@Override
 	public List<Role> findAll() {
-		return roleRepository.findAll();
+		return repository.findAll();
 	}
 
 	@Override
@@ -198,6 +198,11 @@ public class RoleService implements RoleRepository{
 	public <S extends Role, R> R findBy(Example<S> example, Function<FetchableFluentQuery<S>, R> queryFunction) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Role findByUser(Long roleId) {
+		return repository.findByUser(roleId);
 	}
 
 	

@@ -1,6 +1,8 @@
 package com.poli.songstock.domain;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -14,11 +16,18 @@ public class Role {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	private String name;
+	@Enumerated(EnumType.STRING)
+	private Role.Name name;
 	
 	private String canSee;
 	
 	private String canModify;
+	
+	public enum Name {
+		CONSUMER,
+		DISTRIBUTOR,
+		ADMINISTRATOR
+	}
 
 	/**
 	 * @return the id
@@ -32,20 +41,6 @@ public class Role {
 	 */
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	/**
@@ -74,6 +69,20 @@ public class Role {
 	 */
 	public void setCanModify(String canModify) {
 		this.canModify = canModify;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public Role.Name getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(Role.Name name) {
+		this.name = name;
 	}
 	
 }

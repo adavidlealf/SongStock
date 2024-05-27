@@ -3,6 +3,7 @@ package com.poli.songstock.service;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -13,6 +14,7 @@ import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuer
 import org.springframework.stereotype.Service;
 
 import com.poli.songstock.domain.Address;
+import com.poli.songstock.dto.AddressDTO;
 import com.poli.songstock.repository.AddressRepository;
 
 @Service
@@ -200,4 +202,47 @@ public class AddressService implements AddressRepository {
 		return null;
 	}
 
+	/**
+	 * Convierte una instancia de la entidad Address al DTO de Address.
+	 * @param address Address instancia de la entidad
+	 * @return AddressDTO instancia del DTO
+	 */
+	public AddressDTO castEntityToAddressDTO(Address address) {
+		AddressDTO addressDTO = new AddressDTO();
+		addressDTO.setCity(address.getCity());
+		addressDTO.setPostalCode(address.getPostalCode());
+		addressDTO.setAddress(address.getAddress());
+		addressDTO.setSpec(address.getSpec());
+		addressDTO.setObs(address.getObs());
+		addressDTO.setPhone(address.getPhone());
+		return addressDTO;
+	}
+
+	/**
+	 * Retorna una lista de todos los registros de la entidad Address convertidos en DTO.
+	 * @return List<AddressDTO> lista de todos los registros de Address en DTO.
+	 */
+	public List<AddressDTO> findAllAddressDTO() {
+		return repository.findAll()
+				.stream()
+				.map(this::castEntityToAddressDTO)
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Address> findAllByUser(Long userId) {
+		return repository.findAllByUser(userId);
+	}
+
+	/**
+	 * Retorna una lista de todas las direcciones de un usuario convertidos en AddressDTO.
+	 * @return List<AddressDTO> lista de direcciones de un usuario en AddressDTO.
+	 */
+	public List<AddressDTO> findAllAddressDTOByUser(Long id) {
+		return findAllByUser(id)
+				.stream()
+				.map(this::castEntityToAddressDTO)
+				.collect(Collectors.toList());
+	}
+	
 }
