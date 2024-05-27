@@ -29,8 +29,21 @@ public class AlbumService implements AlbumRepository{
 	@Autowired
 	private AlbumRepository repository;
 	
-	@Autowired
-	private ArtistService artistService;
+	/**
+	 * Patron Singleton.
+	 */
+	private static AlbumService instance;
+	
+	/**
+	 * Obtener instancia de patron singleton.
+	 * @return
+	 */
+	public static AlbumService getInstance() {
+		if(instance == null) {
+			instance = new AlbumService();
+		}
+		return instance;
+	}
 	
 	@Override
 	public void flush() {
@@ -82,8 +95,7 @@ public class AlbumService implements AlbumRepository{
 
 	@Override
 	public Album getReferenceById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.getReferenceById(id);
 	}
 
 	@Override
@@ -225,7 +237,8 @@ public class AlbumService implements AlbumRepository{
 			));
 		}
 		basicAlbumDTO.setCoverUrl(album.getCoverUrl());
-		basicAlbumDTO.setArtists(artistService.findAllBasicArtistDtoByAlbum(album.getId()));
+		basicAlbumDTO.setArtists(ArtistService.getInstance()
+				.findAllBasicArtistDtoByAlbum(album.getId()));
 		return basicAlbumDTO;
 	}
 	
@@ -239,5 +252,51 @@ public class AlbumService implements AlbumRepository{
 				.map(this::castEntityToBasicAlbumDto)
 				.collect(Collectors.toList());
 	}
+
+	@Override
+	public Album findBySong(Long songId) {
+		return repository.findBySong(songId);
+	}
 	
+	/**
+	 * Consulta el album de una cancion y retorna el BasicAlbumDTO.
+	 * @param songId Long id de la cancion.
+	 * @return BasicAlbumDTO instancia de BasicAlbumDTO de una cancion.
+	 */
+	public BasicAlbumDTO findBasicAlbumDtoBySong(Long songId) {
+		return castEntityToBasicAlbumDto(findBySong(songId));
+	}
+	
+	/**
+	 * Convierte una instancia de la entidad Album al DTO de Album.
+	 * @param album Album instancia de la entidad Album
+	 * @return AlbumDTO instancia de AlbumDTO
+	 */
+	public AlbumDTO castEntityToAlbumDto(Album album) {
+		AlbumDTO albumDTO = new AlbumDTO();
+		albumDTO.setBasicAlbum(castEntityToBasicAlbumDto(album));
+		albumDTO.setSongs(SongService.getInstance()
+				.findAllBasicSongDtoByAlbum(album.getId()));
+		return albumDTO;
+	}
+	
+	/**
+	 * Busca una instancia de la entidad Album por su id y lo convierte al DTO de Album.
+	 * @param album Album instancia de la entidad Album
+	 * @return id Long id del album
+	 */
+	public AlbumDTO getReferenceAlbumDtoById(Long id) {
+		return castEntityToAlbumDto(getReferenceById(id));
+	}
+	
+	/**
+	 * Retorna una lista de todos los registros de la entidad Album convertidos en AlbumDTO.
+	 * @return List<AlbumDTO> lista de todos los registros de Album en AlbumDTO.
+	 */
+	public List<AlbumDTO> findAllAlbumDTO() {
+		return repository.findAll()
+				.stream()
+				.map(this::castEntityToAlbumDto)
+				.collect(Collectors.toList());
+	}
 }

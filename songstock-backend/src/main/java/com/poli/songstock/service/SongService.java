@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.poli.songstock.domain.Song;
 import com.poli.songstock.dto.BasicSongDTO;
+import com.poli.songstock.dto.SongDTO;
 import com.poli.songstock.repository.SongRepository;
 
 @Service
@@ -23,8 +24,21 @@ public class SongService implements SongRepository{
 	@Autowired
 	private SongRepository repository;
 	
-	@Autowired
-	private ArtistService artistService;
+	/**
+	 * Patron Singleton.
+	 */
+	private static SongService instance;
+	
+	/**
+	 * Obtener instancia de patron singleton.
+	 * @return
+	 */
+	public static SongService getInstance() {
+		if(instance == null) {
+			instance = new SongService();
+		}
+		return instance;
+	}
 
 	@Override
 	public void flush() {
@@ -210,11 +224,12 @@ public class SongService implements SongRepository{
 	 * @param song Song instancia de la entidad Song
 	 * @return BasicSongDTO instancia de BasicSongDTO
 	 */
-	public BasicSongDTO castEntityToBasicSongDTO(Song song) {
+	public BasicSongDTO castEntityToBasicSongDto(Song song) {
 		BasicSongDTO dto = new BasicSongDTO();
 		dto.setDuration(song.getDuration());
 		dto.setTitle(song.getTitle());
-		dto.setArtists(artistService.findAllBasicArtistDtoBySong(song.getId()));
+		dto.setArtists(ArtistService.getInstance()
+				.findAllBasicArtistDtoBySong(song.getId()));
 		return dto;
 	}
 	
@@ -222,11 +237,68 @@ public class SongService implements SongRepository{
 	 * Retorna una lista de todos los registros de la entidad Song convertidos en BasicSongDTO.
 	 * @return List<BasicSongDTO> lista de todos los registros de Song en BasicSongDTO.
 	 */
-	public List<BasicSongDTO> findAllBasicSongDTO() {
+	public List<BasicSongDTO> findAllBasicSongDto() {
 		return findAll()
 				.stream()
-				.map(this::castEntityToBasicSongDTO)
+				.map(this::castEntityToBasicSongDto)
 				.collect(Collectors.toList());
 	}
 	
+	/**
+	 * Convierte una instancia de la entidad Song al DTO de Song.
+	 * @param song Song instancia de la entidad Song
+	 * @return SongDTO instancia de SongDTO
+	 */
+	public SongDTO castEntityToSongDto(Song song) {
+		SongDTO dto = new SongDTO();
+		dto.setBasicSong(castEntityToBasicSongDto(song));
+		dto.setBasicAlbum(AlbumService.getInstance()
+				.findBasicAlbumDtoBySong(song.getId()));
+		return dto;
+	}
+	
+	/**
+	 * Retorna una lista de todos los registros de la entidad Song convertidos en SongDTO.
+	 * @return List<SongDTO> lista de todos los registros de Song en SongDTO.
+	 */
+	public List<SongDTO> findAllSongDto() {
+		return findAll()
+				.stream()
+				.map(this::castEntityToSongDto)
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Song> findAllByAlbum(Long albumId) {
+		return repository.findAllByAlbum(albumId);
+	}
+	
+	/**
+	 * Consulta las canciones de un album y las retorna en una lista de BasicSongDTO.
+	 * @param albumId Long id del album
+	 * @return List<BasicSongDTO> canciones del album.
+	 */
+	public List<BasicSongDTO> findAllBasicSongDtoByAlbum(Long albumId) {
+		return findAllByAlbum(albumId)
+				.stream()
+				.map(this::castEntityToBasicSongDto)
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Song> findAllByArtist(Long artistId) {
+		return repository.findAllByArtist(artistId);
+	}
+	
+	/**
+	 * Consulta las canciones de un artista y las retorna en una lista de SongDTO.
+	 * @param albumId Long id del artista
+	 * @return List<SongDTO> canciones del artista.
+	 */
+	public List<SongDTO> findAllSongDtoByArtist(Long artistId) {
+		return findAllByArtist(artistId)
+				.stream()
+				.map(this::castEntityToSongDto)
+				.collect(Collectors.toList());
+	}
 }

@@ -15,16 +15,10 @@ public class ArtistDTO {
 	 */
 	private List<SongDTO> songs;
 
-	/**
-	 * Profile photo URL
-	 */
-	private String profilePhoto;
-	
-	
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(basicArtist, profilePhoto, songs);
+		return Objects.hash(basicArtist, songs);
 	}
 
 	@Override
@@ -36,7 +30,7 @@ public class ArtistDTO {
 		if (getClass() != obj.getClass())
 			return false;
 		ArtistDTO other = (ArtistDTO) obj;
-		return Objects.equals(basicArtist, other.basicArtist) && Objects.equals(profilePhoto, other.profilePhoto)
+		return Objects.equals(basicArtist, other.basicArtist)
 				&& Objects.equals(songs, other.songs);
 	}
 
@@ -50,13 +44,11 @@ public class ArtistDTO {
 	/**
 	 * @param basicArtist
 	 * @param songs
-	 * @param profilePhoto
 	 */
-	public ArtistDTO(BasicArtistDTO basicArtist, List<SongDTO> songs, String profilePhoto) {
+	public ArtistDTO(BasicArtistDTO basicArtist, List<SongDTO> songs) {
 		super();
 		this.basicArtist = basicArtist;
 		this.songs = songs;
-		this.profilePhoto = profilePhoto;
 	}
 
 	/**
@@ -86,21 +78,5 @@ public class ArtistDTO {
 	public void setSongs(List<SongDTO> songs) {
 		this.songs = songs;
 	}
-
-	/**
-	 * @return the profilePhoto
-	 */
-	public String getProfilePhoto() {
-		return profilePhoto;
-	}
-
-	/**
-	 * @param profilePhoto the profilePhoto to set
-	 */
-	public void setProfilePhoto(String profilePhoto) {
-		this.profilePhoto = profilePhoto;
-	}
-	
-	
 	
 }

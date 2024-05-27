@@ -21,6 +21,22 @@ public class RoleService implements RoleRepository{
 	@Autowired
 	private RoleRepository repository;
 
+	/**
+	 * Patron Singleton.
+	 */
+	private static RoleService instance;
+	
+	/**
+	 * Obtener instancia de patron singleton.
+	 * @return
+	 */
+	public static RoleService getInstance() {
+		if(instance == null) {
+			instance = new RoleService();
+		}
+		return instance;
+	}
+	
 	@Override
 	public void flush() {
 		// TODO Auto-generated method stub

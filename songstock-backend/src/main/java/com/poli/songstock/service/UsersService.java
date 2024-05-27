@@ -26,12 +26,22 @@ public class UsersService implements UsersRepository{
 	@Autowired
 	private UsersRepository repository;
 	
-	@Autowired
-	private AddressService addressService;
-
-	@Autowired
-	private RoleService roleService;
-
+	/**
+	 * Patron Singleton.
+	 */
+	private static UsersService instance;
+	
+	/**
+	 * Obtener instancia de patron singleton.
+	 * @return
+	 */
+	public static UsersService getInstance() {
+		if(instance == null) {
+			instance = new UsersService();
+		}
+		return instance;
+	}
+	
 	@Override
 	public void flush() {
 		// TODO Auto-generated method stub
@@ -244,7 +254,8 @@ public class UsersService implements UsersRepository{
 		userDTO.setBasicUser(castEntityToBasicUserDto(user));
 		userDTO.setEmail(user.getEmail());
 		userDTO.setPassword(user.getPassword());
-		userDTO.setAddresses(addressService.findAllAddressDtoByUser(user.getId()));
+		userDTO.setAddresses(AddressService.getInstance()
+				.findAllAddressDtoByUser(user.getId()));
 		return userDTO;
 	}
 
@@ -267,7 +278,7 @@ public class UsersService implements UsersRepository{
 	public UserRoleDTO castEntityToUserRoleDto(Users user) {
 		UserRoleDTO userRoleDTO = new UserRoleDTO();
 		userRoleDTO.setUser(castEntityToUserDto(user));
-		Role role = roleService.findByUser(user.getRoleId());
+		Role role = RoleService.getInstance().findByUser(user.getRoleId());
 		userRoleDTO.setCanModify(role.getCanModify());
 		userRoleDTO.setCanSee(role.getCanSee());
 		userRoleDTO.setRoleName(role.getName());

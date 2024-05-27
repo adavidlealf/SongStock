@@ -14,6 +14,7 @@ import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuer
 import org.springframework.stereotype.Service;
 
 import com.poli.songstock.domain.Artist;
+import com.poli.songstock.dto.ArtistDTO;
 import com.poli.songstock.dto.BasicArtistDTO;
 import com.poli.songstock.repository.ArtistRepository;
 
@@ -22,6 +23,22 @@ public class ArtistService implements ArtistRepository {
 
 	@Autowired
 	private ArtistRepository repository;
+
+	/**
+	 * Patron Singleton.
+	 */
+	private static ArtistService instance;
+	
+	/**
+	 * Obtener instancia de patron singleton.
+	 * @return
+	 */
+	public static ArtistService getInstance() {
+		if(instance == null) {
+			instance = new ArtistService();
+		}
+		return instance;
+	}
 	
 	@Override
 	public void flush() {
@@ -258,4 +275,27 @@ public class ArtistService implements ArtistRepository {
 				.collect(Collectors.toList());
 	}
 	
+	/**
+	 * Convierte una instancia de la entidad Artist al DTO de Artist.
+	 * @param artist Artist instancia de la entidad Artist
+	 * @return ArtistDTO instancia de ArtistDTO
+	 */
+	public ArtistDTO castEntityToArtistDto(Artist artist) {
+		ArtistDTO artistDTO = new ArtistDTO();
+		artistDTO.setBasicArtist(castEntityToBasicArtistDto(artist));
+		artistDTO.setSongs(SongService.getInstance()
+				.findAllSongDtoByArtist(artist.getId()));
+		return artistDTO;
+	}
+	
+	/**
+	 * Retorna una lista de todos los registros de la entidad Artist convertidos en ArtistDTO.
+	 * @return List<ArtistDTO> lista de todos los registros de Artist en ArtistDTO.
+	 */
+	public List<ArtistDTO> findAllArtistDto(){
+		return repository.findAll()
+				.stream()
+				.map(this::castEntityToArtistDto)
+				.collect(Collectors.toList());
+	}
 }

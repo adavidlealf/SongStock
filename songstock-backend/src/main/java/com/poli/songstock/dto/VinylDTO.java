@@ -7,60 +7,40 @@ public class VinylDTO {
 	/**
 	 * Basic vinyl data transfer object for the album
 	 */
-	private BasicVinylDTO albumVinyl;
+	private BasicVinylDTO basicVinyl;
 
 	/**
 	 * Album data transfer object
 	 */
 	private AlbumDTO album;
-	
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(album, albumVinyl);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		VinylDTO other = (VinylDTO) obj;
-		return Objects.equals(album, other.album) && Objects.equals(albumVinyl, other.albumVinyl);
-	}
 
 	/**
-	 * Empty Constructor
-	 */
-	public VinylDTO() {
-		super();
-	}
-
-	/**
-	 * @param albumVinyl
+	 * @param basicVinyl
 	 * @param album
 	 */
-	public VinylDTO(BasicVinylDTO albumVinyl, AlbumDTO album) {
-		super();
-		this.albumVinyl = albumVinyl;
+	public VinylDTO(BasicVinylDTO basicVinyl, AlbumDTO album) {
+		this.basicVinyl = basicVinyl;
 		this.album = album;
 	}
 
 	/**
-	 * @return the albumVinyl
+	 * Empty constructor
 	 */
-	public BasicVinylDTO getAlbumVinyl() {
-		return albumVinyl;
+	public VinylDTO() {
 	}
 
 	/**
-	 * @param albumVinyl the albumVinyl to set
+	 * @return the basicVinyl
 	 */
-	public void setAlbumVinyl(BasicVinylDTO albumVinyl) {
-		this.albumVinyl = albumVinyl;
+	public BasicVinylDTO getBasicVinyl() {
+		return basicVinyl;
+	}
+
+	/**
+	 * @param basicVinyl the basicVinyl to set
+	 */
+	public void setBasicVinyl(BasicVinylDTO basicVinyl) {
+		this.basicVinyl = basicVinyl;
 	}
 
 	/**
@@ -76,7 +56,22 @@ public class VinylDTO {
 	public void setAlbum(AlbumDTO album) {
 		this.album = album;
 	}
-	
-	
-	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(album, basicVinyl);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		VinylDTO other = (VinylDTO) obj;
+		return Objects.equals(album, other.album) && Objects.equals(basicVinyl, other.basicVinyl);
+	}
+
 }

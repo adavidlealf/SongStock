@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.poli.songstock.domain.Vinyl;
 import com.poli.songstock.dto.BasicVinylDTO;
+import com.poli.songstock.dto.VinylDTO;
 import com.poli.songstock.repository.VinylRepository;
 
 @Service
@@ -22,9 +23,6 @@ public class VinylService implements VinylRepository {
 
 	@Autowired
 	private VinylRepository repository;
-	
-	@Autowired
-	private UsersService usersService;
 	
 	@Override
 	public void flush() {
@@ -215,7 +213,8 @@ public class VinylService implements VinylRepository {
 		basicVinylDTO.setColor(vinyl.getColor());
 		basicVinylDTO.setInches(vinyl.getInches());
 		basicVinylDTO.setStock(vinyl.getStock());
-		basicVinylDTO.setDistributor(usersService.findDistributorBasicUserDtoByVinyl(vinyl.getDistributorId()));
+		basicVinylDTO.setDistributor(UsersService.getInstance()
+				.findDistributorBasicUserDtoByVinyl(vinyl.getDistributorId()));
 		return basicVinylDTO;
 	}
 	
@@ -227,6 +226,31 @@ public class VinylService implements VinylRepository {
 		return repository.findAll()
 				.stream()
 				.map(this::castEntityToBasicVinylDto)
+				.collect(Collectors.toList());
+	}
+	
+
+	/**
+	 * Convierte una instancia de la entidad Vinyl al DTO de Vinyl.
+	 * @param vinyl Vinyl instancia de la entidad Vinyl
+	 * @return VinylDTO instancia de VinylDTO
+	 */
+	public VinylDTO castEntityToVinylDto(Vinyl vinyl) {
+		VinylDTO vinylDTO = new VinylDTO();
+		vinylDTO.setBasicVinyl(castEntityToBasicVinylDto(vinyl));
+		vinylDTO.setAlbum(AlbumService.getInstance()
+				.getReferenceAlbumDtoById(vinyl.getAlbumId()));
+		return vinylDTO;
+	}
+	
+	/**
+	 * Retorna una lista de todos los registros de la entidad Vinyl convertidos en VinylDTO.
+	 * @return List<VinylDTO> lista de todos los registros de Vinyl en VinylDTO.
+	 */
+	public List<VinylDTO> findAllVinylDto(){
+		return repository.findAll()
+				.stream()
+				.map(this::castEntityToVinylDto)
 				.collect(Collectors.toList());
 	}
 }
