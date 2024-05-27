@@ -24,6 +24,22 @@ public class VinylService implements VinylRepository {
 
 	@Autowired
 	private VinylRepository repository;
+
+	/**
+	 * Patron Singleton.
+	 */
+	private static VinylService instance;
+	
+	/**
+	 * Obtener instancia de patron singleton.
+	 * @return
+	 */
+	public static VinylService getInstance() {
+		if(instance == null) {
+			instance = new VinylService();
+		}
+		return instance;
+	}
 	
 	@Override
 	public void flush() {
@@ -278,4 +294,22 @@ public class VinylService implements VinylRepository {
 				.map(this::castEntityToProductVinylDto)
 				.collect(Collectors.toList());
 	}
+	
+	@Override
+	public List<Vinyl> findAllByConsumer(Long consumerId) {
+		return repository.findAllByConsumer(consumerId);
+	}
+	
+	/**
+	 * Consulta la lista de vinilos de un consumidor y la retorna de tipo BasicVinylDTO.
+	 * @param consumerId Long id del consumidor
+	 * @return List<BasicVinylDTO> lista de vinilos del consumidor de tipo BasicVinylDTO.
+	 */
+	public List<BasicVinylDTO> findAllBasicVinylByConsumer(Long consumerId){
+		return findAllByConsumer(consumerId)
+				.stream()
+				.map(this::castEntityToBasicVinylDto)
+				.collect(Collectors.toList());
+	}
+	
 }

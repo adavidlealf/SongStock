@@ -6,20 +6,78 @@ import java.util.Objects;
 public class LibraryDTO {
 	
 	/**
-	 * List of product song data transfer objects
+	 * List of basic song data transfer objects
 	 */
-	private List<ProductSongDTO> songs;
+	private List<BasicSongDTO> songs;
 
 	/**
-	 * List of product album data transfer objects
+	 * List of basic album data transfer objects
 	 */
-	private List<ProductAlbumDTO> albums;
+	private List<BasicAlbumDTO> albums;
 
 	/**
-	 * List of product vinyl data transfer objects
+	 * List of basic vinyl data transfer objects
 	 */
-	private List<ProductVinylDTO> vinyls;
-	
+	private List<BasicVinylDTO> vinyls;
+
+	/**
+	 * @param songs
+	 * @param albums
+	 * @param vinyls
+	 */
+	public LibraryDTO(List<BasicSongDTO> songs, List<BasicAlbumDTO> albums, List<BasicVinylDTO> vinyls) {
+		this.songs = songs;
+		this.albums = albums;
+		this.vinyls = vinyls;
+	}
+
+	/**
+	 * Empty constructor 
+	 */
+	public LibraryDTO() {
+	}
+
+	/**
+	 * @return the songs
+	 */
+	public List<BasicSongDTO> getSongs() {
+		return songs;
+	}
+
+	/**
+	 * @param songs the songs to set
+	 */
+	public void setSongs(List<BasicSongDTO> songs) {
+		this.songs = songs;
+	}
+
+	/**
+	 * @return the albums
+	 */
+	public List<BasicAlbumDTO> getAlbums() {
+		return albums;
+	}
+
+	/**
+	 * @param albums the albums to set
+	 */
+	public void setAlbums(List<BasicAlbumDTO> albums) {
+		this.albums = albums;
+	}
+
+	/**
+	 * @return the vinyls
+	 */
+	public List<BasicVinylDTO> getVinyls() {
+		return vinyls;
+	}
+
+	/**
+	 * @param vinyls the vinyls to set
+	 */
+	public void setVinyls(List<BasicVinylDTO> vinyls) {
+		this.vinyls = vinyls;
+	}
 
 	@Override
 	public int hashCode() {
@@ -38,68 +96,5 @@ public class LibraryDTO {
 		return Objects.equals(albums, other.albums) && Objects.equals(songs, other.songs)
 				&& Objects.equals(vinyls, other.vinyls);
 	}
-
-	/**
-	 * Empty Constructor
-	 */
-	public LibraryDTO() {
-		super();
-	}
-
-	/**
-	 * @param songs
-	 * @param albums
-	 * @param vinyls
-	 */
-	public LibraryDTO(List<ProductSongDTO> songs, List<ProductAlbumDTO> albums, List<ProductVinylDTO> vinyls) {
-		super();
-		this.songs = songs;
-		this.albums = albums;
-		this.vinyls = vinyls;
-	}
-
-	/**
-	 * @return the songs
-	 */
-	public List<ProductSongDTO> getSongs() {
-		return songs;
-	}
-
-	/**
-	 * @param songs the songs to set
-	 */
-	public void setSongs(List<ProductSongDTO> songs) {
-		this.songs = songs;
-	}
-
-	/**
-	 * @return the albums
-	 */
-	public List<ProductAlbumDTO> getAlbums() {
-		return albums;
-	}
-
-	/**
-	 * @param albums the albums to set
-	 */
-	public void setAlbums(List<ProductAlbumDTO> albums) {
-		this.albums = albums;
-	}
-
-	/**
-	 * @return the vinyls
-	 */
-	public List<ProductVinylDTO> getVinyls() {
-		return vinyls;
-	}
-
-	/**
-	 * @param vinyls the vinyls to set
-	 */
-	public void setVinyls(List<ProductVinylDTO> vinyls) {
-		this.vinyls = vinyls;
-	}
-	
-	
 	
 }

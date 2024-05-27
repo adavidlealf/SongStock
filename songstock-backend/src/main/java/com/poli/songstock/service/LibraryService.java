@@ -3,6 +3,7 @@ package com.poli.songstock.service;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -13,6 +14,7 @@ import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuer
 import org.springframework.stereotype.Service;
 
 import com.poli.songstock.domain.Library;
+import com.poli.songstock.dto.LibraryDTO;
 import com.poli.songstock.repository.LibraryRepository;
 
 @Service
@@ -200,5 +202,31 @@ public class LibraryService implements LibraryRepository{
 		return null;
 	}
 
+	/**
+	 * Convierte una instancia de la entidad Library al DTO de Library.
+	 * @param library Library instancia de la entidad Library
+	 * @return LibraryDTO instancia de LibraryDTO
+	 */
+	public LibraryDTO castEntityToLibraryDto(Library library) {
+		LibraryDTO libraryDTO = new LibraryDTO();
+		libraryDTO.setAlbums(AlbumService.getInstance()
+				.findAllBasicAlbumByConsumer(library.getConsumerId()));
+		libraryDTO.setSongs(SongService.getInstance()
+				.findAllBasicSongByConsumer(library.getConsumerId()));
+		libraryDTO.setVinyls(VinylService.getInstance()
+				.findAllBasicVinylByConsumer(library.getConsumerId()));
+		return libraryDTO;
+	}
+	
+	/**
+	 * Retorna una lista de todos los registros de la entidad Library convertidos en LibraryDTO.
+	 * @return List<LibraryDTO> lista de todos los registros de Library en LibraryDTO.
+	 */
+	public List<LibraryDTO> findAllLibraryDto(){
+		return findAll()
+				.stream()
+				.map(this::castEntityToLibraryDto)
+				.collect(Collectors.toList());
+	}
 	
 }

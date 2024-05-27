@@ -326,4 +326,21 @@ public class SongService implements SongRepository{
 				.map(this::castEntityToProductSongDto)
 				.collect(Collectors.toList());
 	}
+
+	@Override
+	public List<Song> findAllByConsumer(Long consumerId) {
+		return repository.findAllByConsumer(consumerId);
+	}
+	
+	/**
+	 * Consulta la lista de canciones de un consumidor y la retorna de tipo BasicSongDTO.
+	 * @param consumerId Long id del consumidor
+	 * @return List<BasicSongDTO> lista de canciones del consumidor de tipo BasicSongDTO.
+	 */
+	public List<BasicSongDTO> findAllBasicSongByConsumer(Long consumerId){
+		return findAllByConsumer(consumerId)
+				.stream()
+				.map(this::castEntityToBasicSongDto)
+				.collect(Collectors.toList());
+	}
 }

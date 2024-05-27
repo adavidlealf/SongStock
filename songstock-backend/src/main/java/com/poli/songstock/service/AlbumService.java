@@ -1,7 +1,6 @@
 package com.poli.songstock.service;
 
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -17,10 +16,8 @@ import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuer
 import org.springframework.stereotype.Service;
 
 import com.poli.songstock.domain.Album;
-import com.poli.songstock.domain.Song;
 import com.poli.songstock.dto.AlbumDTO;
 import com.poli.songstock.dto.BasicAlbumDTO;
-import com.poli.songstock.dto.BasicSongDTO;
 import com.poli.songstock.dto.ProductAlbumDTO;
 import com.poli.songstock.repository.AlbumRepository;
 
@@ -324,4 +321,22 @@ public class AlbumService implements AlbumRepository{
 				.map(this::castEntityToProductAlbumDto)
 				.collect(Collectors.toList());
 	}
+	
+	@Override
+	public List<Album> findAllByConsumer(Long consumerId) {
+		return repository.findAllByConsumer(consumerId);
+	}
+	
+	/**
+	 * Consulta la lista de albumes de un consumidor y la retorna de tipo BasicAlbumDTO.
+	 * @param consumerId Long id del consumidor
+	 * @return List<BasicAlbumDTO> lista de albumes del consumidor de tipo BasicAlbumDTO.
+	 */
+	public List<BasicAlbumDTO> findAllBasicAlbumByConsumer(Long consumerId){
+		return findAllByConsumer(consumerId)
+				.stream()
+				.map(this::castEntityToBasicAlbumDto)
+				.collect(Collectors.toList());
+	}
+	
 }
