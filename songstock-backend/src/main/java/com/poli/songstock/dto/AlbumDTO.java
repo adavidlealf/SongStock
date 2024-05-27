@@ -2,62 +2,65 @@ package com.poli.songstock.dto;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class AlbumDTO {
 
 	/**
 	 * Name of the album
 	 */
-	private String name;
-	
-	private Date releaseDate;
-	
-	private String coverUrl;
-	
+	private BasicAlbumDTO basicAlbum;
+
 	private List<BasicSongDTO> songs;
+	
+	
 
-	private List<BasicArtistDTO> artist;
+	@Override
+	public int hashCode() {
+		return Objects.hash(basicAlbum, songs);
+	}
 
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AlbumDTO other = (AlbumDTO) obj;
+		return Objects.equals(basicAlbum, other.basicAlbum) && Objects.equals(songs, other.songs);
 	}
 
 	/**
-	 * @param name the name to set
+	 * 
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public AlbumDTO() {
+		super();
 	}
 
 	/**
-	 * @return the releaseDate
+	 * @param basicAlbum
+	 * @param songs
 	 */
-	public Date getReleaseDate() {
-		return releaseDate;
+	public AlbumDTO(BasicAlbumDTO basicAlbum, List<BasicSongDTO> songs) {
+		super();
+		this.basicAlbum = basicAlbum;
+		this.songs = songs;
 	}
 
 	/**
-	 * @param releaseDate the releaseDate to set
+	 * @return the basicAlbum
 	 */
-	public void setReleaseDate(Date releaseDate) {
-		this.releaseDate = releaseDate;
+	public BasicAlbumDTO getBasicAlbum() {
+		return basicAlbum;
 	}
 
 	/**
-	 * @return the coverUrl
+	 * @param basicAlbum the basicAlbum to set
 	 */
-	public String getCoverUrl() {
-		return coverUrl;
-	}
-
-	/**
-	 * @param coverUrl the coverUrl to set
-	 */
-	public void setCoverUrl(String coverUrl) {
-		this.coverUrl = coverUrl;
+	public void setBasicAlbum(BasicAlbumDTO basicAlbum) {
+		this.basicAlbum = basicAlbum;
 	}
 
 	/**
@@ -73,19 +76,8 @@ public class AlbumDTO {
 	public void setSongs(List<BasicSongDTO> songs) {
 		this.songs = songs;
 	}
+	
+	
 
-	/**
-	 * @return the artist
-	 */
-	public List<BasicArtistDTO> getArtist() {
-		return artist;
-	}
-
-	/**
-	 * @param artist the artist to set
-	 */
-	public void setArtist(List<BasicArtistDTO> artist) {
-		this.artist = artist;
-	}
 	
 }
