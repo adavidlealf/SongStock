@@ -20,48 +20,20 @@ public class BasicVinylDTO {
 	private Integer stock;
 
 	/**
-	 * Basic user data transfer object for the distributor
+	 * @param color
+	 * @param inches
+	 * @param stock
 	 */
-	private BasicUserDTO distributor;
-
-	
-	@Override
-	public int hashCode() {
-		return Objects.hash(color, distributor, inches, stock);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		BasicVinylDTO other = (BasicVinylDTO) obj;
-		return Objects.equals(color, other.color) && Objects.equals(distributor, other.distributor)
-				&& Objects.equals(inches, other.inches) && Objects.equals(stock, other.stock);
+	public BasicVinylDTO(String color, Double inches, Integer stock) {
+		this.color = color;
+		this.inches = inches;
+		this.stock = stock;
 	}
 
 	/**
 	 * Empty Constructor
 	 */
 	public BasicVinylDTO() {
-		super();
-	}
-
-	/**
-	 * @param color
-	 * @param inches
-	 * @param stock
-	 * @param distributor
-	 */
-	public BasicVinylDTO(String color, Double inches, Integer stock, BasicUserDTO distributor) {
-		super();
-		this.color = color;
-		this.inches = inches;
-		this.stock = stock;
-		this.distributor = distributor;
 	}
 
 	/**
@@ -106,20 +78,22 @@ public class BasicVinylDTO {
 		this.stock = stock;
 	}
 
-	/**
-	 * @return the distributor
-	 */
-	public BasicUserDTO getDistributor() {
-		return distributor;
+	@Override
+	public int hashCode() {
+		return Objects.hash(color, inches, stock);
 	}
 
-	/**
-	 * @param distributor the distributor to set
-	 */
-	public void setDistributor(BasicUserDTO distributor) {
-		this.distributor = distributor;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		BasicVinylDTO other = (BasicVinylDTO) obj;
+		return Objects.equals(color, other.color) && Objects.equals(inches, other.inches)
+				&& Objects.equals(stock, other.stock);
 	}
-	
-	
-	
+
 }

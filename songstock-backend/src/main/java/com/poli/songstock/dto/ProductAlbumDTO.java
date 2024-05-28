@@ -14,39 +14,26 @@ public class ProductAlbumDTO {
 	 */
 	private Double price;
 	
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(basicAlbum, price);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ProductAlbumDTO other = (ProductAlbumDTO) obj;
-		return Objects.equals(basicAlbum, other.basicAlbum) && Objects.equals(price, other.price);
-	}
-
 	/**
-	 * Empty Constructor
+	 * Distributor of the album
 	 */
-	public ProductAlbumDTO() {
-		super();
-	}
+	private BasicUserDTO distributor;
 
 	/**
 	 * @param basicAlbum
 	 * @param price
+	 * @param distributor
 	 */
-	public ProductAlbumDTO(BasicAlbumDTO basicAlbum, Double price) {
-		super();
+	public ProductAlbumDTO(BasicAlbumDTO basicAlbum, Double price, BasicUserDTO distributor) {
 		this.basicAlbum = basicAlbum;
 		this.price = price;
+		this.distributor = distributor;
+	}
+
+	/**
+	 * Empty constructor
+	 */
+	public ProductAlbumDTO() {
 	}
 
 	/**
@@ -76,7 +63,37 @@ public class ProductAlbumDTO {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
-	
-	
-	
+
+	/**
+	 * @return the distributor
+	 */
+	public BasicUserDTO getDistributor() {
+		return distributor;
+	}
+
+	/**
+	 * @param distributor the distributor to set
+	 */
+	public void setDistributor(BasicUserDTO distributor) {
+		this.distributor = distributor;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(basicAlbum, distributor, price);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ProductAlbumDTO other = (ProductAlbumDTO) obj;
+		return Objects.equals(basicAlbum, other.basicAlbum) && Objects.equals(distributor, other.distributor)
+				&& Objects.equals(price, other.price);
+	}
+
 }

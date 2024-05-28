@@ -22,8 +22,6 @@ public class Vinyl {
 	
 	private Integer stock;
 	
-	private Long distributorId;
-
 	/**
 	 * @return the id
 	 */
@@ -92,20 +90,6 @@ public class Vinyl {
 	 */
 	public void setStock(Integer stock) {
 		this.stock = stock;
-	}
-
-	/**
-	 * @return the distributorId
-	 */
-	public Long getDistributorId() {
-		return distributorId;
-	}
-
-	/**
-	 * @param distributorId the distributorId to set
-	 */
-	public void setDistributorId(Long distributorId) {
-		this.distributorId = distributorId;
 	}
 	
 }

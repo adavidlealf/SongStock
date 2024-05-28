@@ -3,6 +3,9 @@ package com.poli.songstock.dto;
 import java.util.Date;
 import java.util.Objects;
 
+import com.poli.songstock.domain.Approval;
+import com.poli.songstock.domain.Approval.State;
+
 public class ApprovalDTO {
 	
 	
@@ -24,7 +27,7 @@ public class ApprovalDTO {
 	/**
 	 * State of the item
 	 */
-	private String state;
+	private Approval.State state;
 
 	/**
 	 * Code for identification
@@ -36,35 +39,6 @@ public class ApprovalDTO {
 	 */
 	private ProductVinylDTO vinyl;
 
-	
-	
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(applicationDate, code, obs, state, title, vinyl);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ApprovalDTO other = (ApprovalDTO) obj;
-		return Objects.equals(applicationDate, other.applicationDate) && Objects.equals(code, other.code)
-				&& Objects.equals(obs, other.obs) && Objects.equals(state, other.state)
-				&& Objects.equals(title, other.title) && Objects.equals(vinyl, other.vinyl);
-	}
-
-	/**
-	 * Empty Constructor
-	 */
-	public ApprovalDTO() {
-		super();
-	}
-
 	/**
 	 * @param title
 	 * @param obs
@@ -73,15 +47,20 @@ public class ApprovalDTO {
 	 * @param code
 	 * @param vinyl
 	 */
-	public ApprovalDTO(String title, String obs, Date applicationDate, String state, String code,
+	public ApprovalDTO(String title, String obs, Date applicationDate, State state, String code,
 			ProductVinylDTO vinyl) {
-		super();
 		this.title = title;
 		this.obs = obs;
 		this.applicationDate = applicationDate;
 		this.state = state;
 		this.code = code;
 		this.vinyl = vinyl;
+	}
+
+	/**
+	 * Empty constructor
+	 */
+	public ApprovalDTO() {
 	}
 
 	/**
@@ -129,14 +108,14 @@ public class ApprovalDTO {
 	/**
 	 * @return the state
 	 */
-	public String getState() {
+	public Approval.State getState() {
 		return state;
 	}
 
 	/**
 	 * @param state the state to set
 	 */
-	public void setState(String state) {
+	public void setState(Approval.State state) {
 		this.state = state;
 	}
 
@@ -167,7 +146,24 @@ public class ApprovalDTO {
 	public void setVinyl(ProductVinylDTO vinyl) {
 		this.vinyl = vinyl;
 	}
-	
-	
-	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(applicationDate, code, obs, state, title, vinyl);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ApprovalDTO other = (ApprovalDTO) obj;
+		return Objects.equals(applicationDate, other.applicationDate) && Objects.equals(code, other.code)
+				&& Objects.equals(obs, other.obs) && state == other.state && Objects.equals(title, other.title)
+				&& Objects.equals(vinyl, other.vinyl);
+	}
+
 }

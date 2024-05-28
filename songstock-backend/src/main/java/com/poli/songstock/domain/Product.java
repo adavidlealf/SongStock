@@ -25,6 +25,8 @@ public class Product {
 	private Integer isSong;
 	
 	private Long objectId;
+	
+	private Long distributorId;
 
 	/**
 	 * @return the id
@@ -80,6 +82,20 @@ public class Product {
 	 */
 	public void setObjectId(Long objectId) {
 		this.objectId = objectId;
+	}
+
+	/**
+	 * @return the distributorId
+	 */
+	public Long getDistributorId() {
+		return distributorId;
+	}
+
+	/**
+	 * @param distributorId the distributorId to set
+	 */
+	public void setDistributorId(Long distributorId) {
+		this.distributorId = distributorId;
 	}
 	
 }
