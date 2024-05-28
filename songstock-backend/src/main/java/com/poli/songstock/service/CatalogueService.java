@@ -13,6 +13,7 @@ import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuer
 import org.springframework.stereotype.Service;
 
 import com.poli.songstock.domain.Catalogue;
+import com.poli.songstock.dto.CatalogueDTO;
 import com.poli.songstock.repository.CatalogueRepository;
 
 @Service
@@ -261,4 +262,28 @@ public class CatalogueService implements CatalogueRepository {
 		return c.getPrice();
 	}
 
+	/**
+	 * Obtiene todo el catalogo del sistema, buscando todos los productos cancion, album, y vinilo.
+	 * @return CatalogueDTO catalogo instanciado con todas los productos cancion, album, y vinilo.
+	 */
+	public CatalogueDTO getAllCatalogueDto() {
+		CatalogueDTO catalogueDTO = new CatalogueDTO();
+		catalogueDTO.setAlbums(AlbumService.getInstance().findAllProductAlbumDTO());
+		catalogueDTO.setSongs(SongService.getInstance().findAllProductSongDto());
+		catalogueDTO.setVinyls(VinylService.getInstance().findAllProductVinylDto());
+		return catalogueDTO;
+	}
+	
+	/**
+	 * Obtiene todo el catalogo de productos ofrecidos por un distribuidor por su id.
+	 * @param consumerId Long id del distribuidor
+	 * @return CatalogueDTO catalogo ofrecido por un distribuidor.
+	 */
+	public CatalogueDTO getCatalogueDtoByDistributor(Long distributorId) {
+		CatalogueDTO dto = new CatalogueDTO();
+		dto.setSongs(SongService.getInstance().findAllProductSongByDistributor(distributorId));
+		dto.setAlbums(AlbumService.getInstance().findAllProductAlbumByDistributor(distributorId));
+		dto.setVinyls(VinylService.getInstance().findAllProductVinylByDistributor(distributorId));
+		return dto;
+	}
 }

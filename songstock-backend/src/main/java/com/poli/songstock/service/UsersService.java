@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
 import org.springframework.stereotype.Service;
 
+import com.poli.songstock.domain.Product;
 import com.poli.songstock.domain.Role;
 import com.poli.songstock.domain.Users;
 import com.poli.songstock.dto.BasicUserDTO;
@@ -92,8 +93,7 @@ public class UsersService implements UsersRepository{
 
 	@Override
 	public Users getReferenceById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.getReferenceById(id);
 	}
 
 	@Override
@@ -295,18 +295,35 @@ public class UsersService implements UsersRepository{
 				.map(this::castEntityToUserRoleDto)
 				.collect(Collectors.toList());
 	}
-
-	@Override
-	public Users findDistributorByVinyl(Long distributorId) {
-		return repository.findDistributorByVinyl(distributorId);
+	
+	/**
+	 * Busca el usuario del distribuidor de una cancion por su id y lo retorna de tipo BasicUserDTO.
+	 * @param songId Long id de la cancion.
+	 * @return BasicUserDTO usuario del distribuidor de la cancion.
+	 */
+	public BasicUserDTO findDistributorBasicUserDtoBySong(Long songId) {
+		Product prod = ProductService.getInstance().findBySong(songId);
+		return castEntityToBasicUserDto(getReferenceById(prod.getDistributorId()));
 	}
 	
 	/**
-	 * Busca un usuario distribuidor que tiene un vinilo y lo retorna en un BasicUserDTO.
-	 * @param distributorId Long id del distribuidor del vinilo.
-	 * @return BasicUserDTO instancia del distribuidor.
+	 * Busca el usuario del distribuidor de un album por su id y lo retorna de tipo BasicUserDTO.
+	 * @param albumId Long id del album.
+	 * @return BasicUserDTO usuario del distribuidor del album.
 	 */
-	public BasicUserDTO findDistributorBasicUserDtoByVinyl(Long distributorId) {
-		return castEntityToBasicUserDto(findDistributorByVinyl(distributorId));
+	public BasicUserDTO findDistributorBasicUserDtoByAlbum(Long albumId) {
+		Product prod = ProductService.getInstance().findByAlbum(albumId);
+		return castEntityToBasicUserDto(getReferenceById(prod.getDistributorId()));
 	}
+	
+	/**
+	 * Busca el usuario del distribuidor de un vinilo por su id y lo retorna de tipo BasicUserDTO.
+	 * @param vinylId Long id del vinilo.
+	 * @return BasicUserDTO usuario del distribuidor del vinilo.
+	 */
+	public BasicUserDTO findDistributorBasicUserDtoByVinyl(Long vinylId) {
+		Product prod = ProductService.getInstance().findByVinyl(vinylId);
+		return castEntityToBasicUserDto(getReferenceById(prod.getDistributorId()));
+	}
+
 }

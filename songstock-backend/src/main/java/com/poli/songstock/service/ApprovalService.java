@@ -1,8 +1,11 @@
 package com.poli.songstock.service;
 
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -13,13 +16,14 @@ import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuer
 import org.springframework.stereotype.Service;
 
 import com.poli.songstock.domain.Approval;
+import com.poli.songstock.dto.ApprovalDTO;
 import com.poli.songstock.repository.ApprovalRepository;
 
 @Service
 public class ApprovalService implements ApprovalRepository{
 	
 	@Autowired
-	private ApprovalRepository approvalRepository;
+	private ApprovalRepository repository;
 
 	@Override
 	public void flush() {
@@ -95,7 +99,7 @@ public class ApprovalService implements ApprovalRepository{
 
 	@Override
 	public List<Approval> findAll() {
-		return approvalRepository.findAll();
+		return repository.findAll();
 	}
 
 	@Override
@@ -198,6 +202,37 @@ public class ApprovalService implements ApprovalRepository{
 	public <S extends Approval, R> R findBy(Example<S> example, Function<FetchableFluentQuery<S>, R> queryFunction) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	/**
+	 * Convierte una instancia de la entidad Approval al DTO de Approval.
+	 * @param approval Approval instancia de la entidad Approval
+	 * @return ApprovalDTO instancia de ApprovalDTO
+	 */
+	public ApprovalDTO castEntityToApprovalDto(Approval approval) {
+		ApprovalDTO dto = new ApprovalDTO();
+		dto.setTitle(approval.getTitle());
+		dto.setObs(approval.getObs());
+		if(approval.getApplicantDate()!=null) {
+			dto.setApplicationDate(Date.from(
+					approval.getApplicantDate().atStartOfDay(ZoneId.systemDefault()).toInstant()
+			));
+		}
+		dto.setState(approval.getState());
+		dto.setCode(approval.getCode());
+		dto.setVinyl(VinylService.getInstance().getReferenceProductVinylDtoById(approval.getObjectId()));
+		return dto;
+	}
+	
+	/**
+	 * Retorna una lista de todos los registros de la entidad Approval convertidos en ApprovalDTO.
+	 * @return List<ApprovalDTO> lista de todos los registros de Approval en ApprovalDTO.
+	 */
+	public List<ApprovalDTO> findAllApprovalDto() {
+		return repository.findAll()
+				.stream()
+				.map(this::castEntityToApprovalDto)
+				.collect(Collectors.toList());
 	}
 
 }

@@ -13,8 +13,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
 import org.springframework.stereotype.Service;
 
+import com.poli.songstock.domain.Album;
+import com.poli.songstock.domain.Product;
 import com.poli.songstock.domain.Vinyl;
 import com.poli.songstock.dto.BasicVinylDTO;
+import com.poli.songstock.dto.ProductAlbumDTO;
 import com.poli.songstock.dto.ProductVinylDTO;
 import com.poli.songstock.dto.VinylDTO;
 import com.poli.songstock.repository.VinylRepository;
@@ -91,8 +94,7 @@ public class VinylService implements VinylRepository {
 
 	@Override
 	public Vinyl getReferenceById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.getReferenceById(id);
 	}
 
 	@Override
@@ -230,8 +232,6 @@ public class VinylService implements VinylRepository {
 		basicVinylDTO.setColor(vinyl.getColor());
 		basicVinylDTO.setInches(vinyl.getInches());
 		basicVinylDTO.setStock(vinyl.getStock());
-		basicVinylDTO.setDistributor(UsersService.getInstance()
-				.findDistributorBasicUserDtoByVinyl(vinyl.getDistributorId()));
 		return basicVinylDTO;
 	}
 	
@@ -281,6 +281,8 @@ public class VinylService implements VinylRepository {
 		vinylDTO.setBasicVinyl(castEntityToBasicVinylDto(vinyl));
 		vinylDTO.setPrice(CatalogueService.getInstance()
 				.getPriceByVinyl(vinyl.getId()));
+		vinylDTO.setDistributor(UsersService.getInstance()
+				.findDistributorBasicUserDtoByVinyl(vinyl.getId()));
 		return vinylDTO;
 	}
 	
@@ -293,6 +295,14 @@ public class VinylService implements VinylRepository {
 				.stream()
 				.map(this::castEntityToProductVinylDto)
 				.collect(Collectors.toList());
+	}
+	
+	/**
+	 * Retorna la entidad Vinyl obtenida por id convertida en ProductVinylDTO.
+	 * @return ProductVinylDTO instancia de Vinyl obtenido por id en ProductVinylDTO.
+	 */
+	public ProductVinylDTO getReferenceProductVinylDtoById(Long id){
+		return castEntityToProductVinylDto(getReferenceById(id));
 	}
 	
 	@Override
@@ -309,6 +319,29 @@ public class VinylService implements VinylRepository {
 		return findAllByConsumer(consumerId)
 				.stream()
 				.map(this::castEntityToBasicVinylDto)
+				.collect(Collectors.toList());
+	}
+	
+	/**
+	 * Obtiene el DTO de ProductVinyl a partir de un Product
+	 * @param product Product instancia base
+	 * @return ProductVinylDTO casteo de la base
+	 */
+	public ProductVinylDTO castProductToProductVinylDTO(Product product) {
+		Vinyl vinyl = getReferenceById(product.getObjectId());
+		return castEntityToProductVinylDto(vinyl);
+	}
+	
+	
+	/**
+	 * Consulta la lista de vinilos ofrecidos por un distribuidor y la retorna de tipo ProductVinylDTO.
+	 * @param distributorId Long id del distribuidor
+	 * @return List<ProductVinylDTO> lista de vinilos ofrecidos por el distribuidor de tipo ProductVinylDTO.
+	 */
+	public List<ProductVinylDTO> findAllProductVinylByDistributor(Long distributorId){
+		return ProductService.getInstance().findAllVinylsByDistributor(distributorId)
+				.stream()
+				.map(this::castProductToProductVinylDTO)
 				.collect(Collectors.toList());
 	}
 	

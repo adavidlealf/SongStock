@@ -16,6 +16,7 @@ import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuer
 import org.springframework.stereotype.Service;
 
 import com.poli.songstock.domain.Album;
+import com.poli.songstock.domain.Product;
 import com.poli.songstock.dto.AlbumDTO;
 import com.poli.songstock.dto.BasicAlbumDTO;
 import com.poli.songstock.dto.ProductAlbumDTO;
@@ -308,6 +309,8 @@ public class AlbumService implements AlbumRepository{
 		productAlbumDTO.setBasicAlbum(castEntityToBasicAlbumDto(album));
 		productAlbumDTO.setPrice(CatalogueService.getInstance()
 				.getPriceByAlbum(album.getId()));
+		productAlbumDTO.setDistributor(UsersService.getInstance()
+				.findDistributorBasicUserDtoByAlbum(album.getId()));
 		return productAlbumDTO;
 	}
 	
@@ -336,6 +339,29 @@ public class AlbumService implements AlbumRepository{
 		return findAllByConsumer(consumerId)
 				.stream()
 				.map(this::castEntityToBasicAlbumDto)
+				.collect(Collectors.toList());
+	}
+	
+	/**
+	 * Obtiene el DTO de ProductAlbum a partir de un Product
+	 * @param product Product instancia base
+	 * @return ProductAlbumDTO casteo de la base
+	 */
+	public ProductAlbumDTO castProductToProductAlbumDTO(Product product) {
+		Album album = getReferenceById(product.getObjectId());
+		return castEntityToProductAlbumDto(album);
+	}
+	
+	
+	/**
+	 * Consulta la lista de albumes ofrecidos por un distribuidor y la retorna de tipo ProductAlbumDTO.
+	 * @param distributorId Long id del distribuidor
+	 * @return List<ProductAlbumDTO> lista de albumes ofrecidos por el distribuidor de tipo ProductAlbumDTO.
+	 */
+	public List<ProductAlbumDTO> findAllProductAlbumByDistributor(Long distributorId){
+		return ProductService.getInstance().findAllAlbumsByDistributor(distributorId)
+				.stream()
+				.map(this::castProductToProductAlbumDTO)
 				.collect(Collectors.toList());
 	}
 	

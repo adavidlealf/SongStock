@@ -21,6 +21,22 @@ public class ProductService implements ProductRepository {
 	@Autowired
 	private ProductRepository repository;
 	
+	/**
+	 * Patron Singleton.
+	 */
+	private static ProductService instance;
+	
+	/**
+	 * Obtener instancia de patron singleton.
+	 * @return
+	 */
+	public static ProductService getInstance() {
+		if(instance == null) {
+			instance = new ProductService();
+		}
+		return instance;
+	}
+	
 	@Override
 	public void flush() {
 		// TODO Auto-generated method stub
@@ -198,6 +214,51 @@ public class ProductService implements ProductRepository {
 	public <S extends Product, R> R findBy(Example<S> example, Function<FetchableFluentQuery<S>, R> queryFunction) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Product findByVinyl(Long vinylId) {
+		return repository.findByVinyl(vinylId);
+	}
+
+	@Override
+	public Product findByAlbum(Long albumId) {
+		return repository.findByAlbum(albumId);
+	}
+
+	@Override
+	public Product findBySong(Long songId) {
+		return repository.findBySong(songId);
+	}
+
+	@Override
+	public List<Product> findAllSongs() {
+		return repository.findAllSongs();
+	}
+
+	@Override
+	public List<Product> findAllAlbums() {
+		return repository.findAllAlbums();
+	}
+
+	@Override
+	public List<Product> findAllVinyls() {
+		return repository.findAllVinyls();
+	}
+
+	@Override
+	public List<Product> findAllSongsByDistributor(Long distributorId) {
+		return repository.findAllSongsByDistributor(distributorId);
+	}
+
+	@Override
+	public List<Product> findAllAlbumsByDistributor(Long distributorId) {
+		return repository.findAllAlbumsByDistributor(distributorId);
+	}
+
+	@Override
+	public List<Product> findAllVinylsByDistributor(Long distributorId) {
+		return repository.findAllVinylsByDistributor(distributorId);
 	}
 
 }

@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
 import org.springframework.stereotype.Service;
 
+import com.poli.songstock.domain.Product;
 import com.poli.songstock.domain.Song;
 import com.poli.songstock.dto.BasicSongDTO;
 import com.poli.songstock.dto.ProductSongDTO;
@@ -313,6 +314,8 @@ public class SongService implements SongRepository{
 		dto.setBasicSong(castEntityToBasicSongDto(song));
 		dto.setPrice(CatalogueService.getInstance().
 				getPriceBySong(song.getId()));
+		dto.setDistributor(UsersService.getInstance()
+				.findDistributorBasicUserDtoBySong(song.getId()));
 		return dto;
 	}
 	
@@ -341,6 +344,29 @@ public class SongService implements SongRepository{
 		return findAllByConsumer(consumerId)
 				.stream()
 				.map(this::castEntityToBasicSongDto)
+				.collect(Collectors.toList());
+	}
+	
+	/**
+	 * Obtiene el DTO de ProductSong a partir de un Product
+	 * @param product Product instancia base
+	 * @return ProductSongDTO casteo de la base
+	 */
+	public ProductSongDTO castProductToProductSongDTO(Product product) {
+		Song song = getReferenceById(product.getObjectId());
+		return castEntityToProductSongDto(song);
+	}
+	
+	
+	/**
+	 * Consulta la lista de canciones ofrecidas por un distribuidor y la retorna de tipo ProductSongDTO.
+	 * @param distributorId Long id del distribuidor
+	 * @return List<ProductSongDTO> lista de canciones ofrecidas por el distribuidor de tipo ProductSongDTO.
+	 */
+	public List<ProductSongDTO> findAllProductSongByDistributor(Long distributorId){
+		return ProductService.getInstance().findAllSongsByDistributor(distributorId)
+				.stream()
+				.map(this::castProductToProductSongDTO)
 				.collect(Collectors.toList());
 	}
 }
