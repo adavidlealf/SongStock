@@ -2,6 +2,7 @@ package com.poli.songstock.business;
 
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -246,6 +247,18 @@ public class CredentialsBusiness {
 			b &= createRole(Role.Name.DISTRIBUTOR, null, null, 3L);
 		}
 		return roleService.count()==3;
+	}
+	
+	public List<ConsumerDTO> getAllConsumers(){
+		return usersService.findAllConsumerDto();
+	}
+	
+	public List<DistributorDTO> getAllDistributors(){
+		return usersService.findAllDistributorDto();
+	}
+	
+	public List<UserRoleDTO> getAllUserRole(){
+		return usersService.findAllUserRoleDto();
 	}
 
 }

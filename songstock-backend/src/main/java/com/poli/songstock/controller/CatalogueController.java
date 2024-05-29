@@ -168,5 +168,21 @@ public class CatalogueController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
 	}
+	
+	@GetMapping("/distributor/{id}")
+	public ResponseEntity<CatalogueDTO> getCatalogueByDistributor(@PathVariable("id") Long id){
+		try {
+			CatalogueDTO dto = catalogueBusiness.getCatalogueByDistributor(id);
+			if(dto != null) {
+				return ResponseEntity.ok(dto);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			}
+		} catch (Exception e) {
+			System.out.println("----- Error en /catalogue/distributor");
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+	}
 
 }

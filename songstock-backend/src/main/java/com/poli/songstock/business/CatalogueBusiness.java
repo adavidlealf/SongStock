@@ -404,4 +404,13 @@ public class CatalogueBusiness {
 	public CatalogueDTO getAllCatalogue() {
 		return catalogueService.getAllCatalogueDto();
 	}
+	
+	/**
+	 * Obtiene todo el catalogo de un distribuidor por su id
+	 * @param distributorId Long id del distribuidor
+	 * @return CatalogueDTO catalogo del distribuidor
+	 */
+	public CatalogueDTO getCatalogueByDistributor(Long distributorId) {
+		return catalogueService.getCatalogueDtoByDistributor(distributorId);
+	}
 }

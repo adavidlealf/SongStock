@@ -1,5 +1,7 @@
 package com.poli.songstock.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -140,6 +142,66 @@ public class CredentialController {
 			}
 		} catch (Exception e) {
 			System.out.println("----- Error en /consumer/{nickname}");
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+	}
+	
+	/**
+	 * Obtiene todos los DistributorDTO
+	 * @return List<DistributorDTO> lista de distribuidores
+	 */
+	@GetMapping(value = "/distributors")
+	public ResponseEntity<List<DistributorDTO>> getAllDistributor() {
+		try {
+			List<DistributorDTO> dtos = credentialsBusiness.getAllDistributors();
+			if(dtos != null) {
+				return ResponseEntity.ok(dtos);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			}
+		} catch (Exception e) {
+			System.out.println("----- Error en /distributors");
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+	}
+	
+	/**
+	 * Obtiene todos los ConsumerDTO
+	 * @return List<ConsumerDTO> lista de consumidores
+	 */
+	@GetMapping(value = "/consumers")
+	public ResponseEntity<List<ConsumerDTO>> getAllConsumer() {
+		try {
+			List<ConsumerDTO> dtos = credentialsBusiness.getAllConsumers();
+			if(dtos != null) {
+				return ResponseEntity.ok(dtos);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			}
+		} catch (Exception e) {
+			System.out.println("----- Error en /consumers");
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+	}
+	
+	/**
+	 * Obtiene todos los usersrole
+	 * @return List<UserRoleDTO> lista de todos los usersrole
+	 */
+	@GetMapping(value = "/usersrole")
+	public ResponseEntity<List<UserRoleDTO>> getAllUsersRole() {
+		try {
+			List<UserRoleDTO> dtos = credentialsBusiness.getAllUserRole();
+			if(dtos != null) {
+				return ResponseEntity.ok(dtos);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			}
+		} catch (Exception e) {
+			System.out.println("----- Error en /usersrole");
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
