@@ -19,8 +19,8 @@ public interface ApprovalRepository extends JpaRepository<Approval, Long> {
 	 */
 	@Query(value = "SELECT a.* FROM approval a, order o, order_product op, product p "
 				 + "WHERE o.id = :order_id "
-				 + "AND op.order_id = :order_id AND a.object_id = op.product_id "
-				 + "AND p.id = op.product_id AND p.is_song = '0' AND p.is_digital = '0'"
+				 + "AND op.order_id = :order_id AND p.id = op.product_id "
+				 + "AND a.object_id = p.object_id AND p.is_song = '0' AND p.is_digital = '0'"
 				 , nativeQuery = true)
 	List<Approval> findAllByPhysicalOrder(@Param(value = "order_id") Long orderId);
 }

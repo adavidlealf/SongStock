@@ -6607,17 +6607,18 @@
 									"model": {
 										"$ref": "AAAAAAGPsG5yJGgoOPo="
 									},
-									"visible": false,
 									"font": "Arial;13;0",
-									"left": 296,
+									"left": 260,
 									"top": 1135,
+									"width": 72.6298828125,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
 									"hostEdge": {
 										"$ref": "AAAAAAGPsG5yJWgsbqs="
 									},
-									"edgePosition": 1
+									"edgePosition": 1,
+									"text": "+is object_id"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -12995,6 +12996,7 @@
 									"_parent": {
 										"$ref": "AAAAAAGPotcfuJtKTEk="
 									},
+									"name": "is object_id",
 									"end1": {
 										"_type": "UMLAssociationEnd",
 										"_id": "AAAAAAGPsG5yJGgpVQc=",

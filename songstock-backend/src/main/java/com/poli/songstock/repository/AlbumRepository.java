@@ -32,4 +32,16 @@ public interface AlbumRepository extends JpaRepository<Album, Long> {
 				 + "AND a.id = p.object_id"
 				 , nativeQuery = true)
 	List<Album> findAllByConsumer(@Param(value = "consumer_id") Long consumerId);
+	
+	/**
+	 * Consulta la lista de albumes de una orden digital.
+	 * @param orderId Long id de la orden digital.
+	 * @return List<Album> Lista de albumes de la orden.
+	 */
+	@Query(value = "SELECT a.* FROM album a, order o, order_product op, product p "
+				 + "WHERE o.id = :order_id "
+				 + "AND op.order_id = :order_id AND p.id = op.product_id "
+				 + "AND a.id = p.object_id AND p.is_song = '0' AND p.is_digital = '1'"
+				 , nativeQuery = true)
+	List<Album> findAllByDigitalOrder(@Param(value = "order_id") Long orderId);
 }

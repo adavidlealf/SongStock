@@ -362,5 +362,21 @@ public class AlbumService implements AlbumRepository{
 				.map(this::castProductToProductAlbumDTO)
 				.collect(Collectors.toList());
 	}
+
+	@Override
+	public List<Album> findAllByDigitalOrder(Long orderId) {
+		return repository.findAllByDigitalOrder(orderId);
+	}
 	
+	/**
+	 * Consulta la lista de albumes de una orden digital y la retorna de tipo ProductAlbumDTO.
+	 * @param orderId Long id de la orden digital
+	 * @return List<ProductAlbumDTO> lista de albumes de la orden.
+	 */
+	public List<ProductAlbumDTO> findAllProductAlbumByDigitalOrder(Long orderId){
+		return findAllByDigitalOrder(orderId)
+				.stream()
+				.map(this::castEntityToProductAlbumDto)
+				.collect(Collectors.toList());
+	}
 }

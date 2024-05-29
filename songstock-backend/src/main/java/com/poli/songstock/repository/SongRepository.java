@@ -9,7 +9,6 @@ import org.springframework.data.repository.query.Param;
 
 import com.poli.songstock.domain.Song;
 
-
 public interface SongRepository extends JpaRepository<Song, Long> {
 
 	/**
@@ -43,4 +42,16 @@ public interface SongRepository extends JpaRepository<Song, Long> {
 				 + "AND s.id = p.object_id"
 				 , nativeQuery = true)
 	List<Song> findAllByConsumer(@Param(value = "consumer_id") Long consumerId);
+	
+	/**
+	 * Consulta la lista de canciones de una orden digital.
+	 * @param orderId Long id de la orden digital.
+	 * @return List<Song> Lista de canciones de la orden.
+	 */
+	@Query(value = "SELECT s.* FROM song s, order o, order_product op, product p "
+				 + "WHERE o.id = :order_id "
+				 + "AND op.order_id = :order_id AND p.id = op.product_id "
+				 + "AND s.id = p.object_id AND p.is_song = '1' AND p.is_digital = '1'"
+				 , nativeQuery = true)
+	List<Song> findAllByDigitalOrder(@Param(value = "order_id") Long orderId);
 }

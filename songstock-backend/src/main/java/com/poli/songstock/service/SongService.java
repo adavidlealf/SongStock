@@ -354,7 +354,6 @@ public class SongService implements SongRepository{
 		return castEntityToProductSongDto(song);
 	}
 	
-	
 	/**
 	 * Consulta la lista de canciones ofrecidas por un distribuidor y la retorna de tipo ProductSongDTO.
 	 * @param distributorId Long id del distribuidor
@@ -364,6 +363,23 @@ public class SongService implements SongRepository{
 		return productService.findAllSongsByDistributor(distributorId)
 				.stream()
 				.map(this::castProductToProductSongDTO)
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Song> findAllByDigitalOrder(Long orderId) {
+		return repository.findAllByDigitalOrder(orderId);
+	}
+	
+	/**
+	 * Consulta la lista de canciones de una orden digital y la retorna de tipo ProductSongDTO.
+	 * @param orderId Long id de la orden digital
+	 * @return List<ProductSongDTO> lista de canciones de la orden.
+	 */
+	public List<ProductSongDTO> findAllProductSongByDigitalOrder(Long orderId){
+		return findAllByDigitalOrder(orderId)
+				.stream()
+				.map(this::castEntityToProductSongDto)
 				.collect(Collectors.toList());
 	}
 }

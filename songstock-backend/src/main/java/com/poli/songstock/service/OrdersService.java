@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import com.poli.songstock.domain.Orders;
 import com.poli.songstock.dto.BasicOrderDTO;
+import com.poli.songstock.dto.DigitalOrderDTO;
 import com.poli.songstock.dto.PhysicalOrderDTO;
 import com.poli.songstock.repository.OrdersRepository;
 
@@ -29,11 +30,17 @@ public class OrdersService implements OrdersRepository {
 	@Autowired
 	private AddressService addressService;
 	
+	@Autowired
+	private AlbumService albumService;
+	
 	@Autowired 
 	private ApprovalService approvalService;
 	
 	@Autowired
 	private CatalogueService catalogueService;
+
+	@Autowired
+	private SongService songService;
 	
 	@Override
 	public void flush() {
@@ -263,6 +270,30 @@ public class OrdersService implements OrdersRepository {
 		return findAll()
 				.stream()
 				.map(this::castEntityToPhysicalOrderDto)
+				.collect(Collectors.toList());
+	}
+	
+	/**
+	 * Convierte una instancia de la entidad Order al DTO de DigitalOrder.
+	 * @param ent Orders entidad
+	 * @return DigitalOrderDTO dto
+	 */
+	public DigitalOrderDTO castEntityToDigitalOrderDto(Orders ent) {
+		DigitalOrderDTO dto = new DigitalOrderDTO();
+		dto.setBasicOrder(castEntityToBasicOrderDto(ent));
+		dto.setProductAlbums(albumService.findAllProductAlbumByDigitalOrder(ent.getId()));
+		dto.setProductSongs(songService.findAllProductSongByDigitalOrder(ent.getId()));
+		return dto;
+	}
+	
+	/**
+	 * Retorna una lista de todos los registros de la entidad Orders convertidos en DigitalOrderDTO.
+	 * @return List<DigitalOrderDTO> lista de todos los registros de Orders en DigitalOrderDTO.
+	 */
+	public List<DigitalOrderDTO> findAllDigitalOrderDto(){
+		return findAll()
+				.stream()
+				.map(this::castEntityToDigitalOrderDto)
 				.collect(Collectors.toList());
 	}
 }
