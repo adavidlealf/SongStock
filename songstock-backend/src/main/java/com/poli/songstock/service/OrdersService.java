@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import com.poli.songstock.domain.Orders;
 import com.poli.songstock.dto.BasicOrderDTO;
+import com.poli.songstock.dto.PhysicalOrderDTO;
 import com.poli.songstock.repository.OrdersRepository;
 
 @Service
@@ -27,6 +28,9 @@ public class OrdersService implements OrdersRepository {
 	
 	@Autowired
 	private AddressService addressService;
+	
+	@Autowired 
+	private ApprovalService approvalService;
 	
 	@Autowired
 	private CatalogueService catalogueService;
@@ -236,6 +240,29 @@ public class OrdersService implements OrdersRepository {
 		return findAll()
 				.stream()
 				.map(this::castEntityToBasicOrderDto)
+				.collect(Collectors.toList());
+	}
+	
+	/**
+	 * Convierte una instancia de la entidad Order al DTO de PhysicalOrder.
+	 * @param ent Orders entidad
+	 * @return PhysicalOrderDTO dto
+	 */
+	public PhysicalOrderDTO castEntityToPhysicalOrderDto(Orders ent) {
+		PhysicalOrderDTO dto = new PhysicalOrderDTO();
+		dto.setBasicOrder(castEntityToBasicOrderDto(ent));
+		dto.setApprovals(approvalService.findAllApprovalDtoByPhysicalOrder(ent.getId()));
+		return dto;
+	}
+	
+	/**
+	 * Retorna una lista de todos los registros de la entidad Orders convertidos en PhysicalOrderDTO.
+	 * @return List<PhysicalOrderDTO> lista de todos los registros de Orders en PhysicalOrderDTO.
+	 */
+	public List<PhysicalOrderDTO> findAllPhysicalOrderDto(){
+		return findAll()
+				.stream()
+				.map(this::castEntityToPhysicalOrderDto)
 				.collect(Collectors.toList());
 	}
 }

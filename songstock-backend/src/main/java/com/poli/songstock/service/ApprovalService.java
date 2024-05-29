@@ -238,4 +238,22 @@ public class ApprovalService implements ApprovalRepository{
 				.collect(Collectors.toList());
 	}
 
+	@Override
+	public List<Approval> findAllByPhysicalOrder(Long orderId) {
+		return repository.findAllByPhysicalOrder(orderId);
+	}
+	
+	/**
+	 * Retorna una lista de las aprobaciones de productos de una orden fisica convertidos 
+	 * en ApprovalDTO.
+	 * @param orderId Long id de la orden fisica 
+	 * @return List<ApprovalDTO> lista de aprobaciones de productos de una orden fisica. 
+	 */
+	public List<ApprovalDTO> findAllApprovalDtoByPhysicalOrder(Long orderId) {
+		return findAllByPhysicalOrder(orderId)
+				.stream()
+				.map(this::castEntityToApprovalDto)
+				.collect(Collectors.toList());
+	}
+
 }
