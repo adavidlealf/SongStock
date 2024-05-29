@@ -45,21 +45,6 @@ public class Users {
 		this.id = id;
 	}
 	
-
-	/**
-	 * @return the applicantDate
-	 */
-	public LocalDate getApplicantDate() {
-		return applicantDate;
-	}
-
-	/**
-	 * @param applicantDate the applicantDate to set
-	 */
-	public void setApplicantDate(LocalDate applicantDate) {
-		this.applicantDate = applicantDate;
-	}
-
 	/**
 	 * @return the nickname
 	 */
