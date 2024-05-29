@@ -39,6 +39,9 @@ public class UsersService implements UsersRepository{
 	private CatalogueService catalogueService;
 	
 	@Autowired
+	private ShoppingKartService kartService;
+	
+	@Autowired
 	private LibraryService libraryService;
 	
 	@Autowired
@@ -357,6 +360,7 @@ public class UsersService implements UsersRepository{
 		dto.setLibrary(libraryService.getLibraryDtoByConsumer(ent.getId()));
 		dto.setDigitalOrders(ordersService.findAllDigitalOrderDtoByConsumer(ent.getId()));
 		dto.setPhysicalOrders(ordersService.findAllPhysicalOrderDtoByConsumer(ent.getId()));
+		dto.setKart(kartService.getShoppingKartDtoByConsumer(ent.getId()));
 		return dto;
 	}
 	

@@ -1,5 +1,7 @@
 package com.poli.songstock.dto;
 
+import java.util.Objects;
+
 import com.poli.songstock.domain.Role;
 
 public class UserRoleDTO {
@@ -97,6 +99,24 @@ public class UserRoleDTO {
 	 */
 	public void setRoleName(Role.Name roleName) {
 		this.roleName = roleName;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(canModify, canSee, roleName, user);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UserRoleDTO other = (UserRoleDTO) obj;
+		return Objects.equals(canModify, other.canModify) && Objects.equals(canSee, other.canSee)
+				&& roleName == other.roleName && Objects.equals(user, other.user);
 	}
 	
 }

@@ -379,4 +379,22 @@ public class AlbumService implements AlbumRepository{
 				.map(this::castEntityToProductAlbumDto)
 				.collect(Collectors.toList());
 	}
+
+	@Override
+	public List<Album> findAllByKartConsumer(Long consumerId) {
+		return repository.findAllByKartConsumer(consumerId);
+	}
+	
+	/**
+	 * Consulta la lista de albumes del carrito de un consumidor y la retorna 
+	 * de tipo ProductAlbumDTO.
+	 * @param consumerId Long id del consumidor
+	 * @return List<ProductAlbumDTO> lista de albumes del carrito de un consumidor.
+	 */
+	public List<ProductAlbumDTO> findAllProductAlbumByKart(Long consumerId){
+		return findAllByKartConsumer(consumerId)
+				.stream()
+				.map(this::castEntityToProductAlbumDto)
+				.collect(Collectors.toList());
+	}
 }

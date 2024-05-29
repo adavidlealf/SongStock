@@ -3,6 +3,8 @@ package com.poli.songstock.dto;
 import java.util.List;
 import java.util.Objects;
 
+import com.poli.songstock.domain.ShoppingKart;
+
 public class ConsumerDTO {
 
 	/**
@@ -30,10 +32,14 @@ public class ConsumerDTO {
 	 */
 	private List<PhysicalOrderDTO> physicalOrders;
 	
+	/**
+	 * Collection of products to buy later
+	 */
+	private ShoppingKartDTO kart;
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(approvals, digitalOrders, library, physicalOrders, userRole);
+		return Objects.hash(approvals, digitalOrders, kart, library, physicalOrders, userRole);
 	}
 
 	@Override
@@ -46,32 +52,8 @@ public class ConsumerDTO {
 			return false;
 		ConsumerDTO other = (ConsumerDTO) obj;
 		return Objects.equals(approvals, other.approvals) && Objects.equals(digitalOrders, other.digitalOrders)
-				&& Objects.equals(library, other.library) && Objects.equals(physicalOrders, other.physicalOrders)
-				&& Objects.equals(userRole, other.userRole);
-	}
-
-	/**
-	 * Empty Constructor
-	 */
-	public ConsumerDTO() {
-		super();
-	}
-
-	/**
-	 * @param userRole
-	 * @param approvals
-	 * @param library
-	 * @param digitalOrders
-	 * @param physicalOrders
-	 */
-	public ConsumerDTO(UserRoleDTO userRole, List<ApprovalConsumerDTO> approvals, LibraryDTO library,
-			List<DigitalOrderDTO> digitalOrders, List<PhysicalOrderDTO> physicalOrders) {
-		super();
-		this.userRole = userRole;
-		this.approvals = approvals;
-		this.library = library;
-		this.digitalOrders = digitalOrders;
-		this.physicalOrders = physicalOrders;
+				&& Objects.equals(kart, other.kart) && Objects.equals(library, other.library)
+				&& Objects.equals(physicalOrders, other.physicalOrders) && Objects.equals(userRole, other.userRole);
 	}
 
 	/**
@@ -143,7 +125,43 @@ public class ConsumerDTO {
 	public void setPhysicalOrders(List<PhysicalOrderDTO> physicalOrders) {
 		this.physicalOrders = physicalOrders;
 	}
-	
-	
-	
+
+	/**
+	 * @return the kart
+	 */
+	public ShoppingKartDTO getKart() {
+		return kart;
+	}
+
+	/**
+	 * @param kart the kart to set
+	 */
+	public void setKart(ShoppingKartDTO kart) {
+		this.kart = kart;
+	}
+
+	/**
+	 * @param userRole
+	 * @param approvals
+	 * @param library
+	 * @param digitalOrders
+	 * @param physicalOrders
+	 * @param kart
+	 */
+	public ConsumerDTO(UserRoleDTO userRole, List<ApprovalConsumerDTO> approvals, LibraryDTO library,
+			List<DigitalOrderDTO> digitalOrders, List<PhysicalOrderDTO> physicalOrders, ShoppingKartDTO kart) {
+		this.userRole = userRole;
+		this.approvals = approvals;
+		this.library = library;
+		this.digitalOrders = digitalOrders;
+		this.physicalOrders = physicalOrders;
+		this.kart = kart;
+	}
+
+	/**
+	 * Empty constructor
+	 */
+	public ConsumerDTO() {
+	}
+
 }

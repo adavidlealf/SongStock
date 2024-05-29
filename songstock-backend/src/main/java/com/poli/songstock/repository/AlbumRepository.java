@@ -44,4 +44,16 @@ public interface AlbumRepository extends JpaRepository<Album, Long> {
 				 + "AND a.id = p.object_id AND p.is_song = '0' AND p.is_digital = '1'"
 				 , nativeQuery = true)
 	List<Album> findAllByDigitalOrder(@Param(value = "order_id") Long orderId);
+	
+	/**
+	 * Consulta la lista de albumes que un consumidor tiene en su carrito.
+	 * @param consumerId Long id del consumidor.
+	 * @return List<Album> Lista de albumes del carrito consumidor.
+	 */
+	@Query(value = "SELECT a.* FROM users u, shopping_kart k, album a, product p "
+				 + "WHERE u.id = :consumer_id AND k.consumer_id = :consumer_id "
+				 + "AND p.id = k.product_id AND a.id = p.object_id "
+				 + "AND p.is_song = '0' AND p.is_digital = '1'"
+				 , nativeQuery = true)
+	List<Album> findAllByKartConsumer(@Param(value = "consumer_id") Long consumerId);
 }

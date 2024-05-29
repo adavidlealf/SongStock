@@ -54,4 +54,16 @@ public interface SongRepository extends JpaRepository<Song, Long> {
 				 + "AND s.id = p.object_id AND p.is_song = '1' AND p.is_digital = '1'"
 				 , nativeQuery = true)
 	List<Song> findAllByDigitalOrder(@Param(value = "order_id") Long orderId);
+	
+	/**
+	 * Consulta la lista de canciones que un consumidor tiene en su carrito.
+	 * @param consumerId Long id del consumidor.
+	 * @return List<Song> Lista de canciones del carrito consumidor.
+	 */
+	@Query(value = "SELECT s.* FROM users u, shopping_kart k, song s, product p "
+				 + "WHERE u.id = :consumer_id AND k.consumer_id = :consumer_id "
+				 + "AND p.id = k.product_id AND s.id = p.object_id "
+				 + "AND p.is_song = '1' AND p.is_digital = '1'"
+				 , nativeQuery = true)
+	List<Song> findAllByKartConsumer(@Param(value = "consumer_id") Long consumerId);
 }

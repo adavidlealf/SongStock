@@ -327,7 +327,6 @@ public class VinylService implements VinylRepository {
 		return castEntityToProductVinylDto(vinyl);
 	}
 	
-	
 	/**
 	 * Consulta la lista de vinilos ofrecidos por un distribuidor y la retorna de tipo ProductVinylDTO.
 	 * @param distributorId Long id del distribuidor
@@ -339,5 +338,22 @@ public class VinylService implements VinylRepository {
 				.map(this::castProductToProductVinylDTO)
 				.collect(Collectors.toList());
 	}
+
+	@Override
+	public List<Vinyl> findAllByKartConsumer(Long consumerId) {
+		return repository.findAllByKartConsumer(consumerId);
+	}
 	
+	/**
+	 * Consulta la lista de vinilos del carrito de un consumidor y la retorna 
+	 * de tipo ProductVinylDTO.
+	 * @param consumerId Long id del consumidor
+	 * @return List<ProductVinylDTO> lista de vinilos del carrito de un consumidor de tipo ProductVinylDTO.
+	 */
+	public List<ProductVinylDTO> findAllProductVinylByKart(Long consumerId){
+		return findAllByKartConsumer(consumerId)
+				.stream()
+				.map(this::castEntityToProductVinylDto)
+				.collect(Collectors.toList());
+	}
 }
