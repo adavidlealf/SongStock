@@ -45,10 +45,16 @@ public class CredentialsBusiness {
 			, Long roleId
 		) throws Exception {
 		Users entity = new Users();
+		if(LogicBusiness.isEmpty(nickName)) {
+			throw new Exception("El nickname no debe ser vacio.");
+		}
 		entity.setNickname(nickName);
 		entity.setName(name);
 		if(!LogicBusiness.isValidEmail(email)) {
 			throw new Exception("El correo no cumple con el formato.");
+		}
+		if(usersService.findByEmail(email) != null) {
+			throw new Exception("Ya existe un usuario con ese correo.");
 		}
 		entity.setEmail(email);
 		if(LogicBusiness.isEmpty(password)) {
@@ -83,6 +89,15 @@ public class CredentialsBusiness {
 				|| LogicBusiness.isEmpty(u.getId())
 				|| (!u.getPassword().equals(password)))
 			);
+	}
+	
+	/**
+	 * Revisa si ya existe un usuario registrado con el email
+	 * @param email String correo
+	 * @return Boolean true en caso de que exista un usuario con el correo
+	 */
+	public Boolean existsUserByEmail(String email) {
+		return usersService.findByEmail(email) != null;
 	}
 
 	/**

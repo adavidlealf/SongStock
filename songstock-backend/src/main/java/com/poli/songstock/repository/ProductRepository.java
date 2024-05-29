@@ -37,7 +37,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	 * @param songId Long id de la cancion.
 	 * @return Product producto del cancion.
 	 */
-	@Query(value = "SELECT p.* FROM product p, song s"
+	@Query(value = "SELECT p.* FROM product p, song s "
 				 + "WHERE s.id = :song_id "
 				 + "AND p.object_id = s.id AND p.is_digital = '1' AND p.is_song = '1'"
 		 , nativeQuery = true)
@@ -47,7 +47,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	 * Busca todos los productos tipo cancion.
 	 * @return List<Product> lista de productos tipo cancion.
 	 */
-	@Query(value = "SELECT p.* FROM product p, song s"
+	@Query(value = "SELECT p.* FROM product p, song s "
 				 + "WHERE p.object_id = s.id AND p.is_digital = '1' AND p.is_song = '1'"
 		 , nativeQuery = true)
 	List<Product> findAllSongs();
@@ -56,7 +56,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	 * Busca todos los productos tipo album.
 	 * @return List<Product> lista de productos tipo album.
 	 */
-	@Query(value = "SELECT p.* FROM product p, album a"
+	@Query(value = "SELECT p.* FROM product p, album a "
 				 + "WHERE p.object_id = a.id AND p.is_digital = '1' AND p.is_song = '0'"
 		 , nativeQuery = true)
 	List<Product> findAllAlbums();
@@ -65,7 +65,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	 * Busca todos los productos tipo vinilo.
 	 * @return List<Product> lista de productos tipo vinilo.
 	 */
-	@Query(value = "SELECT p.* FROM product p, vinyl v"
+	@Query(value = "SELECT p.* FROM product p, vinyl v "
 				 + "WHERE p.object_id = v.id AND p.is_digital = '0' AND p.is_song = '0'"
 		 , nativeQuery = true)
 	List<Product> findAllVinyls();
@@ -75,7 +75,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	 * @param distributorId Long id del distribuidor
 	 * @return List<Product> lista de productos tipo cancion.
 	 */
-	@Query(value = "SELECT p.* FROM product p, song s"
+	@Query(value = "SELECT p.* FROM product p, song s "
 			+ "WHERE p.object_id = s.id "
 			+ "AND p.is_digital = '1' AND p.is_song = '1' AND p.distributor_id = :distributor_id"
 			, nativeQuery = true)
@@ -86,7 +86,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	 * @param distributorId Long id del distribuidor
 	 * @return List<Product> lista de productos tipo album de un distribuidor por su id.
 	 */
-	@Query(value = "SELECT p.* FROM product p, album a"
+	@Query(value = "SELECT p.* FROM product p, album a "
 			+ "WHERE p.object_id = a.id "
 			+ "AND p.is_digital = '1' AND p.is_song = '0' AND p.distributor_id = :distributor_id"
 			, nativeQuery = true)
@@ -97,7 +97,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	 * @param distributorId Long id del distribuidor
 	 * @return List<Product> lista de productos tipo vinilo de un distribuidor por su id.
 	 */
-	@Query(value = "SELECT p.* FROM product p, vinyl v"
+	@Query(value = "SELECT p.* FROM product p, vinyl v "
 			+ "WHERE p.object_id = v.id "
 			+ "AND p.is_digital = '0' AND p.is_song = '0' AND p.distributor_id = :distributor_id"
 			, nativeQuery = true)

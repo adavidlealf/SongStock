@@ -41,6 +41,7 @@ public class SongService implements SongRepository{
 	private ProductService productService;
 
 	@Autowired
+	@Lazy
 	private UsersService usersService;
 	
 	@Override

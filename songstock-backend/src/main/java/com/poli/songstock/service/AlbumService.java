@@ -44,6 +44,7 @@ public class AlbumService implements AlbumRepository{
 	private SongService songService;
 	
 	@Autowired
+	@Lazy
 	private UsersService usersService;
 	
 	@Override

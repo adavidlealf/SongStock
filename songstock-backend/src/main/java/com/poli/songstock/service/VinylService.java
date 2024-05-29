@@ -30,6 +30,7 @@ public class VinylService implements VinylRepository {
 	private VinylRepository repository;
 	
 	@Autowired
+	@Lazy
 	private AlbumService albumService;
 	
 	@Autowired
@@ -40,6 +41,7 @@ public class VinylService implements VinylRepository {
 	private ProductService productService;
 
 	@Autowired
+	@Lazy
 	private UsersService usersService;
 	
 	@Override
