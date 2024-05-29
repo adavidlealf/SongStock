@@ -73,8 +73,7 @@ public class AddressService implements AddressRepository {
 
 	@Override
 	public Address getReferenceById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.getReferenceById(id);
 	}
 
 	@Override
@@ -245,4 +244,12 @@ public class AddressService implements AddressRepository {
 				.collect(Collectors.toList());
 	}
 	
+	/**
+	 * Obtiene la referencia de una entidad Address por id y lo retorna de tipo AddressDTO.
+	 * @param id Long id de la entidad
+	 * @return AddressDTO referencia
+	 */
+	public AddressDTO getReferenceAddressDtoById(Long id) {
+		return castEntityToAddressDto(getReferenceById(id));
+	}
 }

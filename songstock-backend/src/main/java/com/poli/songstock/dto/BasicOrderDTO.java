@@ -1,6 +1,6 @@
 package com.poli.songstock.dto;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Objects;
 
 public class BasicOrderDTO {
@@ -21,48 +21,27 @@ public class BasicOrderDTO {
 	private AddressDTO consumerAddress;
 
 	/**
-	 * Color of the item
+	 * Total of the products
 	 */
-	private String color;
-	
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(color, consumerAddress, date, obs);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		BasicOrderDTO other = (BasicOrderDTO) obj;
-		return Objects.equals(color, other.color) && Objects.equals(consumerAddress, other.consumerAddress)
-				&& Objects.equals(date, other.date) && Objects.equals(obs, other.obs);
-	}
-
-	/**
-	 * Empty Constructor
-	 */
-	public BasicOrderDTO() {
-		super();
-	}
+	private Double total;
 
 	/**
 	 * @param date
 	 * @param obs
 	 * @param consumerAddress
-	 * @param color
+	 * @param total
 	 */
-	public BasicOrderDTO(Date date, String obs, AddressDTO consumerAddress, String color) {
-		super();
+	public BasicOrderDTO(Date date, String obs, AddressDTO consumerAddress, Double total) {
 		this.date = date;
 		this.obs = obs;
 		this.consumerAddress = consumerAddress;
-		this.color = color;
+		this.total = total;
+	}
+
+	/**
+	 * Empty constructor
+	 */
+	public BasicOrderDTO() {
 	}
 
 	/**
@@ -108,19 +87,35 @@ public class BasicOrderDTO {
 	}
 
 	/**
-	 * @return the color
+	 * @return the total
 	 */
-	public String getColor() {
-		return color;
+	public Double getTotal() {
+		return total;
 	}
 
 	/**
-	 * @param color the color to set
+	 * @param total the total to set
 	 */
-	public void setColor(String color) {
-		this.color = color;
+	public void setTotal(Double total) {
+		this.total = total;
 	}
-	
-	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(consumerAddress, date, obs, total);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		BasicOrderDTO other = (BasicOrderDTO) obj;
+		return Objects.equals(consumerAddress, other.consumerAddress) && Objects.equals(date, other.date)
+				&& Objects.equals(obs, other.obs) && Objects.equals(total, other.total);
+	}
 	
 }

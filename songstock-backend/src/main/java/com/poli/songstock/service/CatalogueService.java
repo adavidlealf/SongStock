@@ -279,4 +279,31 @@ public class CatalogueService implements CatalogueRepository {
 		dto.setVinyls(vinylService.findAllProductVinylByDistributor(distributorId));
 		return dto;
 	}
+
+	@Override
+	public List<Catalogue> findAllByOrder(Long orderId) {
+		return repository.findAllByOrder(orderId);
+	}
+	
+	/**
+	 * Calcular el costo total de una lista de productos de una orden.
+	 * @param orderId Long id de la orden
+	 * @return Double suma de los precios de los productos de la orden.
+	 */
+	public Double getTotalByOrder(Long orderId) {
+		return getTotal(findAllByOrder(orderId));
+	}
+	
+	/**
+	 * Calcular el costo total de una lista de productos.
+	 * @param productos List<Catalogue> lista de productos
+	 * @return Double suma de los precios de los productos
+	 */
+	public Double getTotal(List<Catalogue> productos) {
+		Double total = 0.0;
+		for(Catalogue c : productos) {
+			total += (c.getPrice());
+		}
+		return total;
+	}
 }

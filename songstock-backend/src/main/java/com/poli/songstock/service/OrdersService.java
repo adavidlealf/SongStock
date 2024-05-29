@@ -1,8 +1,11 @@
 package com.poli.songstock.service;
 
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -13,6 +16,7 @@ import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuer
 import org.springframework.stereotype.Service;
 
 import com.poli.songstock.domain.Orders;
+import com.poli.songstock.dto.BasicOrderDTO;
 import com.poli.songstock.repository.OrdersRepository;
 
 @Service
@@ -20,6 +24,12 @@ public class OrdersService implements OrdersRepository {
 
 	@Autowired
 	private OrdersRepository repository;
+	
+	@Autowired
+	private AddressService addressService;
+	
+	@Autowired
+	private CatalogueService catalogueService;
 	
 	@Override
 	public void flush() {
@@ -200,4 +210,32 @@ public class OrdersService implements OrdersRepository {
 		return null;
 	}
 
+	/**
+	 * Convierte una instancia de la entidad Order al DTO de BasicOrder.
+	 * @param ent Orders entidad
+	 * @return BasicOrderDTO dto
+	 */
+	public BasicOrderDTO castEntityToBasicOrderDto(Orders ent) {
+		BasicOrderDTO dto = new BasicOrderDTO();
+		if(ent.getDate()!=null) {
+			dto.setDate(
+					Date.from(ent.getDate().atStartOfDay(ZoneId.systemDefault()).toInstant())
+				);
+		}
+		dto.setObs(ent.getObs());
+		dto.setConsumerAddress(addressService.getReferenceAddressDtoById(ent.getAddressId()));
+		dto.setTotal(catalogueService.getTotalByOrder(ent.getId()));
+		return dto;
+	}
+	
+	/**
+	 * Retorna una lista de todos los registros de la entidad Orders convertidos en BasicOrderDTO.
+	 * @return List<BasicOrderDTO> lista de todos los registros de Orders en BasicOrderDTO.
+	 */
+	public List<BasicOrderDTO> findAllBasicOrderDto(){
+		return findAll()
+				.stream()
+				.map(this::castEntityToBasicOrderDto)
+				.collect(Collectors.toList());
+	}
 }

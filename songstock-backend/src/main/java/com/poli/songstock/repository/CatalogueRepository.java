@@ -1,5 +1,7 @@
 package com.poli.songstock.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -43,4 +45,15 @@ public interface CatalogueRepository extends JpaRepository<Catalogue,Long> {
 			 + "AND c.product_id = p.id"
 			 , nativeQuery = true)
 	Catalogue findByVinyl(@Param(value = "vinyl_id") Long vinylId);
+	
+	/**
+	 * Obtiene los precios de los productos de una orden por id de orden.
+	 * @param orderId Long id de la orden
+	 * @return List<Catalogue> lista de precios.
+	 */
+	@Query(value = "SELECT c.* FROM catalogue c, product p, order o, order_product op "
+			 + "WHERE o.id = :order_id "
+			 + "AND op.order_id = :order_id AND c.product_id = op.product_id "
+			 , nativeQuery = true)
+	List<Catalogue> findAllByOrder(@Param(value = "order_id") Long orderId);
 }

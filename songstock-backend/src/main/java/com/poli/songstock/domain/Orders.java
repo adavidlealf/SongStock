@@ -20,7 +20,7 @@ public class Orders {
 	
 	private String obs;
 	
-	private Long productId;
+	private Long addressId;
 
 	/**
 	 * @return the id
@@ -65,17 +65,17 @@ public class Orders {
 	}
 
 	/**
-	 * @return the productId
+	 * @return the addressId
 	 */
-	public Long getProductId() {
-		return productId;
+	public Long getAddressId() {
+		return addressId;
 	}
 
 	/**
-	 * @param productId the productId to set
+	 * @param addressId the addressId to set
 	 */
-	public void setProductId(Long productId) {
-		this.productId = productId;
+	public void setAddressId(Long addressId) {
+		this.addressId = addressId;
 	}
 
 }
