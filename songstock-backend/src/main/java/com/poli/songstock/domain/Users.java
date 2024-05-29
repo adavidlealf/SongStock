@@ -17,8 +17,6 @@ public class Users {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	private LocalDate applicantDate;
-	
 	@Column(unique = true)
 	private String nickname;
 	
