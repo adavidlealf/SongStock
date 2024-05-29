@@ -18,6 +18,7 @@ import com.poli.songstock.domain.Role;
 import com.poli.songstock.domain.Users;
 import com.poli.songstock.dto.BasicUserDTO;
 import com.poli.songstock.dto.ConsumerDTO;
+import com.poli.songstock.dto.DistributorDTO;
 import com.poli.songstock.dto.UserDTO;
 import com.poli.songstock.dto.UserRoleDTO;
 import com.poli.songstock.repository.UsersRepository;
@@ -33,6 +34,9 @@ public class UsersService implements UsersRepository{
 	
 	@Autowired
 	private ApprovalService approvalService;
+	
+	@Autowired
+	private CatalogueService catalogueService;
 	
 	@Autowired
 	private LibraryService libraryService;
@@ -364,6 +368,30 @@ public class UsersService implements UsersRepository{
 		return repository.findAll()
 				.stream()
 				.map(this::castEntityToConsumerDTO)
+				.collect(Collectors.toList());
+	}
+	
+	/**
+	 * Convierte una instancia de la entidad Users al DTO de Distributor.
+	 * @param ent Users instancia de la entidad Users
+	 * @return DistributorDTO instancia de DistributorDTO
+	 */
+	public DistributorDTO castEntityToDistributorDTO(Users ent) {
+		DistributorDTO dto = new DistributorDTO();
+		dto.setUserRole(castEntityToUserRoleDto(ent));
+		dto.setApprovals(approvalService.findAllApprovalDistributorDtoByApplicant(ent.getId()));
+		dto.setCatalogue(catalogueService.getCatalogueDtoByDistributor(ent.getId()));
+		return dto;
+	}
+	
+	/**
+	 * Retorna una lista de todos los registros de la entidad Users convertidos en DistributorDTO.
+	 * @return List<DistributorDTO> lista de todos los registros de Users en DistributorDTO.
+	 */
+	public List<DistributorDTO> findAllDistributorDto() {
+		return repository.findAll()
+				.stream()
+				.map(this::castEntityToDistributorDTO)
 				.collect(Collectors.toList());
 	}
 }

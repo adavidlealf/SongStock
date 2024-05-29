@@ -324,4 +324,15 @@ public class ApprovalService implements ApprovalRepository{
 				.map(this::castEntityToApprovalConsumerDto)
 				.collect(Collectors.toList());
 	}
+	
+	/**
+	 * Retorna una lista de las aprobaciones de un usuario solicitante convertidas en ApprovalDistributorDTO.
+	 * @return List<ApprovalDistributorDTO> lista de aprobaciones tipo ApprovalDistributorDto. 
+	 */
+	public List<ApprovalDistributorDTO> findAllApprovalDistributorDtoByApplicant(Long applicantId) {
+		return findAllByApplicant(applicantId)
+				.stream()
+				.map(this::castEntityToApprovalDistributorDto)
+				.collect(Collectors.toList());
+	}
 }
