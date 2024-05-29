@@ -353,7 +353,7 @@ public class UsersService implements UsersRepository{
 	 * @param ent Users instancia de la entidad Users
 	 * @return ConsumerDTO instancia de ConsumerDTO
 	 */
-	public ConsumerDTO castEntityToConsumerDTO(Users ent) {
+	public ConsumerDTO castEntityToConsumerDto(Users ent) {
 		ConsumerDTO dto = new ConsumerDTO();
 		dto.setUserRole(castEntityToUserRoleDto(ent));
 		dto.setApprovals(approvalService.findAllApprovalConsumerDtoByApplicant(ent.getId()));
@@ -371,7 +371,7 @@ public class UsersService implements UsersRepository{
 	public List<ConsumerDTO> findAllConsumerDto() {
 		return repository.findAll()
 				.stream()
-				.map(this::castEntityToConsumerDTO)
+				.map(this::castEntityToConsumerDto)
 				.collect(Collectors.toList());
 	}
 	
@@ -380,7 +380,7 @@ public class UsersService implements UsersRepository{
 	 * @param ent Users instancia de la entidad Users
 	 * @return DistributorDTO instancia de DistributorDTO
 	 */
-	public DistributorDTO castEntityToDistributorDTO(Users ent) {
+	public DistributorDTO castEntityToDistributorDto(Users ent) {
 		DistributorDTO dto = new DistributorDTO();
 		dto.setUserRole(castEntityToUserRoleDto(ent));
 		dto.setApprovals(approvalService.findAllApprovalDistributorDtoByApplicant(ent.getId()));
@@ -395,7 +395,102 @@ public class UsersService implements UsersRepository{
 	public List<DistributorDTO> findAllDistributorDto() {
 		return repository.findAll()
 				.stream()
-				.map(this::castEntityToDistributorDTO)
+				.map(this::castEntityToDistributorDto)
 				.collect(Collectors.toList());
+	}
+	
+	/**
+	 * Busca un usuario por email y lo retorna de tipo BasicUserDTO
+	 * @param email String email del usuario.
+	 * @return BasicUserDTO dto
+	 */
+	public BasicUserDTO getReferenceBasicUserDtoByEmail(String email) {
+		return castEntityToBasicUserDto(findByEmail(email));
+	}
+	
+	/**
+	 * Busca un usuario por email y lo retorna de tipo UserDTO
+	 * @param email String email del usuario.
+	 * @return UserDTO dto
+	 */
+	public UserDTO getReferenceUserDtoByEmail(String email) {
+		return castEntityToUserDto(findByEmail(email));
+	}
+	
+	/**
+	 * Busca un usuario por email y lo retorna de tipo UserRoleDTO
+	 * @param email String email del usuario.
+	 * @return UserRoleDTO dto
+	 */
+	public UserRoleDTO getReferenceUserRoleDtoByEmail(String email) {
+		return castEntityToUserRoleDto(findByEmail(email));
+	}
+	
+	/**
+	 * Busca un usuario por email y lo retorna de tipo ConsumerDTO
+	 * @param email String email del usuario.
+	 * @return ConsumerDTO dto
+	 */
+	public ConsumerDTO getReferenceConsumerDtoByEmail(String email) {
+		return castEntityToConsumerDto(findByEmail(email));
+	}
+	
+	/**
+	 * Busca un usuario por email y lo retorna de tipo DistributorDTO
+	 * @param email String email del usuario.
+	 * @return DistributorDTO dto
+	 */
+	public DistributorDTO getReferenceDistributorDtoByEmail(String email) {
+		return castEntityToDistributorDto(findByEmail(email));
+	}
+
+	@Override
+	public Users findByNickName(String nickName) {
+		return repository.findByNickName(nickName);
+	}
+	
+	/**
+	 * Busca un usuario por nickName y lo retorna de tipo BasicUserDTO
+	 * @param nickName String arroba del usuario.
+	 * @return BasicUserDTO dto
+	 */
+	public BasicUserDTO getReferenceBasicUserDtoByNickName(String nickName) {
+		return castEntityToBasicUserDto(findByNickName(nickName));
+	}
+	
+	/**
+	 * Busca un usuario por nickName y lo retorna de tipo UserDTO
+	 * @param nickName String arroba del usuario.
+	 * @return UserDTO dto
+	 */
+	public UserDTO getReferenceUserDtoByNickName(String nickName) {
+		return castEntityToUserDto(findByNickName(nickName));
+	}
+	
+	/**
+	 * Busca un usuario por nickName y lo retorna de tipo UserRoleDTO
+	 * @param nickName String arroba del usuario.
+	 * @return UserRoleDTO dto
+	 */
+	public UserRoleDTO getReferenceUserRoleDtoByNickName(String nickName) {
+		return castEntityToUserRoleDto(findByNickName(nickName));
+	}
+	
+	/**
+	 * Busca un usuario por nickName y lo retorna de tipo ConsumerDTO
+	 * @param nickName String arroba del usuario.
+	 * @return ConsumerDTO dto
+	 */
+	public ConsumerDTO getReferenceConsumerDtoByNickName(String nickName) {
+		return castEntityToConsumerDto(findByNickName(nickName));
+	}
+	
+	/**
+	 * Busca un usuario por nickName y lo retorna de tipo DistributorDTO
+	 * @param nickName String arroba del usuario.
+	 * @return DistributorDTO dto
+	 */
+	public DistributorDTO getReferenceDistributorDtoByNickName(String nickName) {
+		return castEntityToDistributorDto(findByNickName(nickName));
 	}
 }

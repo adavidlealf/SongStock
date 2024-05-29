@@ -20,4 +20,14 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
 				 , nativeQuery = true)
 	Users findByEmail(@Param(value = "email") String email);
 	
+	/**
+	 * Obtiene la informacion de un usuario por su nickname.
+	 * @param nickName String arroba del usuario
+	 * @return Users informacion del usuario.
+	 */
+	@Query(value = "SELECT u.* FROM users u "
+				 + "WHERE u.nickname = :nickname"
+				 , nativeQuery = true)
+	Users findByNickName(@Param(value = "nickname") String nickName);
+	
 }

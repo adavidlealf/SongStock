@@ -8,7 +8,11 @@ import org.springframework.stereotype.Component;
 
 import com.poli.songstock.domain.Role;
 import com.poli.songstock.domain.Users;
+import com.poli.songstock.dto.BasicUserDTO;
+import com.poli.songstock.dto.ConsumerDTO;
+import com.poli.songstock.dto.DistributorDTO;
 import com.poli.songstock.dto.UserDTO;
+import com.poli.songstock.dto.UserRoleDTO;
 import com.poli.songstock.service.RoleService;
 import com.poli.songstock.service.UsersService;
 
@@ -79,6 +83,51 @@ public class CredentialsBusiness {
 				|| LogicBusiness.isEmpty(u.getId())
 				|| (!u.getPassword().equals(password)))
 			);
+	}
+
+	/**
+	 * Obtiene el BasicUserDTO de un usuario mediante su nickName
+	 * @param nickName String arroba
+	 * @return BasicUserDTO informacion del usuario.
+	 */
+	public BasicUserDTO getBasicUserByNick(String nickName) {
+		return usersService.getReferenceBasicUserDtoByNickName(nickName);
+	}
+	
+	/**
+	 * Obtiene el UserDTO de un usuario mediante su nickName
+	 * @param nickName String arroba
+	 * @return UserDTO informacion del usuario.
+	 */
+	public UserDTO getUserByNick(String nickName) {
+		return usersService.getReferenceUserDtoByNickName(nickName);
+	}
+	
+	/**
+	 * Obtiene el UserRoleDTO de un usuario mediante su nickName
+	 * @param nickName String arroba
+	 * @return UserRoleDTO informacion del usuario.
+	 */
+	public UserRoleDTO getUserRoleByNick(String nickName) {
+		return usersService.getReferenceUserRoleDtoByNickName(nickName);
+	}
+
+	/**
+	 * Obtiene el ConsumerDTO de un usuario mediante su nickName
+	 * @param nickName String arroba
+	 * @return ConsumerDTO informacion del usuario.
+	 */
+	public ConsumerDTO getConsumerByNick(String nickName) {
+		return usersService.getReferenceConsumerDtoByNickName(nickName);
+	}
+	
+	/**
+	 * Obtiene el DistributorDTO de un usuario mediante su nickName
+	 * @param nickName String arroba
+	 * @return DistributorDTO informacion del usuario.
+	 */
+	public DistributorDTO getDistributorByNick(String nickName) {
+		return usersService.getReferenceDistributorDtoByNickName(nickName);
 	}
 	
 	/**
