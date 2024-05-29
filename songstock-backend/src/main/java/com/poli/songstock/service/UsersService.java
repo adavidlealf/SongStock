@@ -322,4 +322,12 @@ public class UsersService implements UsersRepository{
 		return repository.findByEmail(email);
 	}
 
+	/**
+	 * Obtiene un registro de la entidad Users y la retorna de tipo BasicUserDTO
+	 * @param id Long id del usuario
+	 * @return BasicUserDTO dto.
+	 */
+	public BasicUserDTO getReferenceBasicUserDtoById(Long id) {
+		return castEntityToBasicUserDto(getReferenceById(id));
+	}
 }

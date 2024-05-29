@@ -16,7 +16,9 @@ import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuer
 import org.springframework.stereotype.Service;
 
 import com.poli.songstock.domain.Approval;
+import com.poli.songstock.dto.ApprovalConsumerDTO;
 import com.poli.songstock.dto.ApprovalDTO;
+import com.poli.songstock.dto.ApprovalDistributorDTO;
 import com.poli.songstock.repository.ApprovalRepository;
 
 @Service
@@ -25,6 +27,9 @@ public class ApprovalService implements ApprovalRepository{
 	@Autowired
 	private ApprovalRepository repository;
 
+	@Autowired
+	private UsersService usersService;
+	
 	@Autowired
 	private VinylService vinylService;
 
@@ -255,5 +260,51 @@ public class ApprovalService implements ApprovalRepository{
 				.map(this::castEntityToApprovalDto)
 				.collect(Collectors.toList());
 	}
+	
+	/**
+	 * Convierte una instancia de la entidad Approval al DTO de ApprovalDistributor.
+	 * @param approval Approval instancia de la entidad Approval
+	 * @return ApprovalDistributorDTO instancia de ApprovalDistributorDTO
+	 */
+	public ApprovalDistributorDTO castEntityToApprovalDistributorDto(Approval ent) {
+		ApprovalDistributorDTO dto = new ApprovalDistributorDTO();
+		dto.setApproval(castEntityToApprovalDto(ent));
+		dto.setApplicant(usersService.getReferenceBasicUserDtoById(ent.getApplicantId()));
+		return dto;
+	}
 
+	/**
+	 * Retorna una lista de las aprobaciones convertidas en ApprovalDistributorDTO.
+	 * @return List<ApprovalDistributorDTO> lista de aprobaciones tipo ApprovalDistributorDto. 
+	 */
+	public List<ApprovalDistributorDTO> findAllApprovalDistributorDto() {
+		return findAll()
+				.stream()
+				.map(this::castEntityToApprovalDistributorDto)
+				.collect(Collectors.toList());
+	}
+	
+	/**
+	 * Convierte una instancia de la entidad Approval al DTO de ApprovalConsumer.
+	 * @param approval Approval instancia de la entidad Approval
+	 * @return ApprovalConsumerDTO instancia de ApprovalConsumerDTO
+	 */
+	public ApprovalConsumerDTO castEntityToApprovalConsumerDto(Approval ent) {
+		ApprovalConsumerDTO dto = new ApprovalConsumerDTO();
+		dto.setApproval(castEntityToApprovalDto(ent));
+		dto.setApprover(usersService.getReferenceBasicUserDtoById(ent.getApproverId()));
+		return dto;
+	}
+
+	/**
+	 * Retorna una lista de las aprobaciones convertidas en ApprovalConsumerDTO.
+	 * @return List<ApprovalConsumerDTO> lista de aprobaciones tipo ApprovalConsumerDto. 
+	 */
+	public List<ApprovalConsumerDTO> findAllApprovalConsumerDto() {
+		return findAll()
+				.stream()
+				.map(this::castEntityToApprovalConsumerDto)
+				.collect(Collectors.toList());
+	}
+	
 }
