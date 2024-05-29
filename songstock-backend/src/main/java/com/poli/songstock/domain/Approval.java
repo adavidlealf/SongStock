@@ -2,6 +2,7 @@ package com.poli.songstock.domain;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -28,6 +29,7 @@ public class Approval {
 	@Enumerated(EnumType.STRING)
 	private Approval.State state;
 	
+	@Column(unique = true)
 	private String code;
 	
 	private Long applicantId;

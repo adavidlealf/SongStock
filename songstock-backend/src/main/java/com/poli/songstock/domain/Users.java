@@ -2,6 +2,7 @@ package com.poli.songstock.domain;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,10 +17,14 @@ public class Users {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
+	private LocalDate applicantDate;
+	
+	@Column(unique = true)
 	private String nickname;
 	
 	private String name;
 	
+	@Column(unique = true)
 	private String email;
 
 	private String password;
@@ -40,6 +45,21 @@ public class Users {
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+
+	/**
+	 * @return the applicantDate
+	 */
+	public LocalDate getApplicantDate() {
+		return applicantDate;
+	}
+
+	/**
+	 * @param applicantDate the applicantDate to set
+	 */
+	public void setApplicantDate(LocalDate applicantDate) {
+		this.applicantDate = applicantDate;
 	}
 
 	/**
