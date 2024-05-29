@@ -16,8 +16,6 @@ public class Users {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	private LocalDate applicantDate;
-	
 	private String nickname;
 	
 	private String name;
@@ -42,20 +40,6 @@ public class Users {
 	 */
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	/**
-	 * @return the applicantDate
-	 */
-	public LocalDate getApplicantDate() {
-		return applicantDate;
-	}
-
-	/**
-	 * @param applicantDate the applicantDate to set
-	 */
-	public void setApplicantDate(LocalDate applicantDate) {
-		this.applicantDate = applicantDate;
 	}
 
 	/**

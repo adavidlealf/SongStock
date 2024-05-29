@@ -117,8 +117,7 @@ public class RoleService implements RoleRepository{
 
 	@Override
 	public boolean existsById(Long id) {
-		// TODO Auto-generated method stub
-		return false;
+		return repository.existsById(id);
 	}
 
 	@Override
