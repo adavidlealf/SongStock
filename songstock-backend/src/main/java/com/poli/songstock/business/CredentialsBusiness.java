@@ -76,8 +76,8 @@ public class CredentialsBusiness {
 		Users u = usersService.findByEmail(email);
 		return (!(
 				LogicBusiness.isEmpty(u) 
-				|| LogicBusiness.isEmpty(u.getId()))
-				|| (!u.getPassword().equals(password))
+				|| LogicBusiness.isEmpty(u.getId())
+				|| (!u.getPassword().equals(password)))
 			);
 	}
 	
