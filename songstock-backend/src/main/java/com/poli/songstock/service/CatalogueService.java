@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.poli.songstock.domain.Catalogue;
 import com.poli.songstock.dto.CatalogueDTO;
+import com.poli.songstock.dto.ProductCatalogueDTO;
 import com.poli.songstock.repository.CatalogueRepository;
 
 @Service
@@ -259,11 +260,23 @@ public class CatalogueService implements CatalogueRepository {
 	 * Obtiene todo el catalogo del sistema, buscando todos los productos cancion, album, y vinilo.
 	 * @return CatalogueDTO catalogo instanciado con todas los productos cancion, album, y vinilo.
 	 */
-	public CatalogueDTO getAllCatalogueDto() {
-		CatalogueDTO catalogueDTO = new CatalogueDTO();
+	public ProductCatalogueDTO getAllProductCatalogueDto() {
+		ProductCatalogueDTO catalogueDTO = new ProductCatalogueDTO();
 		catalogueDTO.setAlbums(albumService.findAllProductAlbumDTO());
 		catalogueDTO.setSongs(songService.findAllProductSongDto());
 		catalogueDTO.setVinyls(vinylService.findAllProductVinylDto());
+		return catalogueDTO;
+	}
+	
+	/**
+	 * Obtiene todo el catalogo del sistema, buscando todos los: cancion, album, y vinilo.
+	 * @return CatalogueDTO catalogo instanciado con todas los: cancion, album, y vinilo.
+	 */
+	public CatalogueDTO getAllCatalogueDto() {
+		CatalogueDTO catalogueDTO = new CatalogueDTO();
+		catalogueDTO.setAlbums(albumService.findAllAlbumDTO());
+		catalogueDTO.setSongs(songService.findAllSongDto());
+		catalogueDTO.setVinyls(vinylService.findAllVinylDto());
 		return catalogueDTO;
 	}
 	
@@ -272,14 +285,14 @@ public class CatalogueService implements CatalogueRepository {
 	 * @param consumerId Long id del distribuidor
 	 * @return CatalogueDTO catalogo ofrecido por un distribuidor.
 	 */
-	public CatalogueDTO getCatalogueDtoByDistributor(Long distributorId) {
-		CatalogueDTO dto = new CatalogueDTO();
+	public ProductCatalogueDTO getProductCatalogueDtoByDistributor(Long distributorId) {
+		ProductCatalogueDTO dto = new ProductCatalogueDTO();
 		dto.setSongs(songService.findAllProductSongByDistributor(distributorId));
 		dto.setAlbums(albumService.findAllProductAlbumByDistributor(distributorId));
 		dto.setVinyls(vinylService.findAllProductVinylByDistributor(distributorId));
 		return dto;
 	}
-
+	
 	@Override
 	public List<Catalogue> findAllByOrder(Long orderId) {
 		return repository.findAllByOrder(orderId);

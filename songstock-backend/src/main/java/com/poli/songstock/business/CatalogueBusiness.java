@@ -19,6 +19,7 @@ import com.poli.songstock.dto.BasicAlbumDTO;
 import com.poli.songstock.dto.BasicArtistDTO;
 import com.poli.songstock.dto.CatalogueDTO;
 import com.poli.songstock.dto.ProductAlbumDTO;
+import com.poli.songstock.dto.ProductCatalogueDTO;
 import com.poli.songstock.dto.ProductSongDTO;
 import com.poli.songstock.dto.ProductVinylDTO;
 import com.poli.songstock.dto.SongDTO;
@@ -399,6 +400,14 @@ public class CatalogueBusiness {
 	
 	/**
 	 * Obtiene todo el catalogo del sistema
+	 * @return ProductCatalogueDTO
+	 */
+	public ProductCatalogueDTO getAllProductCatalogue() {
+		return catalogueService.getAllProductCatalogueDto();
+	}
+	
+	/**
+	 * Obtiene todo el catalogo del sistema
 	 * @return
 	 */
 	public CatalogueDTO getAllCatalogue() {
@@ -410,7 +419,7 @@ public class CatalogueBusiness {
 	 * @param distributorId Long id del distribuidor
 	 * @return CatalogueDTO catalogo del distribuidor
 	 */
-	public CatalogueDTO getCatalogueByDistributor(Long distributorId) {
-		return catalogueService.getCatalogueDtoByDistributor(distributorId);
+	public ProductCatalogueDTO getProductCatalogueByDistributor(Long distributorId) {
+		return catalogueService.getProductCatalogueDtoByDistributor(distributorId);
 	}
 }

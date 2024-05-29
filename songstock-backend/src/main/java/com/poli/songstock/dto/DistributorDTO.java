@@ -18,7 +18,7 @@ public class DistributorDTO {
 	/**
 	 * Catalogue data transfer object
 	 */
-	private CatalogueDTO catalogue;
+	private ProductCatalogueDTO catalogue;
 	
 
 	@Override
@@ -51,7 +51,7 @@ public class DistributorDTO {
 	 * @param approvals
 	 * @param catalogue
 	 */
-	public DistributorDTO(UserRoleDTO userRole, List<ApprovalDistributorDTO> approvals, CatalogueDTO catalogue) {
+	public DistributorDTO(UserRoleDTO userRole, List<ApprovalDistributorDTO> approvals, ProductCatalogueDTO catalogue) {
 		super();
 		this.userRole = userRole;
 		this.approvals = approvals;
@@ -89,14 +89,14 @@ public class DistributorDTO {
 	/**
 	 * @return the catalogue
 	 */
-	public CatalogueDTO getCatalogue() {
+	public ProductCatalogueDTO getCatalogue() {
 		return catalogue;
 	}
 
 	/**
 	 * @param catalogue the catalogue to set
 	 */
-	public void setCatalogue(CatalogueDTO catalogue) {
+	public void setCatalogue(ProductCatalogueDTO catalogue) {
 		this.catalogue = catalogue;
 	}
 	

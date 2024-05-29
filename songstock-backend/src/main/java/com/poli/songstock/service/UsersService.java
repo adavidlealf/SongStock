@@ -394,7 +394,7 @@ public class UsersService implements UsersRepository{
 		DistributorDTO dto = new DistributorDTO();
 		dto.setUserRole(castEntityToUserRoleDto(ent));
 		dto.setApprovals(approvalService.findAllApprovalDistributorDtoByApplicant(ent.getId()));
-		dto.setCatalogue(catalogueService.getCatalogueDtoByDistributor(ent.getId()));
+		dto.setCatalogue(catalogueService.getProductCatalogueDtoByDistributor(ent.getId()));
 		return dto;
 	}
 	

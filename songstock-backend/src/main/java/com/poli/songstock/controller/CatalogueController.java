@@ -19,6 +19,7 @@ import com.poli.songstock.requestbody.catalogue.ProductAlbumRequest;
 import com.poli.songstock.requestbody.catalogue.ProductSongRequest;
 import com.poli.songstock.requestbody.catalogue.ProductVinylRequest;
 import com.poli.songstock.dto.ProductAlbumDTO;
+import com.poli.songstock.dto.ProductCatalogueDTO;
 import com.poli.songstock.dto.BasicAlbumDTO;
 import com.poli.songstock.dto.BasicArtistDTO;
 import com.poli.songstock.dto.CatalogueDTO;
@@ -153,6 +154,22 @@ public class CatalogueController {
 		}
 	}
 	
+	@GetMapping(value = "/products")
+	public ResponseEntity<ProductCatalogueDTO> getAllProductCatalogue(){
+		try {
+			ProductCatalogueDTO dto = catalogueBusiness.getAllProductCatalogue();
+			if(dto != null) {
+				return ResponseEntity.ok(dto);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			}
+		} catch (Exception e) {
+			System.out.println("----- Error en /catalogue/products");
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+	}
+	
 	@GetMapping
 	public ResponseEntity<CatalogueDTO> getAllCatalogue(){
 		try {
@@ -170,9 +187,9 @@ public class CatalogueController {
 	}
 	
 	@GetMapping("/distributor/{id}")
-	public ResponseEntity<CatalogueDTO> getCatalogueByDistributor(@PathVariable("id") Long id){
+	public ResponseEntity<ProductCatalogueDTO> getProductCatalogueByDistributor(@PathVariable("id") Long id){
 		try {
-			CatalogueDTO dto = catalogueBusiness.getCatalogueByDistributor(id);
+			ProductCatalogueDTO dto = catalogueBusiness.getProductCatalogueByDistributor(id);
 			if(dto != null) {
 				return ResponseEntity.ok(dto);
 			} else {
