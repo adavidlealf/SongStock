@@ -5,7 +5,7 @@ public class ProductVinylRequest {
 	private String color;
 	private Double inches;
 	private Integer stock;
-	private Long album_id;
+	private Long albumId;
 	private Long distributorId;
 	private Double price;
 	/**
@@ -45,16 +45,16 @@ public class ProductVinylRequest {
 		this.stock = stock;
 	}
 	/**
-	 * @return the album_id
+	 * @return the albumId
 	 */
-	public Long getAlbum_id() {
-		return album_id;
+	public Long getAlbumId() {
+		return albumId;
 	}
 	/**
-	 * @param album_id the album_id to set
+	 * @param albumId the albumId to set
 	 */
-	public void setAlbum_id(Long album_id) {
-		this.album_id = album_id;
+	public void setAlbumId(Long albumId) {
+		this.albumId = albumId;
 	}
 	/**
 	 * @return the distributorId

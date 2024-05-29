@@ -21,6 +21,7 @@ import com.poli.songstock.requestbody.catalogue.ProductVinylRequest;
 import com.poli.songstock.dto.ProductAlbumDTO;
 import com.poli.songstock.dto.BasicAlbumDTO;
 import com.poli.songstock.dto.BasicArtistDTO;
+import com.poli.songstock.dto.CatalogueDTO;
 import com.poli.songstock.business.CatalogueBusiness;
 
 @RestController
@@ -92,7 +93,7 @@ public class CatalogueController {
 					request.getColor()
 					, request.getInches()
 					, request.getStock()
-					, request.getAlbum_id()
+					, request.getAlbumId()
 					, request.getDistributorId()
 					, request.getPrice()
 				);
@@ -147,6 +148,22 @@ public class CatalogueController {
 			}
 		} catch (Exception e) {
 			System.out.println("----- Error en /vinyl/{id}");
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+	}
+	
+	@GetMapping
+	public ResponseEntity<CatalogueDTO> getAllCatalogue(){
+		try {
+			CatalogueDTO dto = catalogueBusiness.getAllCatalogue();
+			if(dto != null) {
+				return ResponseEntity.ok(dto);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			}
+		} catch (Exception e) {
+			System.out.println("----- Error en /catalogue");
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}

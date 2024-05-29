@@ -17,6 +17,7 @@ import com.poli.songstock.domain.SongArtist;
 import com.poli.songstock.domain.Vinyl;
 import com.poli.songstock.dto.BasicAlbumDTO;
 import com.poli.songstock.dto.BasicArtistDTO;
+import com.poli.songstock.dto.CatalogueDTO;
 import com.poli.songstock.dto.ProductAlbumDTO;
 import com.poli.songstock.dto.ProductSongDTO;
 import com.poli.songstock.dto.ProductVinylDTO;
@@ -394,5 +395,13 @@ public class CatalogueBusiness {
 			throw new Exception("No se pudo obtener el producto vinilo por id");
 		}
 		return dto;
+	}
+	
+	/**
+	 * Obtiene todo el catalogo del sistema
+	 * @return
+	 */
+	public CatalogueDTO getAllCatalogue() {
+		return catalogueService.getAllCatalogueDto();
 	}
 }

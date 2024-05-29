@@ -241,6 +241,7 @@ public class CatalogueService implements CatalogueRepository {
 	 */
 	public Double getPriceByAlbum(Long albumId) {
 		Catalogue c = findByAlbum(albumId);
+		if(c==null) return null;
 		return c.getPrice();
 	}
 	
