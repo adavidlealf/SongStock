@@ -49,6 +49,11 @@ public class CatalogueController {
 		}
 	}
 	
+	/**
+	 * Crea un album a partir de su nombre, fecha de lanzamiento, url de portada, artistas, distribuidor, precio.
+	 * @param request ProductAlbumRequest estructura JSON de los campos necesarios para album.
+	 * @return BasicAlbumDTO instancia creada.
+	 */
 	@PostMapping(value = "/album")
 	public ResponseEntity<BasicAlbumDTO> createAlbum(@RequestBody ProductAlbumRequest request) {
 		try {
@@ -68,6 +73,11 @@ public class CatalogueController {
 		}
 	}
 	
+	/**
+	 * Crea una cancion a partir de si tutilo, duracion, album, artistas, distribuidor, precio.
+	 * @param request ProductSongRequest estructura JSON con campos necesarios para cancion.
+	 * @return SongDTO instancia de la cancion recien creada.
+	 */
 	@PostMapping(value = "/song")
 	public ResponseEntity<SongDTO> createSong(@RequestBody ProductSongRequest request) {
 		try {
@@ -87,6 +97,12 @@ public class CatalogueController {
 		}
 	}
 	
+	/**
+	 * Crea un vinilo a partir de sus datos fisicos como el color, las pulgadas, el inventario,
+	 * el album al que hace referencia, el distribuidor, el precio.
+	 * @param request ProductVinylRequest estructura JSON con campos necesarios de vinilo.
+	 * @return VinylDTO dto instanciado
+	 */
 	@PostMapping(value = "/vinyl")
 	public ResponseEntity<VinylDTO> createVinyl(@RequestBody ProductVinylRequest request) {
 		try {
@@ -106,6 +122,11 @@ public class CatalogueController {
 		}
 	}
 	
+	/**
+	 * Obtiene una cancion por id en tipo ProductSongDTO
+	 * @param id Long id de la cancion
+	 * @return ProductSongDTO cancion buscada
+	 */
 	@GetMapping(value = "/song/{id}")
 	public ResponseEntity<ProductSongDTO> getProductSongById(@PathVariable("id") Long id){
 		try {
@@ -122,6 +143,11 @@ public class CatalogueController {
 		}
 	}
 	
+	/**
+	 * Obtiene un album por id en tipo ProductAlbumDTO
+	 * @param id Long id del album
+	 * @return ProductAlbumDTO album buscado
+	 */
 	@GetMapping(value = "/album/{id}")
 	public ResponseEntity<ProductAlbumDTO> getProductAlbumById(@PathVariable("id") Long id){
 		try {
@@ -138,6 +164,11 @@ public class CatalogueController {
 		}
 	}
 	
+	/**
+	 * Obtiene un vinilo por id en tipo ProductVinylDTO
+	 * @param id Long id del vinilo
+	 * @return ProductVinylDTO vinilo buscado
+	 */
 	@GetMapping(value = "/vinyl/{id}")
 	public ResponseEntity<ProductVinylDTO> getProductVinylById(@PathVariable("id") Long id){
 		try {
@@ -154,6 +185,11 @@ public class CatalogueController {
 		}
 	}
 	
+	/**
+	 * Obtiene el catalogo de todo el sistema en el que canciones, albumes, 
+	 * y vinilos se representan con su DTO Product.
+	 * @return ProductCatalogueDTO catalogo de productos.
+	 */
 	@GetMapping(value = "/products")
 	public ResponseEntity<ProductCatalogueDTO> getAllProductCatalogue(){
 		try {
@@ -170,6 +206,11 @@ public class CatalogueController {
 		}
 	}
 	
+	/**
+	 * Obtiene el catalogo de todo el sistema en el que canciones, albumes, 
+	 * y vinilos se representan con su DTO normal.
+	 * @return CatalogueDTO catalogo de articulos.
+	 */
 	@GetMapping
 	public ResponseEntity<CatalogueDTO> getAllCatalogue(){
 		try {
@@ -186,6 +227,11 @@ public class CatalogueController {
 		}
 	}
 	
+	/**
+	 * Obtiene el catalogo que ofrece un distribuidor en el que canciones, albumes, 
+	 * y vinilos se representan con su DTO Product.
+	 * @return ProductCatalogueDTO catalogo de productos de un distribuidor.
+	 */
 	@GetMapping("/distributor/{id}")
 	public ResponseEntity<ProductCatalogueDTO> getProductCatalogueByDistributor(@PathVariable("id") Long id){
 		try {
