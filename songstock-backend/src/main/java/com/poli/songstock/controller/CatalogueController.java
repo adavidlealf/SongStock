@@ -1,88 +1,155 @@
 package com.poli.songstock.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poli.songstock.dto.CatalogueDTO;
 import com.poli.songstock.dto.ProductSongDTO;
 import com.poli.songstock.dto.SongDTO;
 import com.poli.songstock.dto.ProductVinylDTO;
 import com.poli.songstock.dto.VinylDTO;
+import com.poli.songstock.requestbody.catalogue.ArtistRequest;
+import com.poli.songstock.requestbody.catalogue.ProductAlbumRequest;
+import com.poli.songstock.requestbody.catalogue.ProductSongRequest;
+import com.poli.songstock.requestbody.catalogue.ProductVinylRequest;
 import com.poli.songstock.dto.ProductAlbumDTO;
-import com.poli.songstock.dto.AlbumDTO;
+import com.poli.songstock.dto.BasicAlbumDTO;
+import com.poli.songstock.dto.BasicArtistDTO;
 import com.poli.songstock.business.CatalogueBusiness;
 
 @RestController
 @RequestMapping("/catalogue")
 public class CatalogueController {
 	
-	/*
-	 * REQUIREMENTS 4, 5, 9
-	 * */
-	
 	@Autowired
     private CatalogueBusiness catalogueBusiness;
 
-    @GetMapping
-    public CatalogueDTO getCatalogue() {
-        return catalogueBusiness.getCatalogue();
-    }
-
-    @GetMapping("/songs")
-    public List<ProductSongDTO> getAllSongs() {
-        return catalogueBusiness.getAllSongs();
-    }
-
-    @GetMapping("/songs/{id}")
-    public SongDTO getSongById(@PathVariable Long id) {
-        return catalogueBusiness.getSongById(id);
-    }
-    
-    @PutMapping("/songs/{id}")
-    public ResponseEntity<VinylDTO> updateSongs(@PathVariable Long id, @RequestBody SongDTO songDTO) {
-		return null;
-    	/*return ResponseEntity.ok(catalogueBusiness.updateSong(id, songDTO));*/
+	/**
+	 * Registrar artista por su nombre (debe ser unico).
+	 * @param request ArtistRequest estructura de artista
+	 * @return BasicArtistDTO artista.
+	 */
+	@PostMapping(value = "/artist")
+	public ResponseEntity<BasicArtistDTO> registerArtist(@RequestBody ArtistRequest request) {
+		try {
+			BasicArtistDTO b = catalogueBusiness.registerArtist(request.getName());
+			return ResponseEntity.ok(b);
+		} catch (Exception e) {
+			System.out.println("----- Error en /artist");
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
 	}
-
-    @GetMapping("/vinyls")
-    public List<ProductVinylDTO> getAllVinyls() {
-        return catalogueBusiness.getAllVinyls();
-    }
-
-    @GetMapping("/vinyls/{id}")
-    public VinylDTO getVinylById(@PathVariable Long id) {
-        return catalogueBusiness.getVinylById(id);
-    }
-
-    @GetMapping("/albums")
-    public List<ProductAlbumDTO> getAllAlbums() {
-        return catalogueBusiness.getAllAlbums();
-    }
-
-    @GetMapping("/albums/{id}")
-    public AlbumDTO getAlbumById(@PathVariable Long id) {
-        return catalogueBusiness.getAlbumById(id);
-    }
-
-    @PostMapping("/vinyls")
-    public ResponseEntity<VinylDTO> createVinyl(@RequestBody VinylDTO vinylDTO) {
-		return null;
-    	/*return new ResponseEntity<>(catalogueBusiness.createVinyl(vinylDTO), HttpStatus.CREATED);*/
-    }
-
-    @PutMapping("/vinyls/{id}")
-    public ResponseEntity<VinylDTO> updateVinyl(@PathVariable Long id, @RequestBody VinylDTO vinylDTO) {
-		return null;
-    	/*return ResponseEntity.ok(catalogueBusiness.updateVinyl(id, vinylDTO));*/
-    }
+	
+	@PostMapping(value = "/album")
+	public ResponseEntity<BasicAlbumDTO> createAlbum(@RequestBody ProductAlbumRequest request) {
+		try {
+			BasicAlbumDTO a = catalogueBusiness.createAlbum(
+					request.getName()
+					, request.getReleaseDate()
+					, request.getCoverUrl()
+					, request.getArtists()
+					, request.getDistributorId()
+					, request.getPrice()
+				);
+			return ResponseEntity.ok(a);
+		} catch (Exception e) {
+			System.out.println("----- Error en /album");
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+	}
+	
+	@PostMapping(value = "/song")
+	public ResponseEntity<SongDTO> createSong(@RequestBody ProductSongRequest request) {
+		try {
+			SongDTO s = catalogueBusiness.createSong(
+					request.getTitle()
+					, request.getDuration()
+					, request.getAlbumId()
+					, request.getArtists()
+					, request.getDistributorId()
+					, request.getPrice()
+				);
+			return ResponseEntity.ok(s);
+		} catch (Exception e) {
+			System.out.println("----- Error en /song");
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+	}
+	
+	@PostMapping(value = "/vinyl")
+	public ResponseEntity<VinylDTO> createVinyl(@RequestBody ProductVinylRequest request) {
+		try {
+			VinylDTO v = catalogueBusiness.createVinyl(
+					request.getColor()
+					, request.getInches()
+					, request.getStock()
+					, request.getAlbum_id()
+					, request.getDistributorId()
+					, request.getPrice()
+				);
+			return ResponseEntity.ok(v);
+		} catch (Exception e) {
+			System.out.println("----- Error en /vinyl");
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+	}
+	
+	@GetMapping(value = "/song/{id}")
+	public ResponseEntity<ProductSongDTO> getProductSongById(@PathVariable("id") Long id){
+		try {
+			ProductSongDTO dto = catalogueBusiness.getProductSongById(id);
+			if(dto != null) {
+				return ResponseEntity.ok(dto);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			}
+		} catch (Exception e) {
+			System.out.println("----- Error en /song/{id}");
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+	}
+	
+	@GetMapping(value = "/album/{id}")
+	public ResponseEntity<ProductAlbumDTO> getProductAlbumById(@PathVariable("id") Long id){
+		try {
+			ProductAlbumDTO dto = catalogueBusiness.getProductAlbumById(id);
+			if(dto != null) {
+				return ResponseEntity.ok(dto);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			}
+		} catch (Exception e) {
+			System.out.println("----- Error en /album/{id}");
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+	}
+	
+	@GetMapping(value = "/vinyl/{id}")
+	public ResponseEntity<ProductVinylDTO> getProductVinylById(@PathVariable("id") Long id){
+		try {
+			ProductVinylDTO dto = catalogueBusiness.getProductVinylById(id);
+			if(dto != null) {
+				return ResponseEntity.ok(dto);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			}
+		} catch (Exception e) {
+			System.out.println("----- Error en /vinyl/{id}");
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+	}
 
 }
