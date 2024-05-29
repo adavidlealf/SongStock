@@ -21,7 +21,6 @@ public class CredentialsBusiness {
 	@Autowired
 	private UsersService usersService;
 	
-
 	/**
 	 * Registra un usuario con su respectivo rol.
 	 * @param nickName String arroba (debe ser unico)
@@ -31,9 +30,9 @@ public class CredentialsBusiness {
 	 * @param birthdate Date fecha de nacimiento
 	 * @param roleId Long id del rol, este debe existir o arrojara excepcion
 	 * @return Boolean true si se guarda satisfactoriamente el usuario.
-	 * @throws Exception en caso de no encontrar el rol con el id
+	 * @throws Exception en caso de no encontrar el rol con el id o si la password esta vacia.
 	 */
-	public Boolean registerUser(
+	private Boolean registerUser(
 			String nickName
 			, String name
 			, String email
@@ -44,9 +43,17 @@ public class CredentialsBusiness {
 		Users entity = new Users();
 		entity.setNickname(nickName);
 		entity.setName(name);
+		if(!LogicBusiness.isValidEmail(email)) {
+			throw new Exception("El correo no cumple con el formato.");
+		}
 		entity.setEmail(email);
+		if(LogicBusiness.isEmpty(password)) {
+			throw new Exception("La password no debe ser vacia.");
+		}
 		entity.setPassword(password);
-		entity.setBirthdate(birthdate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+		if(birthdate!=null) {
+			entity.setBirthdate(birthdate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+		}
 		if(roleService.existsById(roleId)) {
 			entity.setRoleId(roleId);
 		} else {
@@ -56,18 +63,86 @@ public class CredentialsBusiness {
 		return (!LogicBusiness.isEmpty(entity) && !LogicBusiness.isEmpty(entity.getId()));
 	}
 	
-	public Object loginUser(UserDTO userDTO) {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * Revisa si una pareja email-password esta en la base de datos.
+	 * @param email Strin correo
+	 * @param password String clave
+	 * @return true en caso de que la clave y el correo se cumplan.
+	 */
+	public Boolean loginUser(
+			String email
+			, String password
+		) {
+		Users u = usersService.findByEmail(email);
+		return (!(
+				LogicBusiness.isEmpty(u) 
+				|| LogicBusiness.isEmpty(u.getId()))
+				|| (!u.getPassword().equals(password))
+			);
 	}
 	
-	/*
-     * REQUIREMENT 8
-     */
+	/**
+	 * Registra un distribuidor de acuerdo a su informacion basica.
+	 * @param nickName String arroba (debe ser unico)
+	 * @param name String nombre 
+	 * @param email String correo (debe ser unico)
+	 * @param password String clave
+	 * @param birthdate Date fecha de nacimiento
+	 * @return Boolean true si se guarda satisfactoriamente el usuario.
+	 * @throws Exception en caso de no encontrar el rol con el id o si la password esta vacia.
+	 */
+	public Boolean registerDistributor(
+			String nickName
+			, String name
+			, String email
+			, String password
+			, Date birthdate
+			) throws Exception {
+		return registerUser(nickName, name, email, password, birthdate, 3L);
+	}
 	
-	public Object registerProvider(UserDTO userDTO) {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * Registra un consumidor de acuerdo a su informacion basica.
+	 * @param nickName String arroba (debe ser unico)
+	 * @param name String nombre 
+	 * @param email String correo (debe ser unico)
+	 * @param password String clave
+	 * @param birthdate Date fecha de nacimiento
+	 * @return Boolean true si se guarda satisfactoriamente el usuario.
+	 * @throws Exception en caso de no encontrar el rol con el id o si la password esta vacia.
+	 */
+	public Boolean registerConsumer(
+			String nickName
+			, String name
+			, String email
+			, String password
+			, Date birthdate
+			) throws Exception {
+		return registerUser(nickName, name, email, password, birthdate, 2L);
+	}
+	
+	/**
+	 * Registra un consumidor de acuerdo a su informacion basica.
+	 * @param nickName String arroba (debe ser unico)
+	 * @param name String nombre 
+	 * @param email String correo (debe ser unico)
+	 * @param password String clave
+	 * @param birthdate Date fecha de nacimiento
+	 * @return Boolean true si se guarda satisfactoriamente el usuario o si ya estaba creado.
+	 * @throws Exception en caso de no encontrar el rol con el id o si la password esta vacia.
+	 */
+	public Boolean registerAdmin(
+			String email
+			, String password
+			) throws Exception {
+		Users u = usersService.findByEmail(email);
+		if(!LogicBusiness.isEmpty(u) 
+				&& !LogicBusiness.isEmpty(u.getId())
+			&& !u.getRoleId().equals(1L)) {
+			return false;
+		} else if(LogicBusiness.isEmpty(u) || LogicBusiness.isEmpty(u.getId())) {
+			return registerUser("ADMIN", null, email, password, null, 1L);
+		} return true;
 	}
 	
 	/**

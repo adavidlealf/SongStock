@@ -1,5 +1,8 @@
 package com.poli.songstock.business;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class LogicBusiness {
 
 	/**
@@ -25,4 +28,17 @@ public class LogicBusiness {
         }
         return false; // Si no es ninguno de los tipos anteriores, no lo consideramos vacío.
     }
+	
+	/**
+	 * Valida si un correo tiene el formato correcto.
+	 * @param email String correo a validar
+	 * @return boolean true en caso que tenga el formato correcto.
+	 */
+	public static boolean isValidEmail(String email) {
+		if(isEmpty(email)) return false;
+		final String EMAIL_PATTERN = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+		final Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+		Matcher matcher = pattern.matcher(email);
+		return matcher.matches();
+	}
 }

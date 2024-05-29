@@ -317,4 +317,9 @@ public class UsersService implements UsersRepository{
 		return castEntityToBasicUserDto(getReferenceById(prod.getDistributorId()));
 	}
 
+	@Override
+	public Users findByEmail(String email) {
+		return repository.findByEmail(email);
+	}
+
 }

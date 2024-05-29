@@ -21,6 +21,8 @@ public class SongstockBackendApplication {
             CredentialsBusiness credentialsBusiness = ctx.getBean(CredentialsBusiness.class);
             boolean b = credentialsBusiness.createDefaultRoles();
             System.out.println("----- Creacion de roles: "+ b);
+            b = credentialsBusiness.registerAdmin("admin@poli.edu.co", "admin123");
+            System.out.println("----- Creacion de admin def: "+ b);
         };
     }
 }
