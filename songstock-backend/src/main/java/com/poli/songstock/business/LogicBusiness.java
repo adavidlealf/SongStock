@@ -1,5 +1,7 @@
 package com.poli.songstock.business;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,5 +42,15 @@ public class LogicBusiness {
 		final Pattern pattern = Pattern.compile(EMAIL_PATTERN);
 		Matcher matcher = pattern.matcher(email);
 		return matcher.matches();
+	}
+	
+	/**
+	 * Genera una lista de las palabras separadas por punto y coma.
+	 * @param s String lista de palabras separadas por punto y coma.
+	 * @return List<String> instancia de las listas de palabras.
+	 */
+	public static List<String> splitBySemicolon(String s){
+		if(isEmpty(s)) return null;
+		return Arrays.asList(s.split(";"));
 	}
 }

@@ -94,8 +94,7 @@ public class SongService implements SongRepository{
 
 	@Override
 	public Song getReferenceById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.getReferenceById(id);
 	}
 
 	@Override
@@ -129,8 +128,7 @@ public class SongService implements SongRepository{
 
 	@Override
 	public <S extends Song> S save(S entity) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.save(entity);
 	}
 
 	@Override
@@ -153,8 +151,7 @@ public class SongService implements SongRepository{
 
 	@Override
 	public void deleteById(Long id) {
-		// TODO Auto-generated method stub
-		
+		repository.deleteById(id);
 	}
 
 	@Override
@@ -232,8 +229,36 @@ public class SongService implements SongRepository{
 		BasicSongDTO dto = new BasicSongDTO();
 		dto.setDuration(song.getDuration());
 		dto.setTitle(song.getTitle());
+		dto.setId(song.getId());
 		dto.setArtists(artistService.findAllBasicArtistDtoBySong(song.getId()));
 		return dto;
+	}
+	
+	/**
+	 * Retorna una cancion por id en tipo BasicSongDTO
+	 * @param id Long id de la cancion
+	 * @return BasicSongDTO dto.
+	 */
+	public BasicSongDTO getReferenceBasicSongDtoById(Long id) {
+		return castEntityToBasicSongDto(getReferenceById(id));
+	}
+	
+	/**
+	 * Retorna una cancion por id en tipo SongDTO
+	 * @param id Long id de la cancion
+	 * @return SongDTO dto.
+	 */
+	public SongDTO getReferenceSongDtoById(Long id) {
+		return castEntityToSongDto(getReferenceById(id));
+	}
+	
+	/**
+	 * Retorna una cancion por id en tipo ProductSongDTO
+	 * @param id Long id de la cancion
+	 * @return ProductSongDTO dto.
+	 */
+	public ProductSongDTO getReferenceProductSongDtoById(Long id) {
+		return castEntityToProductSongDto(getReferenceById(id));
 	}
 	
 	/**

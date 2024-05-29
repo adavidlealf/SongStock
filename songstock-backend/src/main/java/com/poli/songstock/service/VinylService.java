@@ -128,8 +128,7 @@ public class VinylService implements VinylRepository {
 
 	@Override
 	public <S extends Vinyl> S save(S entity) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.save(entity);
 	}
 
 	@Override
@@ -233,6 +232,24 @@ public class VinylService implements VinylRepository {
 		basicVinylDTO.setInches(vinyl.getInches());
 		basicVinylDTO.setStock(vinyl.getStock());
 		return basicVinylDTO;
+	}
+	
+	/**
+	 * Busca un vinilo por id y lo retorna de tipo BasicVinylDTO.
+	 * @param id Long id del vinilo
+	 * @return BasicVinylDTO dto
+	 */
+	public BasicVinylDTO getReferenceBasicVinylDtoById(Long id) {
+		return castEntityToBasicVinylDto(getReferenceById(id));
+	}
+	
+	/**
+	 * Busca un vinilo por id y lo retorna de tipo VinylDTO.
+	 * @param id Long id del vinilo
+	 * @return VinylDTO dto
+	 */
+	public VinylDTO getReferenceVinylDtoById(Long id) {
+		return castEntityToVinylDto(getReferenceById(id));
 	}
 	
 	/**

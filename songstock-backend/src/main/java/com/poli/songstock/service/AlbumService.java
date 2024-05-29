@@ -131,8 +131,7 @@ public class AlbumService implements AlbumRepository{
 
 	@Override
 	public <S extends Album> S save(S entity) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.save(entity);
 	}
 
 	@Override
@@ -155,8 +154,7 @@ public class AlbumService implements AlbumRepository{
 
 	@Override
 	public void deleteById(Long id) {
-		// TODO Auto-generated method stub
-		
+		repository.deleteById(id);
 	}
 
 	@Override
@@ -240,6 +238,7 @@ public class AlbumService implements AlbumRepository{
 		}
 		basicAlbumDTO.setCoverUrl(album.getCoverUrl());
 		basicAlbumDTO.setArtists(artistService.findAllBasicArtistDtoByAlbum(album.getId()));
+		basicAlbumDTO.setId(album.getId());
 		return basicAlbumDTO;
 	}
 	
@@ -282,11 +281,29 @@ public class AlbumService implements AlbumRepository{
 	
 	/**
 	 * Busca una instancia de la entidad Album por su id y lo convierte al DTO de Album.
-	 * @param album Album instancia de la entidad Album
-	 * @return id Long id del album
+	 * @param id Long id del album
+	 * @return album Album instancia de la entidad Album
 	 */
 	public AlbumDTO getReferenceAlbumDtoById(Long id) {
 		return castEntityToAlbumDto(getReferenceById(id));
+	}
+	
+	/**
+	 * Busca una instancia de la entidad Album por su id y lo convierte al DTO de BasicAlbum.
+	 * @param id Long id del album
+	 * @return album BasicAlbum instancia de la entidad Album
+	 */
+	public BasicAlbumDTO getReferenceBasicAlbumDtoById(Long id) {
+		return castEntityToBasicAlbumDto(getReferenceById(id));
+	}
+	
+	/**
+	 * Busca una instancia de la entidad Album por su id y lo convierte al DTO de ProductAlbum.
+	 * @param id Long id del album
+	 * @return album ProductAlbum instancia de la entidad Album
+	 */
+	public ProductAlbumDTO getReferenceProductAlbumDtoById(Long id) {
+		return castEntityToProductAlbumDto(getReferenceById(id));
 	}
 	
 	/**

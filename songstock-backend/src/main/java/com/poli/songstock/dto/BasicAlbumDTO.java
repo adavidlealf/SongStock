@@ -7,6 +7,11 @@ import java.util.Objects;
 public class BasicAlbumDTO {
 	
 	/**
+	 * Id of the album
+	 */
+	private Long id;
+	
+	/**
 	 * Name of the item
 	 */
 	private String name;
@@ -26,12 +31,10 @@ public class BasicAlbumDTO {
 	 */
 	private List<BasicArtistDTO> artists;
 
-	
-	
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(artists, coverUrl, name, releaseDate);
+		return Objects.hash(artists, coverUrl, name, releaseDate, id);
 	}
 
 	@Override
@@ -44,7 +47,8 @@ public class BasicAlbumDTO {
 			return false;
 		BasicAlbumDTO other = (BasicAlbumDTO) obj;
 		return Objects.equals(artists, other.artists) && Objects.equals(coverUrl, other.coverUrl)
-				&& Objects.equals(name, other.name) && Objects.equals(releaseDate, other.releaseDate);
+				&& Objects.equals(name, other.name) && Objects.equals(releaseDate, other.releaseDate)
+				&& Objects.equals(id, other.id);
 	}
 
 	/**
@@ -60,12 +64,13 @@ public class BasicAlbumDTO {
 	 * @param coverUrl
 	 * @param artists
 	 */
-	public BasicAlbumDTO(String name, Date releaseDate, String coverUrl, List<BasicArtistDTO> artists) {
+	public BasicAlbumDTO(Long id, String name, Date releaseDate, String coverUrl, List<BasicArtistDTO> artists) {
 		super();
 		this.name = name;
 		this.releaseDate = releaseDate;
 		this.coverUrl = coverUrl;
 		this.artists = artists;
+		this.id = id;
 	}
 
 	/**
@@ -123,7 +128,19 @@ public class BasicAlbumDTO {
 	public void setArtists(List<BasicArtistDTO> artists) {
 		this.artists = artists;
 	}
-	
-	
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
 	
 }

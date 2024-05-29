@@ -29,4 +29,13 @@ public interface ArtistRepository extends JpaRepository<Artist, Long> {
 				 + "WHERE aa.album_id = :album_id and aa.artist_id = a.id and al.id = :album_id",
 			nativeQuery = true)
 	List<Artist> findAllByAlbum (@Param(value = "album_id") Long albumId);
+	
+	/**
+	 * Obtiene un artista dado un nombre unico 
+	 * @param name String nombre unico
+	 * @return Artist con el nombre
+	 */
+	@Query(value = "SELECT a.* FROM artist a WHERE a.name = :name LIMIT 1",
+		nativeQuery = true)
+	Artist findByName (@Param(value = "name") String name);
 }

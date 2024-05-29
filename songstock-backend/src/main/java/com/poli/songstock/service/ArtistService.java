@@ -79,8 +79,7 @@ public class ArtistService implements ArtistRepository {
 
 	@Override
 	public Artist getReferenceById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.getReferenceById(id);
 	}
 
 	@Override
@@ -114,8 +113,7 @@ public class ArtistService implements ArtistRepository {
 
 	@Override
 	public <S extends Artist> S save(S entity) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.save(entity);
 	}
 
 	@Override
@@ -220,6 +218,15 @@ public class ArtistService implements ArtistRepository {
 	}
 	
 	/**
+	 * Obtiene un artista por id y lo retorna tipo BasicArtistDTO
+	 * @param id Long id del artista
+	 * @return BasicArtistDTO dto
+	 */
+	public BasicArtistDTO getReferenceBasicArtistDtoById(Long id) {
+		return castEntityToBasicArtistDto(getReferenceById(id));
+	}
+	
+	/**
 	 * Retorna una lista de todos los registros de la entidad Artist convertidos en BasicArtistDTO.
 	 * @return List<BasicArtistDTO> lista de todos los registros de Artist en BasicArtistDTO.
 	 */
@@ -277,6 +284,15 @@ public class ArtistService implements ArtistRepository {
 	}
 	
 	/**
+	 * Obtiene un artista por id y lo retorna tipo ArtistDTO
+	 * @param id Long id del artista
+	 * @return ArtistDTO dto
+	 */
+	public ArtistDTO getReferenceArtistDtoById(Long id) {
+		return castEntityToArtistDto(getReferenceById(id));
+	}
+	
+	/**
 	 * Retorna una lista de todos los registros de la entidad Artist convertidos en ArtistDTO.
 	 * @return List<ArtistDTO> lista de todos los registros de Artist en ArtistDTO.
 	 */
@@ -285,5 +301,19 @@ public class ArtistService implements ArtistRepository {
 				.stream()
 				.map(this::castEntityToArtistDto)
 				.collect(Collectors.toList());
+	}
+
+	@Override
+	public Artist findByName(String name) {
+		return repository.findByName(name);
+	}
+	
+	/**
+	 * Busca un artista por su nombre y lo retorna en tipo BasicArtistDTO.
+	 * @param name String nombre
+	 * @return BasicArtistDTO info basica
+	 */
+	public BasicArtistDTO findBasicArtistByName(String name) {
+		return castEntityToBasicArtistDto(findByName(name));
 	}
 }

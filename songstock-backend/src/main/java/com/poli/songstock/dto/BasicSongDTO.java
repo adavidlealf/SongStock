@@ -6,6 +6,11 @@ import java.util.Objects;
 public class BasicSongDTO {
 
 	/**
+	 * Id del song
+	 */
+	private Long id;
+	
+	/**
 	 * Title of the item
 	 */
 	private String title;
@@ -36,7 +41,7 @@ public class BasicSongDTO {
 			return false;
 		BasicSongDTO other = (BasicSongDTO) obj;
 		return Objects.equals(artists, other.artists) && Objects.equals(duration, other.duration)
-				&& Objects.equals(title, other.title);
+				&& Objects.equals(title, other.title) && Objects.equals(id, other.id);
 	}
 
 	/**
@@ -51,11 +56,12 @@ public class BasicSongDTO {
 	 * @param duration
 	 * @param artists
 	 */
-	public BasicSongDTO(String title, Integer duration, List<BasicArtistDTO> artists) {
+	public BasicSongDTO(String title, Integer duration, List<BasicArtistDTO> artists, Long id) {
 		super();
 		this.title = title;
 		this.duration = duration;
 		this.artists = artists;
+		this.id = id;
 	}
 
 	/**
@@ -100,6 +106,18 @@ public class BasicSongDTO {
 		this.artists = artists;
 	}
 
-	
-	
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 }

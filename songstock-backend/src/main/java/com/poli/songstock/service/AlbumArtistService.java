@@ -19,7 +19,7 @@ import com.poli.songstock.repository.AlbumArtistRepository;
 public class AlbumArtistService implements AlbumArtistRepository{
 	
 	@Autowired
-	private AlbumArtistRepository albumArtistRepository;
+	private AlbumArtistRepository repository;
 
 	@Override
 	public void flush() {
@@ -71,8 +71,7 @@ public class AlbumArtistService implements AlbumArtistRepository{
 
 	@Override
 	public AlbumArtist getReferenceById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return getReferenceById(id);
 	}
 
 	@Override
@@ -95,7 +94,7 @@ public class AlbumArtistService implements AlbumArtistRepository{
 
 	@Override
 	public List<AlbumArtist> findAll() {
-		return albumArtistRepository.findAll();
+		return repository.findAll();
 	}
 
 	@Override
@@ -106,8 +105,7 @@ public class AlbumArtistService implements AlbumArtistRepository{
 
 	@Override
 	public <S extends AlbumArtist> S save(S entity) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.save(entity);
 	}
 
 	@Override
