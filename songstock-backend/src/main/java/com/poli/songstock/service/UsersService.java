@@ -347,6 +347,15 @@ public class UsersService implements UsersRepository{
 	public BasicUserDTO getReferenceBasicUserDtoById(Long id) {
 		return castEntityToBasicUserDto(getReferenceById(id));
 	}
+
+	/**
+	 * Obtiene un registro de la entidad Users y la retorna de tipo UserDTO
+	 * @param id Long id del usuario
+	 * @return UserDTO dto.
+	 */
+	public UserDTO getReferenceUserDtoById(Long id) {
+		return castEntityToUserDto(getReferenceById(id));
+	}
 	
 	/**
 	 * Convierte una instancia de la entidad Users al DTO de Consumer.

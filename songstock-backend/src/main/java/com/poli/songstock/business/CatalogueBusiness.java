@@ -10,17 +10,23 @@ import org.springframework.stereotype.Component;
 import com.poli.songstock.domain.Album;
 import com.poli.songstock.domain.AlbumArtist;
 import com.poli.songstock.domain.Artist;
+import com.poli.songstock.domain.Catalogue;
+import com.poli.songstock.domain.Product;
 import com.poli.songstock.domain.Song;
 import com.poli.songstock.domain.SongArtist;
 import com.poli.songstock.domain.Vinyl;
 import com.poli.songstock.dto.BasicAlbumDTO;
 import com.poli.songstock.dto.BasicArtistDTO;
+import com.poli.songstock.dto.ProductAlbumDTO;
+import com.poli.songstock.dto.ProductSongDTO;
+import com.poli.songstock.dto.ProductVinylDTO;
 import com.poli.songstock.dto.SongDTO;
 import com.poli.songstock.dto.VinylDTO;
 import com.poli.songstock.service.AlbumArtistService;
 import com.poli.songstock.service.AlbumService;
 import com.poli.songstock.service.ArtistService;
 import com.poli.songstock.service.CatalogueService;
+import com.poli.songstock.service.ProductService;
 import com.poli.songstock.service.SongArtistService;
 import com.poli.songstock.service.SongService;
 import com.poli.songstock.service.VinylService;
@@ -36,9 +42,12 @@ public class CatalogueBusiness {
 	
 	@Autowired
 	private ArtistService artistService;
-
+	
 	@Autowired
 	private CatalogueService catalogueService;
+	
+	@Autowired
+	private ProductService productService;
 	
 	@Autowired
 	private SongArtistService songArtistService;
@@ -69,11 +78,13 @@ public class CatalogueBusiness {
 	}
 	
 	/**
-	 * Crea un album a partir de su nombre, fecha de lanzamiento, y url de portada.
+	 * Crea un album a partir de su nombre, fecha de lanzamiento, url de portada, artistas, distribuidor, precio.
 	 * @param name String nombre
 	 * @param releaseDate Date fecha de lanzamiento
 	 * @param coverUrl String url de la portada
 	 * @param artists String nombre de los artistas separados por punto y coma
+	 * @param distributorId Long id del distribuidor
+	 * @param price Double precio
 	 * @return BasicUserDTO instancia del album creado.
 	 * @throws Exception En caso de que algun campo no nulo sea vacio, o si no se puede crear/obtener.
 	 */
@@ -82,7 +93,16 @@ public class CatalogueBusiness {
 			, Date releaseDate
 			, String coverUrl
 			, String artists
+			, Long distributorId
+			, Double price
 		) throws Exception {
+		if(LogicBusiness.isEmpty(distributorId)) {
+			throw new Exception("Para crear un album, es necesario su distribuidor");
+		}
+		if(LogicBusiness.isEmpty(price)) {
+			throw new Exception("Para crear un album, es necesario que tenga un precio");
+		}
+		// Creacion album
 		Album album = new Album();
 		if(LogicBusiness.isEmpty(name)) {
 			throw new Exception("El nombre del album no debe ser vacio.");
@@ -111,6 +131,24 @@ public class CatalogueBusiness {
 				albumService.deleteById(album.getId());
 				throw new Exception("Ocurrio un error relacionando los artistas al album.");
 			}
+		}
+		// Creacion del producto
+		Product product = new Product();
+		product.setIsDigital(1);
+		product.setIsSong(0);
+		product.setObjectId(album.getId());
+		product.setDistributorId(distributorId);
+		product = productService.save(product);
+		if(LogicBusiness.isEmpty(product) || LogicBusiness.isEmpty(product.getId())) {
+			throw new Exception("No se pudo crear el producto album");
+		}
+		// Creacion de catalogo
+		Catalogue catalogue = new Catalogue();
+		catalogue.setProductId(product.getId());
+		catalogue.setPrice(price);
+		catalogue = catalogueService.save(catalogue);
+		if(LogicBusiness.isEmpty(catalogue) || LogicBusiness.isEmpty(catalogue.getId())) {
+			throw new Exception("No se pudo crear el catalogo de producto album");
 		}
 		// Fin
 		BasicAlbumDTO rta = albumService.getReferenceBasicAlbumDtoById(album.getId());
@@ -169,11 +207,13 @@ public class CatalogueBusiness {
 	}
 	
 	/**
-	 * Crea una cancion a partir de si tutilo, duracion, y album
+	 * Crea una cancion a partir de si tutilo, duracion, album, artistas, distribuidor, precio.
 	 * @param title String titulo
 	 * @param duration Integer duracion
 	 * @param albumId Long id del album
 	 * @param artists String nombre de los artistas separados por punto y coma
+	 * @param distributorId Long id del distribuidor de la cancion
+	 * @param price Double precio de la cancion
 	 * @return SongDTO instancia de la cancion recien creada.
 	 * @throws Exception
 	 */
@@ -182,7 +222,15 @@ public class CatalogueBusiness {
 			, Integer duration
 			, Long albumId
 			, String artists
+			, Long distributorId
+			, Double price
 		) throws Exception {
+		if(LogicBusiness.isEmpty(distributorId)) {
+			throw new Exception("Para crear una cancion, es necesario su distribuidor");
+		}
+		if(LogicBusiness.isEmpty(price)) {
+			throw new Exception("Para crear una cancion, es necesario que tenga un precio");
+		}
 		Song song = new Song();
 		if(LogicBusiness.isEmpty(title)) {
 			throw new Exception("El nombre de la cancion no debe ser vacia.");
@@ -213,6 +261,24 @@ public class CatalogueBusiness {
 				throw new Exception("Ocurrio un error relacionando los artistas a la cancion.");
 			}
 		}
+		// Creacion del producto
+		Product product = new Product();
+		product.setIsDigital(1);
+		product.setIsSong(1);
+		product.setObjectId(song.getId());
+		product.setDistributorId(distributorId);
+		product = productService.save(product);
+		if(LogicBusiness.isEmpty(product) || LogicBusiness.isEmpty(product.getId())) {
+			throw new Exception("No se pudo crear el producto cancion");
+		}
+		// Creacion de catalogo
+		Catalogue catalogue = new Catalogue();
+		catalogue.setProductId(product.getId());
+		catalogue.setPrice(price);
+		catalogue = catalogueService.save(catalogue);
+		if(LogicBusiness.isEmpty(catalogue) || LogicBusiness.isEmpty(catalogue.getId())) {
+			throw new Exception("No se pudo crear el catalogo de producto cancion");
+		}
 		// Fin
 		SongDTO s = songService.getReferenceSongDtoById(song.getId());
 		if(LogicBusiness.isEmpty(s) || LogicBusiness.isEmpty(s.getBasicAlbum().getId())) {
@@ -222,11 +288,14 @@ public class CatalogueBusiness {
 	}
 	
 	/**
-	 * Crea un vinilo a partir de sus datos fisicos como el color, las pulgadas, el inventario, etc.
+	 * Crea un vinilo a partir de sus datos fisicos como el color, las pulgadas, el inventario,
+	 * el album al que hace referencia, el distribuidor, el precio.
 	 * @param color String color
 	 * @param inches Double pulgadas
 	 * @param stock Integer inventario
 	 * @param album_id Long id del album
+	 * @param distributor_id Long id del distribuidor
+	 * @param price Double precio
 	 * @return VinylDTO dto
 	 * @throws Exception
 	 */
@@ -235,7 +304,16 @@ public class CatalogueBusiness {
 			, Double inches
 			, Integer stock
 			, Long album_id
+			, Long distributorId
+			, Double price
 		) throws Exception {
+		if(LogicBusiness.isEmpty(distributorId)) {
+			throw new Exception("Para crear un vinilo, es necesario su distribuidor");
+		}
+		if(LogicBusiness.isEmpty(price)) {
+			throw new Exception("Para crear un vinilo, es necesario que tenga un precio");
+		}
+		// Creacion
 		Vinyl ent = new Vinyl();
 		ent.setColor(color);
 		ent.setInches(inches);
@@ -254,6 +332,67 @@ public class CatalogueBusiness {
 		if(LogicBusiness.isEmpty(ent) || LogicBusiness.isEmpty(ent.getId())) {
 			throw new Exception("No se pudo crear el vinilo");
 		}
+		// Creacion del producto
+		Product product = new Product();
+		product.setIsDigital(0);
+		product.setIsSong(0);
+		product.setObjectId(ent.getId());
+		product.setDistributorId(distributorId);
+		product = productService.save(product);
+		if(LogicBusiness.isEmpty(product) || LogicBusiness.isEmpty(product.getId())) {
+			throw new Exception("No se pudo crear el producto vinilo");
+		}
+		// Creacion de catalogo
+		Catalogue catalogue = new Catalogue();
+		catalogue.setProductId(product.getId());
+		catalogue.setPrice(price);
+		catalogue = catalogueService.save(catalogue);
+		if(LogicBusiness.isEmpty(catalogue) || LogicBusiness.isEmpty(catalogue.getId())) {
+			throw new Exception("No se pudo crear el catalogo de producto vinilo");
+		}
+		// Fin
 		return vinylService.getReferenceVinylDtoById(ent.getId());
+	}
+	
+	/**
+	 * Obtiene el ProductSongDTO de una cancion por su id.
+	 * @param songId Long id de la cancion
+	 * @return ProductSongDTO cancion producto.
+	 * @throws Exception
+	 */
+	public ProductSongDTO getProductSongById(Long songId) throws Exception {
+		ProductSongDTO dto = songService.getReferenceProductSongDtoById(songId);
+		if(LogicBusiness.isEmpty(dto) || LogicBusiness.isEmpty(dto.getPrice())) {
+			throw new Exception("No se pudo obtener el producto cancion por id");
+		}
+		return dto;
+	}
+	
+	/**
+	 * Obtiene el ProductAlbumDTO de un album por su id.
+	 * @param albumId Long id del album
+	 * @return ProductAlbumDTO album producto.
+	 * @throws Exception
+	 */
+	public ProductAlbumDTO getProductAlbumById(Long albumId) throws Exception {
+		ProductAlbumDTO dto = albumService.getReferenceProductAlbumDtoById(albumId);
+		if(LogicBusiness.isEmpty(dto) || LogicBusiness.isEmpty(dto.getPrice())) {
+			throw new Exception("No se pudo obtener el producto album por id");
+		}
+		return dto;
+	}
+	
+	/**
+	 * Obtiene el ProductVinylDTO de un vinilo por su id.
+	 * @param viniloId Long id del vinilo
+	 * @return ProductVinylDTO vinilo producto.
+	 * @throws Exception
+	 */
+	public ProductVinylDTO getProductVinylById(Long vinylId) throws Exception {
+		ProductVinylDTO dto = vinylService.getReferenceProductVinylDtoById(vinylId);
+		if(LogicBusiness.isEmpty(dto) || LogicBusiness.isEmpty(dto.getPrice())) {
+			throw new Exception("No se pudo obtener el producto vinilo por id");
+		}
+		return dto;
 	}
 }

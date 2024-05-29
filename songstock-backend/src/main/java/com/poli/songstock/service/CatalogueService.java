@@ -116,8 +116,7 @@ public class CatalogueService implements CatalogueRepository {
 
 	@Override
 	public <S extends Catalogue> S save(S entity) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.save(entity);
 	}
 
 	@Override
