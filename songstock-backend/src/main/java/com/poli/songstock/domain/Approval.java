@@ -22,6 +22,7 @@ public class Approval {
 
 	private LocalDate applicantDate;
 	
+	@Column(nullable = false)
 	private String title;
 	
 	private String obs;
@@ -29,13 +30,16 @@ public class Approval {
 	@Enumerated(EnumType.STRING)
 	private Approval.State state;
 	
-	@Column(unique = true)
+	@Column(unique = true, nullable = false)
 	private String code;
 	
+	@Column(nullable = false)
 	private Long applicantId;
 	
+	@Column(nullable = false)
 	private Long approverId;
 	
+	@Column(nullable = false)
 	private Long objectId;
 	
 	public enum State {

@@ -1,5 +1,6 @@
 package com.poli.songstock.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,12 +15,14 @@ public class Vinyl {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	@Column(nullable = false)
 	private Long albumId;
 	
 	private String color;
 	
 	private Double inches;
 	
+	@Column(nullable = false)
 	private Integer stock;
 	
 	/**
