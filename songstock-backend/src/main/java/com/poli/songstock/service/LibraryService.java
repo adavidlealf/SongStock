@@ -23,6 +23,15 @@ public class LibraryService implements LibraryRepository{
 	@Autowired
 	private LibraryRepository libraryRepository;
 
+	@Autowired
+	private AlbumService albumService;
+	
+	@Autowired
+	private SongService songService;
+	
+	@Autowired
+	private VinylService vinylService;
+	
 	@Override
 	public void flush() {
 		// TODO Auto-generated method stub
@@ -209,12 +218,9 @@ public class LibraryService implements LibraryRepository{
 	 */
 	public LibraryDTO castEntityToLibraryDto(Library library) {
 		LibraryDTO libraryDTO = new LibraryDTO();
-		libraryDTO.setAlbums(AlbumService.getInstance()
-				.findAllBasicAlbumByConsumer(library.getConsumerId()));
-		libraryDTO.setSongs(SongService.getInstance()
-				.findAllBasicSongByConsumer(library.getConsumerId()));
-		libraryDTO.setVinyls(VinylService.getInstance()
-				.findAllBasicVinylByConsumer(library.getConsumerId()));
+		libraryDTO.setAlbums(albumService.findAllBasicAlbumByConsumer(library.getConsumerId()));
+		libraryDTO.setSongs(songService.findAllBasicSongByConsumer(library.getConsumerId()));
+		libraryDTO.setVinyls(vinylService.findAllBasicVinylByConsumer(library.getConsumerId()));
 		return libraryDTO;
 	}
 	

@@ -6,6 +6,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,23 +24,11 @@ public class ArtistService implements ArtistRepository {
 
 	@Autowired
 	private ArtistRepository repository;
+	
+	@Autowired
+	@Lazy
+	private SongService songService;
 
-	/**
-	 * Patron Singleton.
-	 */
-	private static ArtistService instance;
-	
-	/**
-	 * Obtener instancia de patron singleton.
-	 * @return
-	 */
-	public static ArtistService getInstance() {
-		if(instance == null) {
-			instance = new ArtistService();
-		}
-		return instance;
-	}
-	
 	@Override
 	public void flush() {
 		// TODO Auto-generated method stub
@@ -283,8 +272,7 @@ public class ArtistService implements ArtistRepository {
 	public ArtistDTO castEntityToArtistDto(Artist artist) {
 		ArtistDTO artistDTO = new ArtistDTO();
 		artistDTO.setBasicArtist(castEntityToBasicArtistDto(artist));
-		artistDTO.setSongs(SongService.getInstance()
-				.findAllSongDtoByArtist(artist.getId()));
+		artistDTO.setSongs(songService.findAllSongDtoByArtist(artist.getId()));
 		return artistDTO;
 	}
 	

@@ -8,6 +8,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,21 +29,22 @@ public class AlbumService implements AlbumRepository{
 	@Autowired
 	private AlbumRepository repository;
 	
-	/**
-	 * Patron Singleton.
-	 */
-	private static AlbumService instance;
+	@Autowired
+	private ArtistService artistService;
 	
-	/**
-	 * Obtener instancia de patron singleton.
-	 * @return
-	 */
-	public static AlbumService getInstance() {
-		if(instance == null) {
-			instance = new AlbumService();
-		}
-		return instance;
-	}
+	@Autowired
+	@Lazy
+	private CatalogueService catalogueService;
+
+	@Autowired
+	private ProductService productService;
+	
+	@Autowired
+	@Lazy
+	private SongService songService;
+	
+	@Autowired
+	private UsersService usersService;
 	
 	@Override
 	public void flush() {
@@ -236,8 +238,7 @@ public class AlbumService implements AlbumRepository{
 			));
 		}
 		basicAlbumDTO.setCoverUrl(album.getCoverUrl());
-		basicAlbumDTO.setArtists(ArtistService.getInstance()
-				.findAllBasicArtistDtoByAlbum(album.getId()));
+		basicAlbumDTO.setArtists(artistService.findAllBasicArtistDtoByAlbum(album.getId()));
 		return basicAlbumDTO;
 	}
 	
@@ -274,8 +275,7 @@ public class AlbumService implements AlbumRepository{
 	public AlbumDTO castEntityToAlbumDto(Album album) {
 		AlbumDTO albumDTO = new AlbumDTO();
 		albumDTO.setBasicAlbum(castEntityToBasicAlbumDto(album));
-		albumDTO.setSongs(SongService.getInstance()
-				.findAllBasicSongDtoByAlbum(album.getId()));
+		albumDTO.setSongs(songService.findAllBasicSongDtoByAlbum(album.getId()));
 		return albumDTO;
 	}
 	
@@ -307,10 +307,8 @@ public class AlbumService implements AlbumRepository{
 	public ProductAlbumDTO castEntityToProductAlbumDto(Album album) {
 		ProductAlbumDTO productAlbumDTO = new ProductAlbumDTO();
 		productAlbumDTO.setBasicAlbum(castEntityToBasicAlbumDto(album));
-		productAlbumDTO.setPrice(CatalogueService.getInstance()
-				.getPriceByAlbum(album.getId()));
-		productAlbumDTO.setDistributor(UsersService.getInstance()
-				.findDistributorBasicUserDtoByAlbum(album.getId()));
+		productAlbumDTO.setPrice(catalogueService.getPriceByAlbum(album.getId()));
+		productAlbumDTO.setDistributor(usersService.findDistributorBasicUserDtoByAlbum(album.getId()));
 		return productAlbumDTO;
 	}
 	
@@ -359,7 +357,7 @@ public class AlbumService implements AlbumRepository{
 	 * @return List<ProductAlbumDTO> lista de albumes ofrecidos por el distribuidor de tipo ProductAlbumDTO.
 	 */
 	public List<ProductAlbumDTO> findAllProductAlbumByDistributor(Long distributorId){
-		return ProductService.getInstance().findAllAlbumsByDistributor(distributorId)
+		return productService.findAllAlbumsByDistributor(distributorId)
 				.stream()
 				.map(this::castProductToProductAlbumDTO)
 				.collect(Collectors.toList());

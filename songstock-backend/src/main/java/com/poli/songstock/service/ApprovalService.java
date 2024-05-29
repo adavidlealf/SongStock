@@ -25,6 +25,9 @@ public class ApprovalService implements ApprovalRepository{
 	@Autowired
 	private ApprovalRepository repository;
 
+	@Autowired
+	private VinylService vinylService;
+
 	@Override
 	public void flush() {
 		// TODO Auto-generated method stub
@@ -220,7 +223,7 @@ public class ApprovalService implements ApprovalRepository{
 		}
 		dto.setState(approval.getState());
 		dto.setCode(approval.getCode());
-		dto.setVinyl(VinylService.getInstance().getReferenceProductVinylDtoById(approval.getObjectId()));
+		dto.setVinyl(vinylService.getReferenceProductVinylDtoById(approval.getObjectId()));
 		return dto;
 	}
 	

@@ -22,21 +22,14 @@ public class CatalogueService implements CatalogueRepository {
 	@Autowired
 	private CatalogueRepository repository;
 	
-	/**
-	 * Patron Singleton.
-	 */
-	private static CatalogueService instance;
+	@Autowired
+	private AlbumService albumService;
 	
-	/**
-	 * Obtener instancia de patron singleton.
-	 * @return
-	 */
-	public static CatalogueService getInstance() {
-		if(instance == null) {
-			instance = new CatalogueService();
-		}
-		return instance;
-	}
+	@Autowired
+	private SongService songService;
+	
+	@Autowired
+	private VinylService vinylService;
 	
 	@Override
 	public void flush() {
@@ -268,9 +261,9 @@ public class CatalogueService implements CatalogueRepository {
 	 */
 	public CatalogueDTO getAllCatalogueDto() {
 		CatalogueDTO catalogueDTO = new CatalogueDTO();
-		catalogueDTO.setAlbums(AlbumService.getInstance().findAllProductAlbumDTO());
-		catalogueDTO.setSongs(SongService.getInstance().findAllProductSongDto());
-		catalogueDTO.setVinyls(VinylService.getInstance().findAllProductVinylDto());
+		catalogueDTO.setAlbums(albumService.findAllProductAlbumDTO());
+		catalogueDTO.setSongs(songService.findAllProductSongDto());
+		catalogueDTO.setVinyls(vinylService.findAllProductVinylDto());
 		return catalogueDTO;
 	}
 	
@@ -281,9 +274,9 @@ public class CatalogueService implements CatalogueRepository {
 	 */
 	public CatalogueDTO getCatalogueDtoByDistributor(Long distributorId) {
 		CatalogueDTO dto = new CatalogueDTO();
-		dto.setSongs(SongService.getInstance().findAllProductSongByDistributor(distributorId));
-		dto.setAlbums(AlbumService.getInstance().findAllProductAlbumByDistributor(distributorId));
-		dto.setVinyls(VinylService.getInstance().findAllProductVinylByDistributor(distributorId));
+		dto.setSongs(songService.findAllProductSongByDistributor(distributorId));
+		dto.setAlbums(albumService.findAllProductAlbumByDistributor(distributorId));
+		dto.setVinyls(vinylService.findAllProductVinylByDistributor(distributorId));
 		return dto;
 	}
 }

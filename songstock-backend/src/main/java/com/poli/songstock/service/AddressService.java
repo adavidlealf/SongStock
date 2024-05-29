@@ -23,22 +23,6 @@ public class AddressService implements AddressRepository {
 	@Autowired
 	private AddressRepository repository;
 
-	/**
-	 * Patron Singleton.
-	 */
-	private static AddressService instance;
-	
-	/**
-	 * Obtener instancia de patron singleton.
-	 * @return
-	 */
-	public static AddressService getInstance() {
-		if(instance == null) {
-			instance = new AddressService();
-		}
-		return instance;
-	}
-	
 	@Override
 	public void flush() {
 		// TODO Auto-generated method stub

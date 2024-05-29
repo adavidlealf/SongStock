@@ -27,21 +27,14 @@ public class UsersService implements UsersRepository{
 	@Autowired
 	private UsersRepository repository;
 	
-	/**
-	 * Patron Singleton.
-	 */
-	private static UsersService instance;
+	@Autowired
+	private AddressService addressService;
 	
-	/**
-	 * Obtener instancia de patron singleton.
-	 * @return
-	 */
-	public static UsersService getInstance() {
-		if(instance == null) {
-			instance = new UsersService();
-		}
-		return instance;
-	}
+	@Autowired
+	private ProductService productService;
+	
+	@Autowired
+	private RoleService roleService;
 	
 	@Override
 	public void flush() {
@@ -254,8 +247,7 @@ public class UsersService implements UsersRepository{
 		userDTO.setBasicUser(castEntityToBasicUserDto(user));
 		userDTO.setEmail(user.getEmail());
 		userDTO.setPassword(user.getPassword());
-		userDTO.setAddresses(AddressService.getInstance()
-				.findAllAddressDtoByUser(user.getId()));
+		userDTO.setAddresses(addressService.findAllAddressDtoByUser(user.getId()));
 		return userDTO;
 	}
 
@@ -278,7 +270,7 @@ public class UsersService implements UsersRepository{
 	public UserRoleDTO castEntityToUserRoleDto(Users user) {
 		UserRoleDTO userRoleDTO = new UserRoleDTO();
 		userRoleDTO.setUser(castEntityToUserDto(user));
-		Role role = RoleService.getInstance().findByUser(user.getRoleId());
+		Role role = roleService.findByUser(user.getRoleId());
 		userRoleDTO.setCanModify(role.getCanModify());
 		userRoleDTO.setCanSee(role.getCanSee());
 		userRoleDTO.setRoleName(role.getName());
@@ -302,7 +294,7 @@ public class UsersService implements UsersRepository{
 	 * @return BasicUserDTO usuario del distribuidor de la cancion.
 	 */
 	public BasicUserDTO findDistributorBasicUserDtoBySong(Long songId) {
-		Product prod = ProductService.getInstance().findBySong(songId);
+		Product prod = productService.findBySong(songId);
 		return castEntityToBasicUserDto(getReferenceById(prod.getDistributorId()));
 	}
 	
@@ -312,7 +304,7 @@ public class UsersService implements UsersRepository{
 	 * @return BasicUserDTO usuario del distribuidor del album.
 	 */
 	public BasicUserDTO findDistributorBasicUserDtoByAlbum(Long albumId) {
-		Product prod = ProductService.getInstance().findByAlbum(albumId);
+		Product prod = productService.findByAlbum(albumId);
 		return castEntityToBasicUserDto(getReferenceById(prod.getDistributorId()));
 	}
 	
@@ -322,7 +314,7 @@ public class UsersService implements UsersRepository{
 	 * @return BasicUserDTO usuario del distribuidor del vinilo.
 	 */
 	public BasicUserDTO findDistributorBasicUserDtoByVinyl(Long vinylId) {
-		Product prod = ProductService.getInstance().findByVinyl(vinylId);
+		Product prod = productService.findByVinyl(vinylId);
 		return castEntityToBasicUserDto(getReferenceById(prod.getDistributorId()));
 	}
 

@@ -21,22 +21,6 @@ public class ProductService implements ProductRepository {
 	@Autowired
 	private ProductRepository repository;
 	
-	/**
-	 * Patron Singleton.
-	 */
-	private static ProductService instance;
-	
-	/**
-	 * Obtener instancia de patron singleton.
-	 * @return
-	 */
-	public static ProductService getInstance() {
-		if(instance == null) {
-			instance = new ProductService();
-		}
-		return instance;
-	}
-	
 	@Override
 	public void flush() {
 		// TODO Auto-generated method stub

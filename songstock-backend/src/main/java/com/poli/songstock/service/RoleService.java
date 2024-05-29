@@ -21,22 +21,6 @@ public class RoleService implements RoleRepository{
 	@Autowired
 	private RoleRepository repository;
 
-	/**
-	 * Patron Singleton.
-	 */
-	private static RoleService instance;
-	
-	/**
-	 * Obtener instancia de patron singleton.
-	 * @return
-	 */
-	public static RoleService getInstance() {
-		if(instance == null) {
-			instance = new RoleService();
-		}
-		return instance;
-	}
-	
 	@Override
 	public void flush() {
 		// TODO Auto-generated method stub
@@ -122,8 +106,7 @@ public class RoleService implements RoleRepository{
 
 	@Override
 	public <S extends Role> S save(S entity) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.save(entity);
 	}
 
 	@Override
@@ -140,8 +123,7 @@ public class RoleService implements RoleRepository{
 
 	@Override
 	public long count() {
-		// TODO Auto-generated method stub
-		return 0;
+		return repository.count();
 	}
 
 	@Override
@@ -170,8 +152,7 @@ public class RoleService implements RoleRepository{
 
 	@Override
 	public void deleteAll() {
-		// TODO Auto-generated method stub
-		
+		repository.deleteAll();
 	}
 
 	@Override

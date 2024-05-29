@@ -6,6 +6,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,22 +27,22 @@ public class SongService implements SongRepository{
 	@Autowired
 	private SongRepository repository;
 	
-	/**
-	 * Patron Singleton.
-	 */
-	private static SongService instance;
+	@Autowired
+	private AlbumService albumService;
 	
-	/**
-	 * Obtener instancia de patron singleton.
-	 * @return
-	 */
-	public static SongService getInstance() {
-		if(instance == null) {
-			instance = new SongService();
-		}
-		return instance;
-	}
+	@Autowired
+	private ArtistService artistService;
+	
+	@Autowired
+	@Lazy
+	private CatalogueService catalogueService;
+	
+	@Autowired
+	private ProductService productService;
 
+	@Autowired
+	private UsersService usersService;
+	
 	@Override
 	public void flush() {
 		// TODO Auto-generated method stub
@@ -230,8 +231,7 @@ public class SongService implements SongRepository{
 		BasicSongDTO dto = new BasicSongDTO();
 		dto.setDuration(song.getDuration());
 		dto.setTitle(song.getTitle());
-		dto.setArtists(ArtistService.getInstance()
-				.findAllBasicArtistDtoBySong(song.getId()));
+		dto.setArtists(artistService.findAllBasicArtistDtoBySong(song.getId()));
 		return dto;
 	}
 	
@@ -254,8 +254,7 @@ public class SongService implements SongRepository{
 	public SongDTO castEntityToSongDto(Song song) {
 		SongDTO dto = new SongDTO();
 		dto.setBasicSong(castEntityToBasicSongDto(song));
-		dto.setBasicAlbum(AlbumService.getInstance()
-				.findBasicAlbumDtoBySong(song.getId()));
+		dto.setBasicAlbum(albumService.findBasicAlbumDtoBySong(song.getId()));
 		return dto;
 	}
 	
@@ -312,10 +311,8 @@ public class SongService implements SongRepository{
 	public ProductSongDTO castEntityToProductSongDto(Song song) {
 		ProductSongDTO dto = new ProductSongDTO();
 		dto.setBasicSong(castEntityToBasicSongDto(song));
-		dto.setPrice(CatalogueService.getInstance().
-				getPriceBySong(song.getId()));
-		dto.setDistributor(UsersService.getInstance()
-				.findDistributorBasicUserDtoBySong(song.getId()));
+		dto.setPrice(catalogueService.getPriceBySong(song.getId()));
+		dto.setDistributor(usersService.findDistributorBasicUserDtoBySong(song.getId()));
 		return dto;
 	}
 	
@@ -364,7 +361,7 @@ public class SongService implements SongRepository{
 	 * @return List<ProductSongDTO> lista de canciones ofrecidas por el distribuidor de tipo ProductSongDTO.
 	 */
 	public List<ProductSongDTO> findAllProductSongByDistributor(Long distributorId){
-		return ProductService.getInstance().findAllSongsByDistributor(distributorId)
+		return productService.findAllSongsByDistributor(distributorId)
 				.stream()
 				.map(this::castProductToProductSongDTO)
 				.collect(Collectors.toList());
