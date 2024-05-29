@@ -179,7 +179,7 @@ public class CatalogueBusiness {
 		if(LogicBusiness.isEmpty(ent) || LogicBusiness.isEmpty(ent.getId())) {
 			throw new Exception("No se pudo relacionar el artista al album");
 		}
-		return albumArtistService.getReferenceById(ent.getId()) != null;
+		return true;
 	}
 	
 	/**

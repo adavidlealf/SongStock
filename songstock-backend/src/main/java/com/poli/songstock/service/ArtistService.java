@@ -212,7 +212,9 @@ public class ArtistService implements ArtistRepository {
 	 * @return BasicArtistDTO instancia de BasicArtistDTO
 	 */
 	public BasicArtistDTO castEntityToBasicArtistDto(Artist artist) {
+		if(artist == null) return null;
 		BasicArtistDTO basicArtistDTO = new BasicArtistDTO();
+		basicArtistDTO.setId(artist.getId());
 		basicArtistDTO.setName(artist.getName());
 		return basicArtistDTO;
 	}

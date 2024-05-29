@@ -237,6 +237,7 @@ public class UsersService implements UsersRepository{
 	 */
 	public BasicUserDTO castEntityToBasicUserDto(Users user) {
 		BasicUserDTO basicUserDTO = new BasicUserDTO();
+		basicUserDTO.setId(user.getId());
 		basicUserDTO.setName(user.getName());
 		basicUserDTO.setNickname(user.getNickname());
 		return basicUserDTO;
