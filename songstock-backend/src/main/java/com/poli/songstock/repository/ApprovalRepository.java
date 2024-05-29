@@ -23,4 +23,14 @@ public interface ApprovalRepository extends JpaRepository<Approval, Long> {
 				 + "AND a.object_id = p.object_id AND p.is_song = '0' AND p.is_digital = '0'"
 				 , nativeQuery = true)
 	List<Approval> findAllByPhysicalOrder(@Param(value = "order_id") Long orderId);
+	
+	/**
+	 * Obtiene todas las aprobaciones de un usuario solicitante.
+	 * @param applicantId Long id del usuario solicitante
+	 * @return List<Approval> aprobaciones del usuario.
+	 */
+	@Query(value = "SELECT a.* FROM approval a, users u  "
+				 + "WHERE u.id = :applicant_id AND a.applicant_id = :applicant_id"
+				 , nativeQuery = true)
+	List<Approval> findAllByApplicant(@Param(value = "applicant_id") Long applicantId);
 }

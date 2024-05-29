@@ -17,6 +17,7 @@ import com.poli.songstock.domain.Product;
 import com.poli.songstock.domain.Role;
 import com.poli.songstock.domain.Users;
 import com.poli.songstock.dto.BasicUserDTO;
+import com.poli.songstock.dto.ConsumerDTO;
 import com.poli.songstock.dto.UserDTO;
 import com.poli.songstock.dto.UserRoleDTO;
 import com.poli.songstock.repository.UsersRepository;
@@ -29,6 +30,15 @@ public class UsersService implements UsersRepository{
 	
 	@Autowired
 	private AddressService addressService;
+	
+	@Autowired
+	private ApprovalService approvalService;
+	
+	@Autowired
+	private LibraryService libraryService;
+	
+	@Autowired
+	private OrdersService ordersService;
 	
 	@Autowired
 	private ProductService productService;
@@ -329,5 +339,31 @@ public class UsersService implements UsersRepository{
 	 */
 	public BasicUserDTO getReferenceBasicUserDtoById(Long id) {
 		return castEntityToBasicUserDto(getReferenceById(id));
+	}
+	
+	/**
+	 * Convierte una instancia de la entidad Users al DTO de Consumer.
+	 * @param ent Users instancia de la entidad Users
+	 * @return ConsumerDTO instancia de ConsumerDTO
+	 */
+	public ConsumerDTO castEntityToConsumerDTO(Users ent) {
+		ConsumerDTO dto = new ConsumerDTO();
+		dto.setUserRole(castEntityToUserRoleDto(ent));
+		dto.setApprovals(approvalService.findAllApprovalConsumerDtoByApplicant(ent.getId()));
+		dto.setLibrary(libraryService.getLibraryDtoByConsumer(ent.getId()));
+		dto.setDigitalOrders(ordersService.findAllDigitalOrderDtoByConsumer(ent.getId()));
+		dto.setPhysicalOrders(ordersService.findAllPhysicalOrderDtoByConsumer(ent.getId()));
+		return dto;
+	}
+	
+	/**
+	 * Retorna una lista de todos los registros de la entidad Users convertidos en ConsumerDTO.
+	 * @return List<ConsumerDTO> lista de todos los registros de Users en ConsumerDTO.
+	 */
+	public List<ConsumerDTO> findAllConsumerDto() {
+		return repository.findAll()
+				.stream()
+				.map(this::castEntityToConsumerDTO)
+				.collect(Collectors.toList());
 	}
 }

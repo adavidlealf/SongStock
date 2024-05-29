@@ -212,27 +212,16 @@ public class LibraryService implements LibraryRepository{
 	}
 
 	/**
-	 * Convierte una instancia de la entidad Library al DTO de Library.
-	 * @param library Library instancia de la entidad Library
+	 * Obtiene la biblioteca de un consumidor por su id.
+	 * @param consumerId Long id del consumidor
 	 * @return LibraryDTO instancia de LibraryDTO
 	 */
-	public LibraryDTO castEntityToLibraryDto(Library library) {
+	public LibraryDTO getLibraryDtoByConsumer(Long consumerId) {
 		LibraryDTO libraryDTO = new LibraryDTO();
-		libraryDTO.setAlbums(albumService.findAllBasicAlbumByConsumer(library.getConsumerId()));
-		libraryDTO.setSongs(songService.findAllBasicSongByConsumer(library.getConsumerId()));
-		libraryDTO.setVinyls(vinylService.findAllBasicVinylByConsumer(library.getConsumerId()));
+		libraryDTO.setAlbums(albumService.findAllBasicAlbumByConsumer(consumerId));
+		libraryDTO.setSongs(songService.findAllBasicSongByConsumer(consumerId));
+		libraryDTO.setVinyls(vinylService.findAllBasicVinylByConsumer(consumerId));
 		return libraryDTO;
-	}
-	
-	/**
-	 * Retorna una lista de todos los registros de la entidad Library convertidos en LibraryDTO.
-	 * @return List<LibraryDTO> lista de todos los registros de Library en LibraryDTO.
-	 */
-	public List<LibraryDTO> findAllLibraryDto(){
-		return findAll()
-				.stream()
-				.map(this::castEntityToLibraryDto)
-				.collect(Collectors.toList());
 	}
 	
 }

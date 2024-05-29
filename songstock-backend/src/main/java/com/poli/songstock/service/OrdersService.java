@@ -296,4 +296,31 @@ public class OrdersService implements OrdersRepository {
 				.map(this::castEntityToDigitalOrderDto)
 				.collect(Collectors.toList());
 	}
+
+	@Override
+	public List<Orders> findAllByConsumer(Long consumerId) {
+		return repository.findAllByConsumer(consumerId);
+	}
+	
+	/**
+	 * Retorna una lista de las ordenes de un consumidor convertidos en DigitalOrderDTO.
+	 * @return List<DigitalOrderDTO> lista de las ordenes de un consumidor en DigitalOrderDTO.
+	 */
+	public List<DigitalOrderDTO> findAllDigitalOrderDtoByConsumer(Long consumerId){
+		return findAllByConsumer(consumerId)
+				.stream()
+				.map(this::castEntityToDigitalOrderDto)
+				.collect(Collectors.toList());
+	}
+	
+	/**
+	 * Retorna una lista de las ordenes de un consumidor convertidos en PhysicalOrderDTO.
+	 * @return List<PhysicalOrderDTO> lista de las ordenes de un consumidor en PhysicalOrderDTO.
+	 */
+	public List<PhysicalOrderDTO> findAllPhysicalOrderDtoByConsumer(Long consumerId){
+		return findAllByConsumer(consumerId)
+				.stream()
+				.map(this::castEntityToPhysicalOrderDto)
+				.collect(Collectors.toList());
+	}
 }

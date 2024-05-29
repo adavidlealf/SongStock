@@ -8,6 +8,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +29,7 @@ public class ApprovalService implements ApprovalRepository{
 	private ApprovalRepository repository;
 
 	@Autowired
+	@Lazy
 	private UsersService usersService;
 	
 	@Autowired
@@ -306,5 +308,20 @@ public class ApprovalService implements ApprovalRepository{
 				.map(this::castEntityToApprovalConsumerDto)
 				.collect(Collectors.toList());
 	}
+
+	@Override
+	public List<Approval> findAllByApplicant(Long applicantId) {
+		return repository.findAllByApplicant(applicantId);
+	}
 	
+	/**
+	 * Retorna una lista de las aprobaciones de un usuario solicitante convertidas en ApprovalConsumerDTO.
+	 * @return List<ApprovalConsumerDTO> lista de aprobaciones tipo ApprovalConsumerDto. 
+	 */
+	public List<ApprovalConsumerDTO> findAllApprovalConsumerDtoByApplicant(Long applicantId) {
+		return findAllByApplicant(applicantId)
+				.stream()
+				.map(this::castEntityToApprovalConsumerDto)
+				.collect(Collectors.toList());
+	}
 }
